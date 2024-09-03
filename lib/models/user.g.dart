@@ -6,17 +6,6 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NameImpl _$$NameImplFromJson(Map<String, dynamic> json) => _$NameImpl(
-      first: json['first'] as String,
-      last: json['last'] as String,
-    );
-
-Map<String, dynamic> _$$NameImplToJson(_$NameImpl instance) =>
-    <String, dynamic>{
-      'first': instance.first,
-      'last': instance.last,
-    };
-
 _$UserTypeImpl _$$UserTypeImplFromJson(Map<String, dynamic> json) =>
     _$UserTypeImpl(
       type: json['type'] as String,
@@ -50,8 +39,10 @@ Map<String, dynamic> _$$GroupImplToJson(_$GroupImpl instance) =>
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: json['id'] as String,
-      name: Name.fromJson(json['name'] as Map<String, dynamic>),
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
       email: json['email'] as String,
+      password: json['password'] as String,
       userType: json['userType'] == null
           ? const UserType.individual()
           : UserType.fromJson(json['userType'] as Map<String, dynamic>),
@@ -67,8 +58,10 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
       'email': instance.email,
+      'password': instance.password,
       'userType': instance.userType,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),

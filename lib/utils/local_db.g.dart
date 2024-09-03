@@ -3,11 +3,11 @@
 part of 'local_db.dart';
 
 // ignore_for_file: type=lint
-class $UserTable extends User with TableInfo<$UserTable, UserData> {
+class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserTable(this.attachedDatabase, [this._alias]);
+  $UserTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -85,9 +85,9 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'user';
+  static const String $name = 'user_table';
   @override
-  VerificationContext validateIntegrity(Insertable<UserData> instance,
+  VerificationContext validateIntegrity(Insertable<User> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -136,9 +136,9 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  UserData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  User map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserData(
+    return User(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       firstName: attachedDatabase.typeMapping
@@ -159,158 +159,12 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   }
 
   @override
-  $UserTable createAlias(String alias) {
-    return $UserTable(attachedDatabase, alias);
+  $UserTableTable createAlias(String alias) {
+    return $UserTableTable(attachedDatabase, alias);
   }
 }
 
-class UserData extends DataClass implements Insertable<UserData> {
-  final String id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String password;
-  final DateTime createdAt;
-  final DateTime? updatedAt;
-  final DateTime? deletedAt;
-  const UserData(
-      {required this.id,
-      required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.password,
-      required this.createdAt,
-      this.updatedAt,
-      this.deletedAt});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['first_name'] = Variable<String>(firstName);
-    map['last_name'] = Variable<String>(lastName);
-    map['email'] = Variable<String>(email);
-    map['password'] = Variable<String>(password);
-    map['created_at'] = Variable<DateTime>(createdAt);
-    if (!nullToAbsent || updatedAt != null) {
-      map['updated_at'] = Variable<DateTime>(updatedAt);
-    }
-    if (!nullToAbsent || deletedAt != null) {
-      map['deleted_at'] = Variable<DateTime>(deletedAt);
-    }
-    return map;
-  }
-
-  UserCompanion toCompanion(bool nullToAbsent) {
-    return UserCompanion(
-      id: Value(id),
-      firstName: Value(firstName),
-      lastName: Value(lastName),
-      email: Value(email),
-      password: Value(password),
-      createdAt: Value(createdAt),
-      updatedAt: updatedAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(updatedAt),
-      deletedAt: deletedAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(deletedAt),
-    );
-  }
-
-  factory UserData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UserData(
-      id: serializer.fromJson<String>(json['id']),
-      firstName: serializer.fromJson<String>(json['firstName']),
-      lastName: serializer.fromJson<String>(json['lastName']),
-      email: serializer.fromJson<String>(json['email']),
-      password: serializer.fromJson<String>(json['password']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-      updatedAt: serializer.fromJson<DateTime?>(json['updatedAt']),
-      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'firstName': serializer.toJson<String>(firstName),
-      'lastName': serializer.toJson<String>(lastName),
-      'email': serializer.toJson<String>(email),
-      'password': serializer.toJson<String>(password),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-      'updatedAt': serializer.toJson<DateTime?>(updatedAt),
-      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
-    };
-  }
-
-  UserData copyWith(
-          {String? id,
-          String? firstName,
-          String? lastName,
-          String? email,
-          String? password,
-          DateTime? createdAt,
-          Value<DateTime?> updatedAt = const Value.absent(),
-          Value<DateTime?> deletedAt = const Value.absent()}) =>
-      UserData(
-        id: id ?? this.id,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt.present ? updatedAt.value : this.updatedAt,
-        deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
-      );
-  UserData copyWithCompanion(UserCompanion data) {
-    return UserData(
-      id: data.id.present ? data.id.value : this.id,
-      firstName: data.firstName.present ? data.firstName.value : this.firstName,
-      lastName: data.lastName.present ? data.lastName.value : this.lastName,
-      email: data.email.present ? data.email.value : this.email,
-      password: data.password.present ? data.password.value : this.password,
-      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
-      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('UserData(')
-          ..write('id: $id, ')
-          ..write('firstName: $firstName, ')
-          ..write('lastName: $lastName, ')
-          ..write('email: $email, ')
-          ..write('password: $password, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt, ')
-          ..write('deletedAt: $deletedAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, firstName, lastName, email, password,
-      createdAt, updatedAt, deletedAt);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UserData &&
-          other.id == this.id &&
-          other.firstName == this.firstName &&
-          other.lastName == this.lastName &&
-          other.email == this.email &&
-          other.password == this.password &&
-          other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt &&
-          other.deletedAt == this.deletedAt);
-}
-
-class UserCompanion extends UpdateCompanion<UserData> {
+class UserTableCompanion extends UpdateCompanion<User> {
   final Value<String> id;
   final Value<String> firstName;
   final Value<String> lastName;
@@ -320,7 +174,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
   final Value<DateTime?> updatedAt;
   final Value<DateTime?> deletedAt;
   final Value<int> rowid;
-  const UserCompanion({
+  const UserTableCompanion({
     this.id = const Value.absent(),
     this.firstName = const Value.absent(),
     this.lastName = const Value.absent(),
@@ -331,7 +185,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
     this.deletedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  UserCompanion.insert({
+  UserTableCompanion.insert({
     this.id = const Value.absent(),
     required String firstName,
     required String lastName,
@@ -345,7 +199,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
         lastName = Value(lastName),
         email = Value(email),
         password = Value(password);
-  static Insertable<UserData> custom({
+  static Insertable<User> custom({
     Expression<String>? id,
     Expression<String>? firstName,
     Expression<String>? lastName,
@@ -369,7 +223,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
     });
   }
 
-  UserCompanion copyWith(
+  UserTableCompanion copyWith(
       {Value<String>? id,
       Value<String>? firstName,
       Value<String>? lastName,
@@ -379,7 +233,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
       Value<DateTime?>? updatedAt,
       Value<DateTime?>? deletedAt,
       Value<int>? rowid}) {
-    return UserCompanion(
+    return UserTableCompanion(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -427,7 +281,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
 
   @override
   String toString() {
-    return (StringBuffer('UserCompanion(')
+    return (StringBuffer('UserTableCompanion(')
           ..write('id: $id, ')
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
@@ -442,12 +296,12 @@ class UserCompanion extends UpdateCompanion<UserData> {
   }
 }
 
-class $UserTransactionTable extends UserTransaction
-    with TableInfo<$UserTransactionTable, Transaction> {
+class $TransactionTableTable extends TransactionTable
+    with TableInfo<$TransactionTableTable, Transaction> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserTransactionTable(this.attachedDatabase, [this._alias]);
+  $TransactionTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -462,7 +316,7 @@ class $UserTransactionTable extends UserTransaction
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES user (id)'));
+          GeneratedColumn.constraintIsAlways('REFERENCES user_table (id)'));
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
@@ -486,7 +340,7 @@ class $UserTransactionTable extends UserTransaction
               requiredDuringInsert: false,
               defaultValue: Constant(TransactionTypeEnum.expense.toString()))
           .withConverter<TransactionTypeEnum>(
-              $UserTransactionTable.$convertertransactionType);
+              $TransactionTableTable.$convertertransactionType);
   static const VerificationMeta _notesMeta = const VerificationMeta('notes');
   @override
   late final GeneratedColumn<String> notes = GeneratedColumn<String>(
@@ -606,7 +460,7 @@ class $UserTransactionTable extends UserTransaction
           .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
       notes: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}notes']),
-      transactionType: $UserTransactionTable.$convertertransactionType.fromSql(
+      transactionType: $TransactionTableTable.$convertertransactionType.fromSql(
           attachedDatabase.typeMapping.read(DriftSqlType.string,
               data['${effectivePrefix}transaction_type'])!),
       transactionDate: attachedDatabase.typeMapping.read(
@@ -621,8 +475,8 @@ class $UserTransactionTable extends UserTransaction
   }
 
   @override
-  $UserTransactionTable createAlias(String alias) {
-    return $UserTransactionTable(attachedDatabase, alias);
+  $TransactionTableTable createAlias(String alias) {
+    return $TransactionTableTable(attachedDatabase, alias);
   }
 
   static JsonTypeConverter2<TransactionTypeEnum, String, String>
@@ -630,7 +484,7 @@ class $UserTransactionTable extends UserTransaction
       const EnumNameConverter<TransactionTypeEnum>(TransactionTypeEnum.values);
 }
 
-class UserTransactionCompanion extends UpdateCompanion<Transaction> {
+class TransactionTableCompanion extends UpdateCompanion<Transaction> {
   final Value<String> id;
   final Value<String> user;
   final Value<String> title;
@@ -642,7 +496,7 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
   final Value<DateTime?> updatedAt;
   final Value<DateTime?> deletedAt;
   final Value<int> rowid;
-  const UserTransactionCompanion({
+  const TransactionTableCompanion({
     this.id = const Value.absent(),
     this.user = const Value.absent(),
     this.title = const Value.absent(),
@@ -655,7 +509,7 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
     this.deletedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  UserTransactionCompanion.insert({
+  TransactionTableCompanion.insert({
     this.id = const Value.absent(),
     required String user,
     required String title,
@@ -698,7 +552,7 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
     });
   }
 
-  UserTransactionCompanion copyWith(
+  TransactionTableCompanion copyWith(
       {Value<String>? id,
       Value<String>? user,
       Value<String>? title,
@@ -710,7 +564,7 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
       Value<DateTime?>? updatedAt,
       Value<DateTime?>? deletedAt,
       Value<int>? rowid}) {
-    return UserTransactionCompanion(
+    return TransactionTableCompanion(
       id: id ?? this.id,
       user: user ?? this.user,
       title: title ?? this.title,
@@ -741,7 +595,7 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
       map['amount'] = Variable<double>(amount.value);
     }
     if (transactionType.present) {
-      map['transaction_type'] = Variable<String>($UserTransactionTable
+      map['transaction_type'] = Variable<String>($TransactionTableTable
           .$convertertransactionType
           .toSql(transactionType.value));
     }
@@ -768,7 +622,7 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
 
   @override
   String toString() {
-    return (StringBuffer('UserTransactionCompanion(')
+    return (StringBuffer('TransactionTableCompanion(')
           ..write('id: $id, ')
           ..write('user: $user, ')
           ..write('title: $title, ')
@@ -788,17 +642,18 @@ class UserTransactionCompanion extends UpdateCompanion<Transaction> {
 abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
   $LocalDBManager get managers => $LocalDBManager(this);
-  late final $UserTable user = $UserTable(this);
-  late final $UserTransactionTable userTransaction =
-      $UserTransactionTable(this);
+  late final $UserTableTable userTable = $UserTableTable(this);
+  late final $TransactionTableTable transactionTable =
+      $TransactionTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [user, userTransaction];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [userTable, transactionTable];
 }
 
-typedef $$UserTableCreateCompanionBuilder = UserCompanion Function({
+typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
   Value<String> id,
   required String firstName,
   required String lastName,
@@ -809,7 +664,7 @@ typedef $$UserTableCreateCompanionBuilder = UserCompanion Function({
   Value<DateTime?> deletedAt,
   Value<int> rowid,
 });
-typedef $$UserTableUpdateCompanionBuilder = UserCompanion Function({
+typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<String> id,
   Value<String> firstName,
   Value<String> lastName,
@@ -821,29 +676,31 @@ typedef $$UserTableUpdateCompanionBuilder = UserCompanion Function({
   Value<int> rowid,
 });
 
-final class $$UserTableReferences
-    extends BaseReferences<_$LocalDB, $UserTable, UserData> {
-  $$UserTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $$UserTableTableReferences
+    extends BaseReferences<_$LocalDB, $UserTableTable, User> {
+  $$UserTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$UserTransactionTable, List<Transaction>>
-      _userTransactionRefsTable(_$LocalDB db) => MultiTypedResultKey.fromTable(
-          db.userTransaction,
-          aliasName: $_aliasNameGenerator(db.user.id, db.userTransaction.user));
+  static MultiTypedResultKey<$TransactionTableTable, List<Transaction>>
+      _transactionTableRefsTable(_$LocalDB db) => MultiTypedResultKey.fromTable(
+          db.transactionTable,
+          aliasName:
+              $_aliasNameGenerator(db.userTable.id, db.transactionTable.user));
 
-  $$UserTransactionTableProcessedTableManager get userTransactionRefs {
+  $$TransactionTableTableProcessedTableManager get transactionTableRefs {
     final manager =
-        $$UserTransactionTableTableManager($_db, $_db.userTransaction)
+        $$TransactionTableTableTableManager($_db, $_db.transactionTable)
             .filter((f) => f.user.id($_item.id));
 
     final cache =
-        $_typedResult.readTableOrNull(_userTransactionRefsTable($_db));
+        $_typedResult.readTableOrNull(_transactionTableRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $$UserTableFilterComposer extends FilterComposer<_$LocalDB, $UserTable> {
-  $$UserTableFilterComposer(super.$state);
+class $$UserTableTableFilterComposer
+    extends FilterComposer<_$LocalDB, $UserTableTable> {
+  $$UserTableTableFilterComposer(super.$state);
   ColumnFilters<String> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -884,24 +741,24 @@ class $$UserTableFilterComposer extends FilterComposer<_$LocalDB, $UserTable> {
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ComposableFilter userTransactionRefs(
-      ComposableFilter Function($$UserTransactionTableFilterComposer f) f) {
-    final $$UserTransactionTableFilterComposer composer =
+  ComposableFilter transactionTableRefs(
+      ComposableFilter Function($$TransactionTableTableFilterComposer f) f) {
+    final $$TransactionTableTableFilterComposer composer =
         $state.composerBuilder(
             composer: this,
             getCurrentColumn: (t) => t.id,
-            referencedTable: $state.db.userTransaction,
+            referencedTable: $state.db.transactionTable,
             getReferencedColumn: (t) => t.user,
             builder: (joinBuilder, parentComposers) =>
-                $$UserTransactionTableFilterComposer(ComposerState($state.db,
-                    $state.db.userTransaction, joinBuilder, parentComposers)));
+                $$TransactionTableTableFilterComposer(ComposerState($state.db,
+                    $state.db.transactionTable, joinBuilder, parentComposers)));
     return f(composer);
   }
 }
 
-class $$UserTableOrderingComposer
-    extends OrderingComposer<_$LocalDB, $UserTable> {
-  $$UserTableOrderingComposer(super.$state);
+class $$UserTableTableOrderingComposer
+    extends OrderingComposer<_$LocalDB, $UserTableTable> {
+  $$UserTableTableOrderingComposer(super.$state);
   ColumnOrderings<String> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -943,25 +800,25 @@ class $$UserTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class $$UserTableTableManager extends RootTableManager<
+class $$UserTableTableTableManager extends RootTableManager<
     _$LocalDB,
-    $UserTable,
-    UserData,
-    $$UserTableFilterComposer,
-    $$UserTableOrderingComposer,
-    $$UserTableCreateCompanionBuilder,
-    $$UserTableUpdateCompanionBuilder,
-    (UserData, $$UserTableReferences),
-    UserData,
-    PrefetchHooks Function({bool userTransactionRefs})> {
-  $$UserTableTableManager(_$LocalDB db, $UserTable table)
+    $UserTableTable,
+    User,
+    $$UserTableTableFilterComposer,
+    $$UserTableTableOrderingComposer,
+    $$UserTableTableCreateCompanionBuilder,
+    $$UserTableTableUpdateCompanionBuilder,
+    (User, $$UserTableTableReferences),
+    User,
+    PrefetchHooks Function({bool transactionTableRefs})> {
+  $$UserTableTableTableManager(_$LocalDB db, $UserTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           filteringComposer:
-              $$UserTableFilterComposer(ComposerState(db, table)),
+              $$UserTableTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
-              $$UserTableOrderingComposer(ComposerState(db, table)),
+              $$UserTableTableOrderingComposer(ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> firstName = const Value.absent(),
@@ -973,7 +830,7 @@ class $$UserTableTableManager extends RootTableManager<
             Value<DateTime?> deletedAt = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              UserCompanion(
+              UserTableCompanion(
             id: id,
             firstName: firstName,
             lastName: lastName,
@@ -995,7 +852,7 @@ class $$UserTableTableManager extends RootTableManager<
             Value<DateTime?> deletedAt = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              UserCompanion.insert(
+              UserTableCompanion.insert(
             id: id,
             firstName: firstName,
             lastName: lastName,
@@ -1007,26 +864,28 @@ class $$UserTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$UserTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable(table),
+                    $$UserTableTableReferences(db, table, e)
+                  ))
               .toList(),
-          prefetchHooksCallback: ({userTransactionRefs = false}) {
+          prefetchHooksCallback: ({transactionTableRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
-                if (userTransactionRefs) db.userTransaction
+                if (transactionTableRefs) db.transactionTable
               ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
-                  if (userTransactionRefs)
+                  if (transactionTableRefs)
                     await $_getPrefetchedData(
                         currentTable: table,
-                        referencedTable:
-                            $$UserTableReferences._userTransactionRefsTable(db),
+                        referencedTable: $$UserTableTableReferences
+                            ._transactionTableRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$UserTableReferences(db, table, p0)
-                                .userTransactionRefs,
+                            $$UserTableTableReferences(db, table, p0)
+                                .transactionTableRefs,
                         referencedItemsForCurrentItem:
                             (item, referencedItems) =>
                                 referencedItems.where((e) => e.user == item.id),
@@ -1038,19 +897,19 @@ class $$UserTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$UserTableProcessedTableManager = ProcessedTableManager<
+typedef $$UserTableTableProcessedTableManager = ProcessedTableManager<
     _$LocalDB,
-    $UserTable,
-    UserData,
-    $$UserTableFilterComposer,
-    $$UserTableOrderingComposer,
-    $$UserTableCreateCompanionBuilder,
-    $$UserTableUpdateCompanionBuilder,
-    (UserData, $$UserTableReferences),
-    UserData,
-    PrefetchHooks Function({bool userTransactionRefs})>;
-typedef $$UserTransactionTableCreateCompanionBuilder = UserTransactionCompanion
-    Function({
+    $UserTableTable,
+    User,
+    $$UserTableTableFilterComposer,
+    $$UserTableTableOrderingComposer,
+    $$UserTableTableCreateCompanionBuilder,
+    $$UserTableTableUpdateCompanionBuilder,
+    (User, $$UserTableTableReferences),
+    User,
+    PrefetchHooks Function({bool transactionTableRefs})>;
+typedef $$TransactionTableTableCreateCompanionBuilder
+    = TransactionTableCompanion Function({
   Value<String> id,
   required String user,
   required String title,
@@ -1063,8 +922,8 @@ typedef $$UserTransactionTableCreateCompanionBuilder = UserTransactionCompanion
   Value<DateTime?> deletedAt,
   Value<int> rowid,
 });
-typedef $$UserTransactionTableUpdateCompanionBuilder = UserTransactionCompanion
-    Function({
+typedef $$TransactionTableTableUpdateCompanionBuilder
+    = TransactionTableCompanion Function({
   Value<String> id,
   Value<String> user,
   Value<String> title,
@@ -1078,17 +937,17 @@ typedef $$UserTransactionTableUpdateCompanionBuilder = UserTransactionCompanion
   Value<int> rowid,
 });
 
-final class $$UserTransactionTableReferences
-    extends BaseReferences<_$LocalDB, $UserTransactionTable, Transaction> {
-  $$UserTransactionTableReferences(
+final class $$TransactionTableTableReferences
+    extends BaseReferences<_$LocalDB, $TransactionTableTable, Transaction> {
+  $$TransactionTableTableReferences(
       super.$_db, super.$_table, super.$_typedResult);
 
-  static $UserTable _userTable(_$LocalDB db) => db.user
-      .createAlias($_aliasNameGenerator(db.userTransaction.user, db.user.id));
+  static $UserTableTable _userTable(_$LocalDB db) => db.userTable.createAlias(
+      $_aliasNameGenerator(db.transactionTable.user, db.userTable.id));
 
-  $$UserTableProcessedTableManager? get user {
+  $$UserTableTableProcessedTableManager? get user {
     if ($_item.user == null) return null;
-    final manager = $$UserTableTableManager($_db, $_db.user)
+    final manager = $$UserTableTableTableManager($_db, $_db.userTable)
         .filter((f) => f.id($_item.user!));
     final item = $_typedResult.readTableOrNull(_userTable($_db));
     if (item == null) return manager;
@@ -1097,9 +956,9 @@ final class $$UserTransactionTableReferences
   }
 }
 
-class $$UserTransactionTableFilterComposer
-    extends FilterComposer<_$LocalDB, $UserTransactionTable> {
-  $$UserTransactionTableFilterComposer(super.$state);
+class $$TransactionTableTableFilterComposer
+    extends FilterComposer<_$LocalDB, $TransactionTableTable> {
+  $$TransactionTableTableFilterComposer(super.$state);
   ColumnFilters<String> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -1148,22 +1007,22 @@ class $$UserTransactionTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  $$UserTableFilterComposer get user {
-    final $$UserTableFilterComposer composer = $state.composerBuilder(
+  $$UserTableTableFilterComposer get user {
+    final $$UserTableTableFilterComposer composer = $state.composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.user,
-        referencedTable: $state.db.user,
+        referencedTable: $state.db.userTable,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$UserTableFilterComposer(
-            ComposerState(
-                $state.db, $state.db.user, joinBuilder, parentComposers)));
+        builder: (joinBuilder, parentComposers) =>
+            $$UserTableTableFilterComposer(ComposerState(
+                $state.db, $state.db.userTable, joinBuilder, parentComposers)));
     return composer;
   }
 }
 
-class $$UserTransactionTableOrderingComposer
-    extends OrderingComposer<_$LocalDB, $UserTransactionTable> {
-  $$UserTransactionTableOrderingComposer(super.$state);
+class $$TransactionTableTableOrderingComposer
+    extends OrderingComposer<_$LocalDB, $TransactionTableTable> {
+  $$TransactionTableTableOrderingComposer(super.$state);
   ColumnOrderings<String> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -1209,38 +1068,39 @@ class $$UserTransactionTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  $$UserTableOrderingComposer get user {
-    final $$UserTableOrderingComposer composer = $state.composerBuilder(
+  $$UserTableTableOrderingComposer get user {
+    final $$UserTableTableOrderingComposer composer = $state.composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.user,
-        referencedTable: $state.db.user,
+        referencedTable: $state.db.userTable,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) => $$UserTableOrderingComposer(
-            ComposerState(
-                $state.db, $state.db.user, joinBuilder, parentComposers)));
+        builder: (joinBuilder, parentComposers) =>
+            $$UserTableTableOrderingComposer(ComposerState(
+                $state.db, $state.db.userTable, joinBuilder, parentComposers)));
     return composer;
   }
 }
 
-class $$UserTransactionTableTableManager extends RootTableManager<
+class $$TransactionTableTableTableManager extends RootTableManager<
     _$LocalDB,
-    $UserTransactionTable,
+    $TransactionTableTable,
     Transaction,
-    $$UserTransactionTableFilterComposer,
-    $$UserTransactionTableOrderingComposer,
-    $$UserTransactionTableCreateCompanionBuilder,
-    $$UserTransactionTableUpdateCompanionBuilder,
-    (Transaction, $$UserTransactionTableReferences),
+    $$TransactionTableTableFilterComposer,
+    $$TransactionTableTableOrderingComposer,
+    $$TransactionTableTableCreateCompanionBuilder,
+    $$TransactionTableTableUpdateCompanionBuilder,
+    (Transaction, $$TransactionTableTableReferences),
     Transaction,
     PrefetchHooks Function({bool user})> {
-  $$UserTransactionTableTableManager(_$LocalDB db, $UserTransactionTable table)
+  $$TransactionTableTableTableManager(
+      _$LocalDB db, $TransactionTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           filteringComposer:
-              $$UserTransactionTableFilterComposer(ComposerState(db, table)),
+              $$TransactionTableTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
-              $$UserTransactionTableOrderingComposer(ComposerState(db, table)),
+              $$TransactionTableTableOrderingComposer(ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> user = const Value.absent(),
@@ -1254,7 +1114,7 @@ class $$UserTransactionTableTableManager extends RootTableManager<
             Value<DateTime?> deletedAt = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              UserTransactionCompanion(
+              TransactionTableCompanion(
             id: id,
             user: user,
             title: title,
@@ -1280,7 +1140,7 @@ class $$UserTransactionTableTableManager extends RootTableManager<
             Value<DateTime?> deletedAt = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              UserTransactionCompanion.insert(
+              TransactionTableCompanion.insert(
             id: id,
             user: user,
             title: title,
@@ -1296,7 +1156,7 @@ class $$UserTransactionTableTableManager extends RootTableManager<
           withReferenceMapper: (p0) => p0
               .map((e) => (
                     e.readTable(table),
-                    $$UserTransactionTableReferences(db, table, e)
+                    $$TransactionTableTableReferences(db, table, e)
                   ))
               .toList(),
           prefetchHooksCallback: ({user = false}) {
@@ -1320,9 +1180,9 @@ class $$UserTransactionTableTableManager extends RootTableManager<
                     currentTable: table,
                     currentColumn: table.user,
                     referencedTable:
-                        $$UserTransactionTableReferences._userTable(db),
+                        $$TransactionTableTableReferences._userTable(db),
                     referencedColumn:
-                        $$UserTransactionTableReferences._userTable(db).id,
+                        $$TransactionTableTableReferences._userTable(db).id,
                   ) as T;
                 }
 
@@ -1336,22 +1196,23 @@ class $$UserTransactionTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$UserTransactionTableProcessedTableManager = ProcessedTableManager<
+typedef $$TransactionTableTableProcessedTableManager = ProcessedTableManager<
     _$LocalDB,
-    $UserTransactionTable,
+    $TransactionTableTable,
     Transaction,
-    $$UserTransactionTableFilterComposer,
-    $$UserTransactionTableOrderingComposer,
-    $$UserTransactionTableCreateCompanionBuilder,
-    $$UserTransactionTableUpdateCompanionBuilder,
-    (Transaction, $$UserTransactionTableReferences),
+    $$TransactionTableTableFilterComposer,
+    $$TransactionTableTableOrderingComposer,
+    $$TransactionTableTableCreateCompanionBuilder,
+    $$TransactionTableTableUpdateCompanionBuilder,
+    (Transaction, $$TransactionTableTableReferences),
     Transaction,
     PrefetchHooks Function({bool user})>;
 
 class $LocalDBManager {
   final _$LocalDB _db;
   $LocalDBManager(this._db);
-  $$UserTableTableManager get user => $$UserTableTableManager(_db, _db.user);
-  $$UserTransactionTableTableManager get userTransaction =>
-      $$UserTransactionTableTableManager(_db, _db.userTransaction);
+  $$UserTableTableTableManager get userTable =>
+      $$UserTableTableTableManager(_db, _db.userTable);
+  $$TransactionTableTableTableManager get transactionTable =>
+      $$TransactionTableTableTableManager(_db, _db.transactionTable);
 }

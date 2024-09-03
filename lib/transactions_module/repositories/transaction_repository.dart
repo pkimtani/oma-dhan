@@ -18,18 +18,19 @@ class TransactionRepository {
     return transactions;
   }
 
-  /// Get all transactions grouped by month
-  Future<Map<String, List<Transaction>>> getTransactionGroupedByMonth() async {
-    final Map<String, List<Transaction>> transactionsGroupedByMonth = {};
+  /// Group transactions by month
+  static Map<DateTime, List<Transaction>> groupTransactionsByMonth(
+      List<Transaction> transactions) {
+    final Map<DateTime, List<Transaction>> transactionsGroupedByMonth = {};
 
-    await for (final transactionsFromAPI in _transactionAPI.getTransactions()) {
-      for (final transaction in transactionsFromAPI) {
-        final month = transaction.transactionDate.month.toString();
-        if (transactionsGroupedByMonth.containsKey(month)) {
-          transactionsGroupedByMonth[month]!.add(transaction);
-        } else {
-          transactionsGroupedByMonth[month] = [transaction];
-        }
+    for (final transaction in transactions) {
+      final month = DateTime(transaction.transactionDate.year,
+          transaction.transactionDate.month, 1);
+
+      if (transactionsGroupedByMonth.containsKey(month)) {
+        transactionsGroupedByMonth[month]!.add(transaction);
+      } else {
+        transactionsGroupedByMonth[month] = [transaction];
       }
     }
 

@@ -1,8 +1,10 @@
-// part 'currency.freezed.dart';
-// part 'currency.g.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-// @freezed
-sealed class Currency {
+part 'currency.freezed.dart';
+part 'currency.g.dart';
+
+@freezed
+sealed class Currency with _$Currency {
   const Currency._();
 
   const factory Currency.usd() = _Usd;

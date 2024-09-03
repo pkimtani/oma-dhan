@@ -1,16 +1,16 @@
 import 'package:apps/transactions_module/enums/transaction_type_enum.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
-import 'package:apps/user_table.dart';
+import 'package:apps/utils/user_table.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
 @UseRowClass(Transaction)
-class UserTransaction extends Table {
+class TransactionTable extends Table {
   @override
   String get tableName => 'transaction';
 
   TextColumn get id => text().clientDefault(() => const Uuid().v8())();
-  TextColumn get user => text().references(User, #id)();
+  TextColumn get user => text().references(UserTable, #id)();
   TextColumn get title => text().withLength(min: 1, max: 50)();
   RealColumn get amount => real()();
   TextColumn get transactionType => textEnum<TransactionTypeEnum>()

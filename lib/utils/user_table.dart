@@ -1,7 +1,9 @@
+import 'package:apps/models/user.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
-class User extends Table {
+@UseRowClass(User)
+class UserTable extends Table {
   // @override
   // String get tableName => 'users';
 

@@ -5,4 +5,5 @@
 - [ ] Add `Equatable` to all models
 - [ ] Add 'bloc_concurrency' for event transformation
 - [ ] Add `drift` database support for web
+- [ ] Disable `x86` architecture for android builds
 - [ ] `PRAGMA foreign_keys = ON` on post migration callback

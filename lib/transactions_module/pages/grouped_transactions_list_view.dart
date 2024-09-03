@@ -1,4 +1,5 @@
 import 'package:apps/transactions_module/models/transaction.dart';
+import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/widgets/transaction_list_item.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -11,9 +12,8 @@ class GroupedTransactionsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: fix grouping by month
-    // final groupedTransactions = Transaction.groupByMonth(_transactions);
-    final groupedTransactions = <DateTime, List<Transaction>>{};
+    final Map<DateTime, List<Transaction>> groupedTransactions =
+        TransactionRepository.groupTransactionsByMonth(_transactions);
 
     final List<Widget> slivers = [];
 

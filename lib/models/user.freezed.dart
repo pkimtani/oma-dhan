@@ -14,177 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Name _$NameFromJson(Map<String, dynamic> json) {
-  return _Name.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Name {
-  String get first => throw _privateConstructorUsedError;
-  String get last => throw _privateConstructorUsedError;
-
-  /// Serializes this Name to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of Name
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $NameCopyWith<Name> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NameCopyWith<$Res> {
-  factory $NameCopyWith(Name value, $Res Function(Name) then) =
-      _$NameCopyWithImpl<$Res, Name>;
-  @useResult
-  $Res call({String first, String last});
-}
-
-/// @nodoc
-class _$NameCopyWithImpl<$Res, $Val extends Name>
-    implements $NameCopyWith<$Res> {
-  _$NameCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Name
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? first = null,
-    Object? last = null,
-  }) {
-    return _then(_value.copyWith(
-      first: null == first
-          ? _value.first
-          : first // ignore: cast_nullable_to_non_nullable
-              as String,
-      last: null == last
-          ? _value.last
-          : last // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$NameImplCopyWith<$Res> implements $NameCopyWith<$Res> {
-  factory _$$NameImplCopyWith(
-          _$NameImpl value, $Res Function(_$NameImpl) then) =
-      __$$NameImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String first, String last});
-}
-
-/// @nodoc
-class __$$NameImplCopyWithImpl<$Res>
-    extends _$NameCopyWithImpl<$Res, _$NameImpl>
-    implements _$$NameImplCopyWith<$Res> {
-  __$$NameImplCopyWithImpl(_$NameImpl _value, $Res Function(_$NameImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Name
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? first = null,
-    Object? last = null,
-  }) {
-    return _then(_$NameImpl(
-      first: null == first
-          ? _value.first
-          : first // ignore: cast_nullable_to_non_nullable
-              as String,
-      last: null == last
-          ? _value.last
-          : last // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$NameImpl extends _Name with DiagnosticableTreeMixin {
-  const _$NameImpl({required this.first, required this.last}) : super._();
-
-  factory _$NameImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NameImplFromJson(json);
-
-  @override
-  final String first;
-  @override
-  final String last;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Name(first: $first, last: $last)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Name'))
-      ..add(DiagnosticsProperty('first', first))
-      ..add(DiagnosticsProperty('last', last));
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NameImpl &&
-            (identical(other.first, first) || other.first == first) &&
-            (identical(other.last, last) || other.last == last));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, first, last);
-
-  /// Create a copy of Name
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NameImplCopyWith<_$NameImpl> get copyWith =>
-      __$$NameImplCopyWithImpl<_$NameImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NameImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Name extends Name {
-  const factory _Name(
-      {required final String first, required final String last}) = _$NameImpl;
-  const _Name._() : super._();
-
-  factory _Name.fromJson(Map<String, dynamic> json) = _$NameImpl.fromJson;
-
-  @override
-  String get first;
-  @override
-  String get last;
-
-  /// Create a copy of Name
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NameImplCopyWith<_$NameImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 UserType _$UserTypeFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'default':
@@ -725,8 +554,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
-  Name get name => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
   UserType get userType => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -748,14 +579,15 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      Name name,
+      String firstName,
+      String lastName,
       String email,
+      String password,
       UserType userType,
       DateTime createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
 
-  $NameCopyWith<$Res> get name;
   $UserTypeCopyWith<$Res> get userType;
 }
 
@@ -775,8 +607,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
     Object? email = null,
+    Object? password = null,
     Object? userType = null,
     Object? createdAt = null,
     Object? updatedAt = freezed,
@@ -787,13 +621,21 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name,
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
               as String,
       userType: null == userType
           ? _value.userType
@@ -818,16 +660,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $NameCopyWith<$Res> get name {
-    return $NameCopyWith<$Res>(_value.name, (value) {
-      return _then(_value.copyWith(name: value) as $Val);
-    });
-  }
-
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
   $UserTypeCopyWith<$Res> get userType {
     return $UserTypeCopyWith<$Res>(_value.userType, (value) {
       return _then(_value.copyWith(userType: value) as $Val);
@@ -844,15 +676,15 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      Name name,
+      String firstName,
+      String lastName,
       String email,
+      String password,
       UserType userType,
       DateTime createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
 
-  @override
-  $NameCopyWith<$Res> get name;
   @override
   $UserTypeCopyWith<$Res> get userType;
 }
@@ -870,8 +702,10 @@ class __$$UserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
     Object? email = null,
+    Object? password = null,
     Object? userType = null,
     Object? createdAt = null,
     Object? updatedAt = freezed,
@@ -882,13 +716,21 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as Name,
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
               as String,
       userType: null == userType
           ? _value.userType
@@ -915,8 +757,10 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl with DiagnosticableTreeMixin implements _User {
   const _$UserImpl(
       {required this.id,
-      required this.name,
+      required this.firstName,
+      required this.lastName,
       required this.email,
+      required this.password,
       this.userType = const UserType.individual(),
       required this.createdAt,
       this.updatedAt,
@@ -928,9 +772,13 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
   @override
   final String id;
   @override
-  final Name name;
+  final String firstName;
+  @override
+  final String lastName;
   @override
   final String email;
+  @override
+  final String password;
   @override
   @JsonKey()
   final UserType userType;
@@ -943,7 +791,7 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, name: $name, email: $email, userType: $userType, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, password: $password, userType: $userType, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -952,8 +800,10 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
     properties
       ..add(DiagnosticsProperty('type', 'User'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('firstName', firstName))
+      ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('userType', userType))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
@@ -966,8 +816,13 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
             (identical(other.userType, userType) ||
                 other.userType == userType) &&
             (identical(other.createdAt, createdAt) ||
@@ -980,8 +835,8 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, email, userType, createdAt, updatedAt, deletedAt);
+  int get hashCode => Object.hash(runtimeType, id, firstName, lastName, email,
+      password, userType, createdAt, updatedAt, deletedAt);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -1002,8 +857,10 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 abstract class _User implements User {
   const factory _User(
       {required final String id,
-      required final Name name,
+      required final String firstName,
+      required final String lastName,
       required final String email,
+      required final String password,
       final UserType userType,
       required final DateTime createdAt,
       final DateTime? updatedAt,
@@ -1014,9 +871,13 @@ abstract class _User implements User {
   @override
   String get id;
   @override
-  Name get name;
+  String get firstName;
+  @override
+  String get lastName;
   @override
   String get email;
+  @override
+  String get password;
   @override
   UserType get userType;
   @override

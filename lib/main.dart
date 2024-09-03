@@ -71,8 +71,7 @@ class HomeScreen extends StatelessWidget {
       ),
       child: RepositoryProvider<TransactionRepository>(
           create: (BuildContext context) {
-            return TransactionRepository(
-                transactionAPI: TransactionData(mockData: true));
+            return TransactionRepository(transactionAPI: TransactionData());
           },
           child: BlocProvider(
               create: (BuildContext context) => TransactionsBloc(
