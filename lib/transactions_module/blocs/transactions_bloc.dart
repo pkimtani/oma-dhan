@@ -34,8 +34,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     }
   }
 
+  // TODO: pass value to error event so we can add the event instead of emitting the state
   void _errorLoadingTransactions(
       TransactionsEvent event, Emitter<TransactionsState> emit) {
-    emit(TransactionsState.fetchError('Error loading transactions'));
+    emit(TransactionsState.fetchError('Error loading transaction(s)'));
   }
 }

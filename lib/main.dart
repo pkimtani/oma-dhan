@@ -2,8 +2,8 @@ import 'package:apps/core/app.bloc_observer.dart';
 import 'package:apps/data/transaction_data.dart';
 import 'package:apps/transactions_module/blocs/transactions_bloc.dart';
 import 'package:apps/transactions_module/events/transactions_events.dart';
-import 'package:apps/transactions_module/pages/add_new_transaction.dart';
 import 'package:apps/transactions_module/pages/grouped_transactions_list_view.dart';
+import 'package:apps/transactions_module/pages/transaction_form.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/states/transactions_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -91,18 +91,18 @@ class ExpenseListWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: BlocBuilder<TransactionsBloc, TransactionsState>(
         builder: (BuildContext context, TransactionsState state) {
-          switch (state.status) {
-            case TransactionsStatus.fetching:
+          switch (state) {
+            case TransactionsState.initial:
               return const Center(
                 child: CupertinoActivityIndicator(),
               );
-            case TransactionsStatus.fetchSuccess:
+            case TransactionsState.fetchSuccess:
               return GroupedTransactionsListView(
                 transactions: state.transactions ?? [],
               );
-            case TransactionsStatus.fetchError:
-              return const Center(
-                child: Text('Error fetching transactions'),
+            case TransactionsState.fetchError:
+              return Center(
+                child: Text(state.message ?? 'Error fetching transactions'),
               );
             default:
               return const Center(

@@ -1,23 +1,18 @@
-import 'package:apps/transactions_module/blocs/add_transaction_form_bloc.dart';
-import 'package:apps/transactions_module/events/add_transaction_form_event.dart';
-import 'package:apps/transactions_module/states/add_transaction_form_state.dart';
+import 'package:apps/transactions_module/blocs/transaction_form_bloc.dart';
+import 'package:apps/transactions_module/events/transaction_form_event.dart';
+import 'package:apps/transactions_module/states/transaction_form_state.dart';
 import 'package:apps/widgets/text_field_form_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddNewTransaction extends StatefulWidget {
+class AddNewTransaction extends StatelessWidget {
   const AddNewTransaction({super.key});
 
-  @override
-  State<AddNewTransaction> createState() => _AddNewTransactionState();
-}
-
-class _AddNewTransactionState extends State<AddNewTransaction> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          AddTransactionFormBloc()..add(const AddTransactionFormEvent.init()),
+          TransactionFormBloc()..add(const TransactionFormEvent.init()),
       child: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: const Text('Add New Transaction'),
@@ -45,19 +40,23 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
             const Padding(
               padding: EdgeInsets.only(top: 20),
             ),
-            BlocBuilder<AddTransactionFormBloc, AddTransactionFormState>(
+            BlocBuilder<TransactionFormBloc, TransactionFormState>(
               builder: (context, state) {
                 return CupertinoFormSection.insetGrouped(
                   children: [
                     // short description text field
                     TextFieldFormRow(
-                      placeholder: 'Ex: Groceries',
-                      // TODO: Localise and make dynamic
-                      errorMessage: 'Please enter a description',
-                      helperText: 'Enter a short description',
+                      placeholder:
+                          'Short description', // TODO: Localise and make dynamic
+                      errorMessage: state.title?.error ??
+                          '', // TODO: hide error on first load
+                      helperText: state.title?.error != null
+                          ? ''
+                          : 'Ex: Groceries, Rent, etc',
+                      icon: CupertinoIcons.cart,
                       onChanged: (value) {
-                        context.read<AddTransactionFormBloc>().add(
-                              AddTransactionFormEvent.titleChanged(value),
+                        context.read<TransactionFormBloc>().add(
+                              TransactionFormEvent.titleChanged(value),
                             );
                       },
                     ),
@@ -137,35 +136,25 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
                         ],
                       ),
                     ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                    // additional form for other info like notes
+                    TextFieldFormRow(
+                      placeholder: 'Ex: Bought extra milk for the week',
+                      icon: CupertinoIcons.text_bubble,
+                      maxLines: 3,
+                      onChanged: (String value) {
+                        context.read<TransactionFormBloc>().add(
+                              TransactionFormEvent.notesChanged(value),
+                            );
+                      },
+                    ),
                   ],
                 );
               },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-
-            // additional form for other info like notes
-            CupertinoFormSection.insetGrouped(
-              children: [
-                CupertinoFormRow(
-                  child: Row(
-                    children: <Widget>[
-                      const Icon(
-                        CupertinoIcons.text_bubble,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: CupertinoTextFormFieldRow(
-                          placeholder: 'Ex: Bought extra milk for the week',
-                          maxLines: 3,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
             ),
           ],
         ),

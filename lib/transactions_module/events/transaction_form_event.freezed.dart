@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'add_transaction_form_event.dart';
+part of 'transaction_form_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,13 +15,13 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AddTransactionFormEvent {
+mixin _$TransactionFormEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -31,8 +31,8 @@ mixin _$AddTransactionFormEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -42,8 +42,8 @@ mixin _$AddTransactionFormEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -54,9 +54,9 @@ mixin _$AddTransactionFormEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -66,8 +66,8 @@ mixin _$AddTransactionFormEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -77,8 +77,8 @@ mixin _$AddTransactionFormEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -88,24 +88,24 @@ mixin _$AddTransactionFormEvent {
 }
 
 /// @nodoc
-abstract class $AddTransactionFormEventCopyWith<$Res> {
-  factory $AddTransactionFormEventCopyWith(AddTransactionFormEvent value,
-          $Res Function(AddTransactionFormEvent) then) =
-      _$AddTransactionFormEventCopyWithImpl<$Res, AddTransactionFormEvent>;
+abstract class $TransactionFormEventCopyWith<$Res> {
+  factory $TransactionFormEventCopyWith(TransactionFormEvent value,
+          $Res Function(TransactionFormEvent) then) =
+      _$TransactionFormEventCopyWithImpl<$Res, TransactionFormEvent>;
 }
 
 /// @nodoc
-class _$AddTransactionFormEventCopyWithImpl<$Res,
-        $Val extends AddTransactionFormEvent>
-    implements $AddTransactionFormEventCopyWith<$Res> {
-  _$AddTransactionFormEventCopyWithImpl(this._value, this._then);
+class _$TransactionFormEventCopyWithImpl<$Res,
+        $Val extends TransactionFormEvent>
+    implements $TransactionFormEventCopyWith<$Res> {
+  _$TransactionFormEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -119,7 +119,7 @@ abstract class _$$InitTransactionFormEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitTransactionFormEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
+    extends _$TransactionFormEventCopyWithImpl<$Res,
         _$InitTransactionFormEventImpl>
     implements _$$InitTransactionFormEventImplCopyWith<$Res> {
   __$$InitTransactionFormEventImplCopyWithImpl(
@@ -127,7 +127,7 @@ class __$$InitTransactionFormEventImplCopyWithImpl<$Res>
       $Res Function(_$InitTransactionFormEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -138,7 +138,7 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
 
   @override
   String toString() {
-    return 'AddTransactionFormEvent.init()';
+    return 'TransactionFormEvent.init()';
   }
 
   @override
@@ -156,8 +156,8 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -170,8 +170,8 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -184,8 +184,8 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -202,9 +202,9 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -217,8 +217,8 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -231,8 +231,8 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -245,7 +245,7 @@ class _$InitTransactionFormEventImpl extends InitTransactionFormEvent {
   }
 }
 
-abstract class InitTransactionFormEvent extends AddTransactionFormEvent {
+abstract class InitTransactionFormEvent extends TransactionFormEvent {
   const factory InitTransactionFormEvent() = _$InitTransactionFormEventImpl;
   const InitTransactionFormEvent._() : super._();
 }
@@ -262,7 +262,7 @@ abstract class _$$TitleChangedTransactionEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$TitleChangedTransactionEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
+    extends _$TransactionFormEventCopyWithImpl<$Res,
         _$TitleChangedTransactionEventImpl>
     implements _$$TitleChangedTransactionEventImplCopyWith<$Res> {
   __$$TitleChangedTransactionEventImplCopyWithImpl(
@@ -270,7 +270,7 @@ class __$$TitleChangedTransactionEventImplCopyWithImpl<$Res>
       $Res Function(_$TitleChangedTransactionEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -296,7 +296,7 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
 
   @override
   String toString() {
-    return 'AddTransactionFormEvent.titleChanged(title: $title)';
+    return 'TransactionFormEvent.titleChanged(title: $title)';
   }
 
   @override
@@ -310,7 +310,7 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   @override
   int get hashCode => Object.hash(runtimeType, title);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -325,8 +325,8 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -339,8 +339,8 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -353,8 +353,8 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -371,9 +371,9 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -386,8 +386,8 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -400,8 +400,8 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -414,18 +414,197 @@ class _$TitleChangedTransactionEventImpl extends TitleChangedTransactionEvent {
   }
 }
 
-abstract class TitleChangedTransactionEvent extends AddTransactionFormEvent {
+abstract class TitleChangedTransactionEvent extends TransactionFormEvent {
   const factory TitleChangedTransactionEvent(final String title) =
       _$TitleChangedTransactionEventImpl;
   const TitleChangedTransactionEvent._() : super._();
 
   String get title;
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TitleChangedTransactionEventImplCopyWith<
           _$TitleChangedTransactionEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NotesChangedTransactionEventImplCopyWith<$Res> {
+  factory _$$NotesChangedTransactionEventImplCopyWith(
+          _$NotesChangedTransactionEventImpl value,
+          $Res Function(_$NotesChangedTransactionEventImpl) then) =
+      __$$NotesChangedTransactionEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String notes});
+}
+
+/// @nodoc
+class __$$NotesChangedTransactionEventImplCopyWithImpl<$Res>
+    extends _$TransactionFormEventCopyWithImpl<$Res,
+        _$NotesChangedTransactionEventImpl>
+    implements _$$NotesChangedTransactionEventImplCopyWith<$Res> {
+  __$$NotesChangedTransactionEventImplCopyWithImpl(
+      _$NotesChangedTransactionEventImpl _value,
+      $Res Function(_$NotesChangedTransactionEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TransactionFormEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? notes = null,
+  }) {
+    return _then(_$NotesChangedTransactionEventImpl(
+      null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NotesChangedTransactionEventImpl extends NotesChangedTransactionEvent {
+  const _$NotesChangedTransactionEventImpl(this.notes) : super._();
+
+  @override
+  final String notes;
+
+  @override
+  String toString() {
+    return 'TransactionFormEvent.notesChanged(notes: $notes)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NotesChangedTransactionEventImpl &&
+            (identical(other.notes, notes) || other.notes == notes));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, notes);
+
+  /// Create a copy of TransactionFormEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NotesChangedTransactionEventImplCopyWith<
+          _$NotesChangedTransactionEventImpl>
+      get copyWith => __$$NotesChangedTransactionEventImplCopyWithImpl<
+          _$NotesChangedTransactionEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
+    required TResult Function(String amount) amountChanged,
+    required TResult Function() submitting,
+    required TResult Function() success,
+    required TResult Function() error,
+  }) {
+    return notesChanged(notes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(String amount)? amountChanged,
+    TResult? Function()? submitting,
+    TResult? Function()? success,
+    TResult? Function()? error,
+  }) {
+    return notesChanged?.call(notes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
+    TResult Function(String amount)? amountChanged,
+    TResult Function()? submitting,
+    TResult Function()? success,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (notesChanged != null) {
+      return notesChanged(notes);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitTransactionFormEvent value) init,
+    required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
+    required TResult Function(AmountChangedTransactionEvent value)
+        amountChanged,
+    required TResult Function(SubmittingTransactionEvent value) submitting,
+    required TResult Function(SuccessSavingTransactionEvent value) success,
+    required TResult Function(ErrorSavingTransactionEvent value) error,
+  }) {
+    return notesChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InitTransactionFormEvent value)? init,
+    TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
+    TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
+    TResult? Function(SubmittingTransactionEvent value)? submitting,
+    TResult? Function(SuccessSavingTransactionEvent value)? success,
+    TResult? Function(ErrorSavingTransactionEvent value)? error,
+  }) {
+    return notesChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitTransactionFormEvent value)? init,
+    TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
+    TResult Function(AmountChangedTransactionEvent value)? amountChanged,
+    TResult Function(SubmittingTransactionEvent value)? submitting,
+    TResult Function(SuccessSavingTransactionEvent value)? success,
+    TResult Function(ErrorSavingTransactionEvent value)? error,
+    required TResult orElse(),
+  }) {
+    if (notesChanged != null) {
+      return notesChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NotesChangedTransactionEvent extends TransactionFormEvent {
+  const factory NotesChangedTransactionEvent(final String notes) =
+      _$NotesChangedTransactionEventImpl;
+  const NotesChangedTransactionEvent._() : super._();
+
+  String get notes;
+
+  /// Create a copy of TransactionFormEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NotesChangedTransactionEventImplCopyWith<
+          _$NotesChangedTransactionEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -441,7 +620,7 @@ abstract class _$$AmountChangedTransactionEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$AmountChangedTransactionEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
+    extends _$TransactionFormEventCopyWithImpl<$Res,
         _$AmountChangedTransactionEventImpl>
     implements _$$AmountChangedTransactionEventImplCopyWith<$Res> {
   __$$AmountChangedTransactionEventImplCopyWithImpl(
@@ -449,7 +628,7 @@ class __$$AmountChangedTransactionEventImplCopyWithImpl<$Res>
       $Res Function(_$AmountChangedTransactionEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -476,7 +655,7 @@ class _$AmountChangedTransactionEventImpl
 
   @override
   String toString() {
-    return 'AddTransactionFormEvent.amountChanged(amount: $amount)';
+    return 'TransactionFormEvent.amountChanged(amount: $amount)';
   }
 
   @override
@@ -490,7 +669,7 @@ class _$AmountChangedTransactionEventImpl
   @override
   int get hashCode => Object.hash(runtimeType, amount);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -505,8 +684,8 @@ class _$AmountChangedTransactionEventImpl
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -519,8 +698,8 @@ class _$AmountChangedTransactionEventImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -533,8 +712,8 @@ class _$AmountChangedTransactionEventImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -551,9 +730,9 @@ class _$AmountChangedTransactionEventImpl
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -566,8 +745,8 @@ class _$AmountChangedTransactionEventImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -580,8 +759,8 @@ class _$AmountChangedTransactionEventImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -594,195 +773,18 @@ class _$AmountChangedTransactionEventImpl
   }
 }
 
-abstract class AmountChangedTransactionEvent extends AddTransactionFormEvent {
+abstract class AmountChangedTransactionEvent extends TransactionFormEvent {
   const factory AmountChangedTransactionEvent(final String amount) =
       _$AmountChangedTransactionEventImpl;
   const AmountChangedTransactionEvent._() : super._();
 
   String get amount;
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AmountChangedTransactionEventImplCopyWith<
           _$AmountChangedTransactionEventImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$DateChangedTransactionEventImplCopyWith<$Res> {
-  factory _$$DateChangedTransactionEventImplCopyWith(
-          _$DateChangedTransactionEventImpl value,
-          $Res Function(_$DateChangedTransactionEventImpl) then) =
-      __$$DateChangedTransactionEventImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({DateTime date});
-}
-
-/// @nodoc
-class __$$DateChangedTransactionEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
-        _$DateChangedTransactionEventImpl>
-    implements _$$DateChangedTransactionEventImplCopyWith<$Res> {
-  __$$DateChangedTransactionEventImplCopyWithImpl(
-      _$DateChangedTransactionEventImpl _value,
-      $Res Function(_$DateChangedTransactionEventImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AddTransactionFormEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? date = null,
-  }) {
-    return _then(_$DateChangedTransactionEventImpl(
-      null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$DateChangedTransactionEventImpl extends DateChangedTransactionEvent {
-  const _$DateChangedTransactionEventImpl(this.date) : super._();
-
-  @override
-  final DateTime date;
-
-  @override
-  String toString() {
-    return 'AddTransactionFormEvent.dateChanged(date: $date)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DateChangedTransactionEventImpl &&
-            (identical(other.date, date) || other.date == date));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, date);
-
-  /// Create a copy of AddTransactionFormEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DateChangedTransactionEventImplCopyWith<_$DateChangedTransactionEventImpl>
-      get copyWith => __$$DateChangedTransactionEventImplCopyWithImpl<
-          _$DateChangedTransactionEventImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function(String title) titleChanged,
-    required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
-    required TResult Function() submitting,
-    required TResult Function() success,
-    required TResult Function() error,
-  }) {
-    return dateChanged(date);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function(String title)? titleChanged,
-    TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
-    TResult? Function()? submitting,
-    TResult? Function()? success,
-    TResult? Function()? error,
-  }) {
-    return dateChanged?.call(date);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function(String title)? titleChanged,
-    TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
-    TResult Function()? submitting,
-    TResult Function()? success,
-    TResult Function()? error,
-    required TResult orElse(),
-  }) {
-    if (dateChanged != null) {
-      return dateChanged(date);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitTransactionFormEvent value) init,
-    required TResult Function(TitleChangedTransactionEvent value) titleChanged,
-    required TResult Function(AmountChangedTransactionEvent value)
-        amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
-    required TResult Function(SubmittingTransactionEvent value) submitting,
-    required TResult Function(SuccessSavingTransactionEvent value) success,
-    required TResult Function(ErrorSavingTransactionEvent value) error,
-  }) {
-    return dateChanged(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitTransactionFormEvent value)? init,
-    TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
-    TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
-    TResult? Function(SubmittingTransactionEvent value)? submitting,
-    TResult? Function(SuccessSavingTransactionEvent value)? success,
-    TResult? Function(ErrorSavingTransactionEvent value)? error,
-  }) {
-    return dateChanged?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitTransactionFormEvent value)? init,
-    TResult Function(TitleChangedTransactionEvent value)? titleChanged,
-    TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
-    TResult Function(SubmittingTransactionEvent value)? submitting,
-    TResult Function(SuccessSavingTransactionEvent value)? success,
-    TResult Function(ErrorSavingTransactionEvent value)? error,
-    required TResult orElse(),
-  }) {
-    if (dateChanged != null) {
-      return dateChanged(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DateChangedTransactionEvent extends AddTransactionFormEvent {
-  const factory DateChangedTransactionEvent(final DateTime date) =
-      _$DateChangedTransactionEventImpl;
-  const DateChangedTransactionEvent._() : super._();
-
-  DateTime get date;
-
-  /// Create a copy of AddTransactionFormEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DateChangedTransactionEventImplCopyWith<_$DateChangedTransactionEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -796,7 +798,7 @@ abstract class _$$SubmittingTransactionEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SubmittingTransactionEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
+    extends _$TransactionFormEventCopyWithImpl<$Res,
         _$SubmittingTransactionEventImpl>
     implements _$$SubmittingTransactionEventImplCopyWith<$Res> {
   __$$SubmittingTransactionEventImplCopyWithImpl(
@@ -804,7 +806,7 @@ class __$$SubmittingTransactionEventImplCopyWithImpl<$Res>
       $Res Function(_$SubmittingTransactionEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -815,7 +817,7 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
 
   @override
   String toString() {
-    return 'AddTransactionFormEvent.submitting()';
+    return 'TransactionFormEvent.submitting()';
   }
 
   @override
@@ -833,8 +835,8 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -847,8 +849,8 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -861,8 +863,8 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -879,9 +881,9 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -894,8 +896,8 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -908,8 +910,8 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -922,7 +924,7 @@ class _$SubmittingTransactionEventImpl extends SubmittingTransactionEvent {
   }
 }
 
-abstract class SubmittingTransactionEvent extends AddTransactionFormEvent {
+abstract class SubmittingTransactionEvent extends TransactionFormEvent {
   const factory SubmittingTransactionEvent() = _$SubmittingTransactionEventImpl;
   const SubmittingTransactionEvent._() : super._();
 }
@@ -937,7 +939,7 @@ abstract class _$$SuccessSavingTransactionEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessSavingTransactionEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
+    extends _$TransactionFormEventCopyWithImpl<$Res,
         _$SuccessSavingTransactionEventImpl>
     implements _$$SuccessSavingTransactionEventImplCopyWith<$Res> {
   __$$SuccessSavingTransactionEventImplCopyWithImpl(
@@ -945,7 +947,7 @@ class __$$SuccessSavingTransactionEventImplCopyWithImpl<$Res>
       $Res Function(_$SuccessSavingTransactionEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -957,7 +959,7 @@ class _$SuccessSavingTransactionEventImpl
 
   @override
   String toString() {
-    return 'AddTransactionFormEvent.success()';
+    return 'TransactionFormEvent.success()';
   }
 
   @override
@@ -975,8 +977,8 @@ class _$SuccessSavingTransactionEventImpl
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -989,8 +991,8 @@ class _$SuccessSavingTransactionEventImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -1003,8 +1005,8 @@ class _$SuccessSavingTransactionEventImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -1021,9 +1023,9 @@ class _$SuccessSavingTransactionEventImpl
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -1036,8 +1038,8 @@ class _$SuccessSavingTransactionEventImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -1050,8 +1052,8 @@ class _$SuccessSavingTransactionEventImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -1064,7 +1066,7 @@ class _$SuccessSavingTransactionEventImpl
   }
 }
 
-abstract class SuccessSavingTransactionEvent extends AddTransactionFormEvent {
+abstract class SuccessSavingTransactionEvent extends TransactionFormEvent {
   const factory SuccessSavingTransactionEvent() =
       _$SuccessSavingTransactionEventImpl;
   const SuccessSavingTransactionEvent._() : super._();
@@ -1080,7 +1082,7 @@ abstract class _$$ErrorSavingTransactionEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorSavingTransactionEventImplCopyWithImpl<$Res>
-    extends _$AddTransactionFormEventCopyWithImpl<$Res,
+    extends _$TransactionFormEventCopyWithImpl<$Res,
         _$ErrorSavingTransactionEventImpl>
     implements _$$ErrorSavingTransactionEventImplCopyWith<$Res> {
   __$$ErrorSavingTransactionEventImplCopyWithImpl(
@@ -1088,7 +1090,7 @@ class __$$ErrorSavingTransactionEventImplCopyWithImpl<$Res>
       $Res Function(_$ErrorSavingTransactionEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AddTransactionFormEvent
+  /// Create a copy of TransactionFormEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -1099,7 +1101,7 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
 
   @override
   String toString() {
-    return 'AddTransactionFormEvent.error()';
+    return 'TransactionFormEvent.error()';
   }
 
   @override
@@ -1117,8 +1119,8 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(String title) titleChanged,
+    required TResult Function(String notes) notesChanged,
     required TResult Function(String amount) amountChanged,
-    required TResult Function(DateTime date) dateChanged,
     required TResult Function() submitting,
     required TResult Function() success,
     required TResult Function() error,
@@ -1131,8 +1133,8 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(String title)? titleChanged,
+    TResult? Function(String notes)? notesChanged,
     TResult? Function(String amount)? amountChanged,
-    TResult? Function(DateTime date)? dateChanged,
     TResult? Function()? submitting,
     TResult? Function()? success,
     TResult? Function()? error,
@@ -1145,8 +1147,8 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(String title)? titleChanged,
+    TResult Function(String notes)? notesChanged,
     TResult Function(String amount)? amountChanged,
-    TResult Function(DateTime date)? dateChanged,
     TResult Function()? submitting,
     TResult Function()? success,
     TResult Function()? error,
@@ -1163,9 +1165,9 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InitTransactionFormEvent value) init,
     required TResult Function(TitleChangedTransactionEvent value) titleChanged,
+    required TResult Function(NotesChangedTransactionEvent value) notesChanged,
     required TResult Function(AmountChangedTransactionEvent value)
         amountChanged,
-    required TResult Function(DateChangedTransactionEvent value) dateChanged,
     required TResult Function(SubmittingTransactionEvent value) submitting,
     required TResult Function(SuccessSavingTransactionEvent value) success,
     required TResult Function(ErrorSavingTransactionEvent value) error,
@@ -1178,8 +1180,8 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitTransactionFormEvent value)? init,
     TResult? Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult? Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult? Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult? Function(DateChangedTransactionEvent value)? dateChanged,
     TResult? Function(SubmittingTransactionEvent value)? submitting,
     TResult? Function(SuccessSavingTransactionEvent value)? success,
     TResult? Function(ErrorSavingTransactionEvent value)? error,
@@ -1192,8 +1194,8 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitTransactionFormEvent value)? init,
     TResult Function(TitleChangedTransactionEvent value)? titleChanged,
+    TResult Function(NotesChangedTransactionEvent value)? notesChanged,
     TResult Function(AmountChangedTransactionEvent value)? amountChanged,
-    TResult Function(DateChangedTransactionEvent value)? dateChanged,
     TResult Function(SubmittingTransactionEvent value)? submitting,
     TResult Function(SuccessSavingTransactionEvent value)? success,
     TResult Function(ErrorSavingTransactionEvent value)? error,
@@ -1206,7 +1208,7 @@ class _$ErrorSavingTransactionEventImpl extends ErrorSavingTransactionEvent {
   }
 }
 
-abstract class ErrorSavingTransactionEvent extends AddTransactionFormEvent {
+abstract class ErrorSavingTransactionEvent extends TransactionFormEvent {
   const factory ErrorSavingTransactionEvent() =
       _$ErrorSavingTransactionEventImpl;
   const ErrorSavingTransactionEvent._() : super._();

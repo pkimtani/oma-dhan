@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TransactionsState {
-  TransactionsStatus get status => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   List<Transaction>? get transactions => throw _privateConstructorUsedError;
 
@@ -33,10 +32,7 @@ abstract class $TransactionsStateCopyWith<$Res> {
           TransactionsState value, $Res Function(TransactionsState) then) =
       _$TransactionsStateCopyWithImpl<$Res, TransactionsState>;
   @useResult
-  $Res call(
-      {TransactionsStatus status,
-      String? message,
-      List<Transaction>? transactions});
+  $Res call({String? message, List<Transaction>? transactions});
 }
 
 /// @nodoc
@@ -54,15 +50,10 @@ class _$TransactionsStateCopyWithImpl<$Res, $Val extends TransactionsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
     Object? message = freezed,
     Object? transactions = freezed,
   }) {
     return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as TransactionsStatus,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -83,10 +74,7 @@ abstract class _$$TransactionStateImplCopyWith<$Res>
       __$$TransactionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {TransactionsStatus status,
-      String? message,
-      List<Transaction>? transactions});
+  $Res call({String? message, List<Transaction>? transactions});
 }
 
 /// @nodoc
@@ -102,15 +90,10 @@ class __$$TransactionStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
     Object? message = freezed,
     Object? transactions = freezed,
   }) {
     return _then(_$TransactionStateImpl(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as TransactionsStatus,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -127,14 +110,10 @@ class __$$TransactionStateImplCopyWithImpl<$Res>
 
 class _$TransactionStateImpl extends _TransactionState {
   const _$TransactionStateImpl(
-      {required this.status,
-      this.message,
-      final List<Transaction>? transactions})
+      {this.message, final List<Transaction>? transactions})
       : _transactions = transactions,
         super._();
 
-  @override
-  final TransactionsStatus status;
   @override
   final String? message;
   final List<Transaction>? _transactions;
@@ -149,7 +128,7 @@ class _$TransactionStateImpl extends _TransactionState {
 
   @override
   String toString() {
-    return 'TransactionsState(status: $status, message: $message, transactions: $transactions)';
+    return 'TransactionsState(message: $message, transactions: $transactions)';
   }
 
   @override
@@ -157,15 +136,14 @@ class _$TransactionStateImpl extends _TransactionState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TransactionStateImpl &&
-            (identical(other.status, status) || other.status == status) &&
             (identical(other.message, message) || other.message == message) &&
             const DeepCollectionEquality()
                 .equals(other._transactions, _transactions));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, message,
-      const DeepCollectionEquality().hash(_transactions));
+  int get hashCode => Object.hash(
+      runtimeType, message, const DeepCollectionEquality().hash(_transactions));
 
   /// Create a copy of TransactionsState
   /// with the given fields replaced by the non-null parameter values.
@@ -179,13 +157,10 @@ class _$TransactionStateImpl extends _TransactionState {
 
 abstract class _TransactionState extends TransactionsState {
   const factory _TransactionState(
-      {required final TransactionsStatus status,
-      final String? message,
+      {final String? message,
       final List<Transaction>? transactions}) = _$TransactionStateImpl;
   const _TransactionState._() : super._();
 
-  @override
-  TransactionsStatus get status;
   @override
   String? get message;
   @override
