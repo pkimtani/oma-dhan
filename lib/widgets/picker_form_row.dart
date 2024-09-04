@@ -38,32 +38,44 @@ class PickerFormRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoFormRow(
-      child: CupertinoButton(
-        onPressed: () => _showDialog(
-            CupertinoPicker(
-              magnification: 1.22,
-              squeeze: 1.2,
-              useMagnifier: true,
-              itemExtent: 2,
-              // This sets the height of each item.
-              // This sets the initial item.
-              scrollController: FixedExtentScrollController(
-                initialItem:
-                    selectedUser != null ? users.indexOf(selectedUser!) : 0,
-              ),
-              // This is called when selected item is changed.
-              onSelectedItemChanged: onSelectedUserChanged,
-              children: List.generate(users.length, (index) {
-                final user = users[index];
-                return Center(
-                  child: Text('${user.firstName} ${user.lastName}'),
-                );
-              }),
+      error: const Text('Incorrect user'),
+      helper: const Text('Select a user'),
+      child: Row(
+        children: [
+          const Icon(CupertinoIcons.person, size: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: CupertinoButton(
+              onPressed: () => _showDialog(
+                  CupertinoPicker(
+                    magnification: 1.22,
+                    squeeze: 1.2,
+                    useMagnifier: true,
+                    itemExtent: 32,
+                    // This sets the height of each item.
+                    // This sets the initial item.
+                    scrollController: FixedExtentScrollController(
+                      initialItem: selectedUser != null
+                          ? users.indexOf(selectedUser!)
+                          : 0,
+                    ),
+                    // This is called when selected item is changed.
+                    onSelectedItemChanged: onSelectedUserChanged,
+                    children: List.generate(users.length, (index) {
+                      final user = users[index];
+                      return Center(
+                        child: Text('${user.firstName} ${user.lastName}'),
+                      );
+                    }),
+                  ),
+                  context),
+              child: selectedUser == null
+                  ? const Text('Pick a user')
+                  : Text(
+                      '${selectedUser!.firstName} ${selectedUser!.lastName}'),
             ),
-            context),
-        child: selectedUser == null
-            ? const Text('')
-            : Text('${selectedUser!.firstName} ${selectedUser!.lastName}'),
+          ),
+        ],
       ),
     );
   }
