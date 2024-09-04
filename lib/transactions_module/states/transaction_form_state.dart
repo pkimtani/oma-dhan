@@ -1,4 +1,5 @@
 import 'package:apps/core/validators/form_field_value.dart';
+import 'package:apps/user-module/models/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction_form_state.freezed.dart';
@@ -25,7 +26,7 @@ class TransactionFormState with _$TransactionFormState {
     FormFieldValue? title,
     FormFieldValue? notes,
     FormFieldValue? amount,
-    DateTime? date,
+    User? user,
     String? saveError,
     String? loadError,
     String? deleteError,

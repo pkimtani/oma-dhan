@@ -1,3 +1,4 @@
+import 'package:apps/user-module/models/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction_form_event.freezed.dart';
@@ -8,6 +9,10 @@ sealed class TransactionFormEvent with _$TransactionFormEvent {
 
   // initialize form
   const factory TransactionFormEvent.init() = InitTransactionFormEvent;
+
+  // user change
+  const factory TransactionFormEvent.userChanged(User user) =
+      UserChangedTransactionEvent;
 
   // update title field
   const factory TransactionFormEvent.titleChanged(String title) =

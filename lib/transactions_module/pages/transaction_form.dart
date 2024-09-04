@@ -62,80 +62,74 @@ class AddNewTransaction extends StatelessWidget {
                     ),
 
                     // amount text field
-                    CupertinoFormRow(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            CupertinoIcons.money_dollar,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: CupertinoTextFormFieldRow(
-                              placeholder: 'Ex: 100.00',
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
-                            ),
-                          )
-                        ],
-                      ),
+                    TextFieldFormRow(
+                      placeholder: 'Ex: 100.00',
+                      errorMessage: state.amount?.error ?? '',
+                      icon: CupertinoIcons
+                          .money_dollar, // TODO: model to select currency symbol
+                      maxLines: 1,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      onChanged: (value) =>
+                          context.read<TransactionFormBloc>().add(
+                                TransactionFormEvent.amountChanged(value),
+                              ),
                     ),
 
                     // date picker
-                    CupertinoFormRow(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            CupertinoIcons.calendar,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: CupertinoTextFormFieldRow(
-                              placeholder: 'Ex: 2021-01-01',
-                              keyboardType: TextInputType.datetime,
-                              onTap: () {
-                                showCupertinoModalPopup<void>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return CupertinoDatePicker(
-                                      mode: CupertinoDatePickerMode.date,
-                                      onDateTimeChanged: (DateTime value) {
-                                        print(value);
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    // CupertinoFormRow(
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       const Icon(
+                    //         CupertinoIcons.calendar,
+                    //         size: 20,
+                    //       ),
+                    //       const SizedBox(width: 10),
+                    //       Expanded(
+                    //         child: CupertinoTextFormFieldRow(
+                    //           placeholder: 'Ex: 2021-01-01',
+                    //           keyboardType: TextInputType.datetime,
+                    //           onTap: () {
+                    //             showCupertinoModalPopup<void>(
+                    //               context: context,
+                    //               builder: (BuildContext context) {
+                    //                 return CupertinoDatePicker(
+                    //                   mode: CupertinoDatePickerMode.date,
+                    //                   onDateTimeChanged: (DateTime value) {
+                    //                     print(value);
+                    //                   },
+                    //                 );
+                    //               },
+                    //             );
+                    //           },
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
 
                     // boolean to enable/disable split option
-                    CupertinoFormRow(
-                      child: Row(
-                        children: <Widget>[
-                          const Icon(
-                            CupertinoIcons.divide,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 30),
-                          CupertinoSwitch(
-                            value: true,
-                            activeColor: CupertinoColors.activeBlue,
-                            onChanged: (value) {},
-                          ),
-                          const SizedBox(width: 20),
-                          const Expanded(
-                            child:
-                                Text('Split with friend(s), family, or group'),
-                          )
-                        ],
-                      ),
-                    ),
+                    // CupertinoFormRow(
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       const Icon(
+                    //         CupertinoIcons.divide,
+                    //         size: 20,
+                    //       ),
+                    //       const SizedBox(width: 30),
+                    //       CupertinoSwitch(
+                    //         value: true,
+                    //         activeColor: CupertinoColors.activeBlue,
+                    //         onChanged: (value) {},
+                    //       ),
+                    //       const SizedBox(width: 20),
+                    //       const Expanded(
+                    //         child:
+                    //             Text('Split with friend(s), family, or group'),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
 
                     const SizedBox(
                       height: 10,

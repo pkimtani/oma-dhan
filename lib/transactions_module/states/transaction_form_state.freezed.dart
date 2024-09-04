@@ -19,7 +19,7 @@ mixin _$TransactionFormState {
   FormFieldValue? get title => throw _privateConstructorUsedError;
   FormFieldValue? get notes => throw _privateConstructorUsedError;
   FormFieldValue? get amount => throw _privateConstructorUsedError;
-  DateTime? get date => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
   String? get saveError => throw _privateConstructorUsedError;
   String? get loadError => throw _privateConstructorUsedError;
   String? get deleteError => throw _privateConstructorUsedError;
@@ -41,10 +41,12 @@ abstract class $TransactionFormStateCopyWith<$Res> {
       {FormFieldValue? title,
       FormFieldValue? notes,
       FormFieldValue? amount,
-      DateTime? date,
+      User? user,
       String? saveError,
       String? loadError,
       String? deleteError});
+
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -66,7 +68,7 @@ class _$TransactionFormStateCopyWithImpl<$Res,
     Object? title = freezed,
     Object? notes = freezed,
     Object? amount = freezed,
-    Object? date = freezed,
+    Object? user = freezed,
     Object? saveError = freezed,
     Object? loadError = freezed,
     Object? deleteError = freezed,
@@ -84,10 +86,10 @@ class _$TransactionFormStateCopyWithImpl<$Res,
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as FormFieldValue?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       saveError: freezed == saveError
           ? _value.saveError
           : saveError // ignore: cast_nullable_to_non_nullable
@@ -101,6 +103,20 @@ class _$TransactionFormStateCopyWithImpl<$Res,
           : deleteError // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of TransactionFormState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -117,10 +133,13 @@ abstract class _$$AddTransactionFormStateImplCopyWith<$Res>
       {FormFieldValue? title,
       FormFieldValue? notes,
       FormFieldValue? amount,
-      DateTime? date,
+      User? user,
       String? saveError,
       String? loadError,
       String? deleteError});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -141,7 +160,7 @@ class __$$AddTransactionFormStateImplCopyWithImpl<$Res>
     Object? title = freezed,
     Object? notes = freezed,
     Object? amount = freezed,
-    Object? date = freezed,
+    Object? user = freezed,
     Object? saveError = freezed,
     Object? loadError = freezed,
     Object? deleteError = freezed,
@@ -159,10 +178,10 @@ class __$$AddTransactionFormStateImplCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as FormFieldValue?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       saveError: freezed == saveError
           ? _value.saveError
           : saveError // ignore: cast_nullable_to_non_nullable
@@ -186,7 +205,7 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
       {this.title,
       this.notes,
       this.amount,
-      this.date,
+      this.user,
       this.saveError,
       this.loadError,
       this.deleteError})
@@ -199,7 +218,7 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
   @override
   final FormFieldValue? amount;
   @override
-  final DateTime? date;
+  final User? user;
   @override
   final String? saveError;
   @override
@@ -209,7 +228,7 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
 
   @override
   String toString() {
-    return 'TransactionFormState(title: $title, notes: $notes, amount: $amount, date: $date, saveError: $saveError, loadError: $loadError, deleteError: $deleteError)';
+    return 'TransactionFormState(title: $title, notes: $notes, amount: $amount, user: $user, saveError: $saveError, loadError: $loadError, deleteError: $deleteError)';
   }
 
   @override
@@ -220,7 +239,7 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.date, date) || other.date == date) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.saveError, saveError) ||
                 other.saveError == saveError) &&
             (identical(other.loadError, loadError) ||
@@ -230,7 +249,7 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, notes, amount, date,
+  int get hashCode => Object.hash(runtimeType, title, notes, amount, user,
       saveError, loadError, deleteError);
 
   /// Create a copy of TransactionFormState
@@ -248,7 +267,7 @@ abstract class _AddTransactionFormState extends TransactionFormState {
       {final FormFieldValue? title,
       final FormFieldValue? notes,
       final FormFieldValue? amount,
-      final DateTime? date,
+      final User? user,
       final String? saveError,
       final String? loadError,
       final String? deleteError}) = _$AddTransactionFormStateImpl;
@@ -261,7 +280,7 @@ abstract class _AddTransactionFormState extends TransactionFormState {
   @override
   FormFieldValue? get amount;
   @override
-  DateTime? get date;
+  User? get user;
   @override
   String? get saveError;
   @override

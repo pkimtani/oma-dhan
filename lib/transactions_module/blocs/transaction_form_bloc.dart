@@ -9,6 +9,7 @@ class TransactionFormBloc
     on<TransactionFormEvent>(
       (event, emit) => event.map(
         init: (event) => _initAddTransactionForm(event, emit),
+        userChanged: (event) => _formChanged(event, emit),
         titleChanged: (event) => _formChanged(event, emit),
         notesChanged: (event) => _formChanged(event, emit),
         amountChanged: (event) => _formChanged(event, emit),
@@ -28,6 +29,9 @@ class TransactionFormBloc
   Future<void> _formChanged(
       TransactionFormEvent event, Emitter<TransactionFormState> emit) async {
     switch (event) {
+      case UserChangedTransactionEvent(:final user):
+        emit(TransactionFormState.editing(state.copyWith(user: user)));
+        break;
       case TitleChangedTransactionEvent(:final title):
         emit(TransactionFormState.editing(
             state.copyWith(title: FormFieldValue.requiredText(title))));

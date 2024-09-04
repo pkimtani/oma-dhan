@@ -6,6 +6,7 @@ class TextFieldFormRow extends StatelessWidget {
   final String? errorMessage;
   final String? helperText;
   final int? maxLines;
+  final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
 
   const TextFieldFormRow({
@@ -15,14 +16,15 @@ class TextFieldFormRow extends StatelessWidget {
     this.errorMessage,
     this.helperText,
     this.maxLines,
+    this.keyboardType,
     required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return CupertinoFormRow(
-      error: Text(errorMessage ?? ''),
-      helper: Text(helperText ?? ''),
+      error: errorMessage != null ? Text(errorMessage!) : null,
+      helper: helperText != null ? Text(helperText!) : null,
       child: Row(
         children: <Widget>[
           Icon(icon, size: 20),
@@ -32,6 +34,7 @@ class TextFieldFormRow extends StatelessWidget {
               placeholder: placeholder,
               maxLines: maxLines,
               onChanged: onChanged,
+              keyboardType: keyboardType,
             ),
           )
         ],
