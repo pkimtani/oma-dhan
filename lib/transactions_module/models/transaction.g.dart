@@ -12,7 +12,10 @@ _$TransactionImpl _$$TransactionImplFromJson(Map<String, dynamic> json) =>
       user: json['user'] as String,
       title: json['title'] as String,
       amount: (json['amount'] as num).toDouble(),
-      notes: json['notes'] as String?,
+      notes: json['notes'] as String? ?? '',
+      currency: json['currency'] == null
+          ? const Currency.usd()
+          : Currency.fromJson(json['currency'] as Map<String, dynamic>),
       transactionType:
           $enumDecode(_$TransactionTypeEnumEnumMap, json['transactionType']),
       transactionDate: DateTime.parse(json['transactionDate'] as String),
@@ -32,6 +35,7 @@ Map<String, dynamic> _$$TransactionImplToJson(_$TransactionImpl instance) =>
       'title': instance.title,
       'amount': instance.amount,
       'notes': instance.notes,
+      'currency': instance.currency,
       'transactionType':
           _$TransactionTypeEnumEnumMap[instance.transactionType]!,
       'transactionDate': instance.transactionDate.toIso8601String(),

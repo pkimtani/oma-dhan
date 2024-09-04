@@ -1,29 +1,11 @@
 import 'dart:math';
 
+import 'package:apps/user-module/models/user_type.dart';
 import 'package:faker_dart/faker_dart.dart';
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
-
-@freezed
-sealed class UserType with _$UserType {
-  const UserType._();
-
-  const factory UserType({
-    required String type,
-  }) = _UserType;
-
-  const factory UserType.individual() = _Individual;
-
-  const factory UserType.group() = _Group;
-
-  static List<UserType> all = const [UserType.individual(), UserType.group()];
-
-  factory UserType.fromJson(Map<String, dynamic> json) =>
-      _$UserTypeFromJson(json);
-}
 
 @freezed
 class User with _$User {
@@ -41,23 +23,33 @@ class User with _$User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  static List<User> getSampleData([int? total]) {
+  static User get nullUser => User(
+        id: '1',
+        firstName: 'No',
+        lastName: 'User',
+        email: 'user@example.com',
+        password: 'password',
+        userType: const UserType.individual(),
+        createdAt: DateTime.now(),
+      );
+
+  static List<User> getSampleData([int? total, User? userOverride]) {
     final faker = Faker.instance;
     total ??= faker.datatype.number(min: 1, max: 10);
 
     return List.generate(total, (ignored) {
-      final email = faker.internet.email();
+      final fakeEmail = faker.internet.email();
       final userType = UserType.all[Random().nextInt(UserType.all.length)];
       final date = faker.date.past(DateTime.now(), rangeInYears: 1);
 
       return User(
         id: faker.datatype.number.toString(),
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        email: email,
-        userType: userType,
-        createdAt: date,
-        password: 'password',
+        firstName: userOverride?.firstName ?? faker.name.firstName(),
+        lastName: userOverride?.lastName ?? faker.name.lastName(),
+        email: userOverride?.email ?? fakeEmail,
+        userType: userOverride?.userType ?? userType,
+        createdAt: userOverride?.createdAt ?? date,
+        password: userOverride?.password ?? 'password',
       );
     });
   }

@@ -1,6 +1,7 @@
+import 'package:apps/core/models/currency_convertor.dart';
+import 'package:apps/database/user_table.dart';
 import 'package:apps/transactions_module/enums/transaction_type_enum.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
-import 'package:apps/utils/user_table.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
@@ -15,8 +16,8 @@ class TransactionTable extends Table {
   RealColumn get amount => real()();
   TextColumn get transactionType => textEnum<TransactionTypeEnum>()
       .withDefault(Constant(TransactionTypeEnum.expense.toString()))();
-  TextColumn get notes => text().nullable()();
-  // TextColumn get currency => textEnum<Currency>()();
+  TextColumn get notes => text().withDefault(const Constant(''))();
+  TextColumn get currency => text().map(const CurrencyConverter())();
   DateTimeColumn get transactionDate =>
       dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();

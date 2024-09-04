@@ -33,6 +33,13 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
+  static const VerificationMeta _userTypeMeta =
+      const VerificationMeta('userType');
+  @override
+  late final GeneratedColumnWithTypeConverter<UserType, String> userType =
+      GeneratedColumn<String>('user_type', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
+          .withConverter<UserType>($UserTableTable.$converteruserType);
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
@@ -75,6 +82,7 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
         id,
         firstName,
         lastName,
+        userType,
         email,
         password,
         createdAt,
@@ -85,7 +93,7 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'user_table';
+  static const String $name = 'user';
   @override
   VerificationContext validateIntegrity(Insertable<User> instance,
       {bool isInserting = false}) {
@@ -106,6 +114,7 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
     } else if (isInserting) {
       context.missing(_lastNameMeta);
     }
+    context.handle(_userTypeMeta, const VerificationResult.success());
     if (data.containsKey('email')) {
       context.handle(
           _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
@@ -149,6 +158,9 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
           .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
       password: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}password'])!,
+      userType: $UserTableTable.$converteruserType.fromSql(attachedDatabase
+          .typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_type'])!),
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping
@@ -162,12 +174,16 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
   $UserTableTable createAlias(String alias) {
     return $UserTableTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<UserType, String> $converteruserType =
+      const UserTypeConverter();
 }
 
 class UserTableCompanion extends UpdateCompanion<User> {
   final Value<String> id;
   final Value<String> firstName;
   final Value<String> lastName;
+  final Value<UserType> userType;
   final Value<String> email;
   final Value<String> password;
   final Value<DateTime> createdAt;
@@ -178,6 +194,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
     this.id = const Value.absent(),
     this.firstName = const Value.absent(),
     this.lastName = const Value.absent(),
+    this.userType = const Value.absent(),
     this.email = const Value.absent(),
     this.password = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -189,6 +206,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
     this.id = const Value.absent(),
     required String firstName,
     required String lastName,
+    required UserType userType,
     required String email,
     required String password,
     this.createdAt = const Value.absent(),
@@ -197,12 +215,14 @@ class UserTableCompanion extends UpdateCompanion<User> {
     this.rowid = const Value.absent(),
   })  : firstName = Value(firstName),
         lastName = Value(lastName),
+        userType = Value(userType),
         email = Value(email),
         password = Value(password);
   static Insertable<User> custom({
     Expression<String>? id,
     Expression<String>? firstName,
     Expression<String>? lastName,
+    Expression<String>? userType,
     Expression<String>? email,
     Expression<String>? password,
     Expression<DateTime>? createdAt,
@@ -214,6 +234,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
       if (id != null) 'id': id,
       if (firstName != null) 'first_name': firstName,
       if (lastName != null) 'last_name': lastName,
+      if (userType != null) 'user_type': userType,
       if (email != null) 'email': email,
       if (password != null) 'password': password,
       if (createdAt != null) 'created_at': createdAt,
@@ -227,6 +248,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
       {Value<String>? id,
       Value<String>? firstName,
       Value<String>? lastName,
+      Value<UserType>? userType,
       Value<String>? email,
       Value<String>? password,
       Value<DateTime>? createdAt,
@@ -237,6 +259,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
+      userType: userType ?? this.userType,
       email: email ?? this.email,
       password: password ?? this.password,
       createdAt: createdAt ?? this.createdAt,
@@ -257,6 +280,10 @@ class UserTableCompanion extends UpdateCompanion<User> {
     }
     if (lastName.present) {
       map['last_name'] = Variable<String>(lastName.value);
+    }
+    if (userType.present) {
+      map['user_type'] = Variable<String>(
+          $UserTableTable.$converteruserType.toSql(userType.value));
     }
     if (email.present) {
       map['email'] = Variable<String>(email.value);
@@ -285,6 +312,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
           ..write('id: $id, ')
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
+          ..write('userType: $userType, ')
           ..write('email: $email, ')
           ..write('password: $password, ')
           ..write('createdAt: $createdAt, ')
@@ -316,7 +344,7 @@ class $TransactionTableTable extends TransactionTable
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES user_table (id)'));
+          GeneratedColumn.constraintIsAlways('REFERENCES user (id)'));
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
@@ -344,8 +372,17 @@ class $TransactionTableTable extends TransactionTable
   static const VerificationMeta _notesMeta = const VerificationMeta('notes');
   @override
   late final GeneratedColumn<String> notes = GeneratedColumn<String>(
-      'notes', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'notes', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _currencyMeta =
+      const VerificationMeta('currency');
+  @override
+  late final GeneratedColumnWithTypeConverter<Currency, String> currency =
+      GeneratedColumn<String>('currency', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
+          .withConverter<Currency>($TransactionTableTable.$convertercurrency);
   static const VerificationMeta _transactionDateMeta =
       const VerificationMeta('transactionDate');
   @override
@@ -382,6 +419,7 @@ class $TransactionTableTable extends TransactionTable
         amount,
         transactionType,
         notes,
+        currency,
         transactionDate,
         createdAt,
         updatedAt,
@@ -423,6 +461,7 @@ class $TransactionTableTable extends TransactionTable
       context.handle(
           _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
     }
+    context.handle(_currencyMeta, const VerificationResult.success());
     if (data.containsKey('transaction_date')) {
       context.handle(
           _transactionDateMeta,
@@ -459,7 +498,10 @@ class $TransactionTableTable extends TransactionTable
       amount: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
       notes: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+          .read(DriftSqlType.string, data['${effectivePrefix}notes'])!,
+      currency: $TransactionTableTable.$convertercurrency.fromSql(
+          attachedDatabase.typeMapping
+              .read(DriftSqlType.string, data['${effectivePrefix}currency'])!),
       transactionType: $TransactionTableTable.$convertertransactionType.fromSql(
           attachedDatabase.typeMapping.read(DriftSqlType.string,
               data['${effectivePrefix}transaction_type'])!),
@@ -482,6 +524,8 @@ class $TransactionTableTable extends TransactionTable
   static JsonTypeConverter2<TransactionTypeEnum, String, String>
       $convertertransactionType =
       const EnumNameConverter<TransactionTypeEnum>(TransactionTypeEnum.values);
+  static TypeConverter<Currency, String> $convertercurrency =
+      const CurrencyConverter();
 }
 
 class TransactionTableCompanion extends UpdateCompanion<Transaction> {
@@ -490,7 +534,8 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
   final Value<String> title;
   final Value<double> amount;
   final Value<TransactionTypeEnum> transactionType;
-  final Value<String?> notes;
+  final Value<String> notes;
+  final Value<Currency> currency;
   final Value<DateTime> transactionDate;
   final Value<DateTime> createdAt;
   final Value<DateTime?> updatedAt;
@@ -503,6 +548,7 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
     this.amount = const Value.absent(),
     this.transactionType = const Value.absent(),
     this.notes = const Value.absent(),
+    this.currency = const Value.absent(),
     this.transactionDate = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -516,6 +562,7 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
     required double amount,
     this.transactionType = const Value.absent(),
     this.notes = const Value.absent(),
+    required Currency currency,
     this.transactionDate = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -523,7 +570,8 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
     this.rowid = const Value.absent(),
   })  : user = Value(user),
         title = Value(title),
-        amount = Value(amount);
+        amount = Value(amount),
+        currency = Value(currency);
   static Insertable<Transaction> custom({
     Expression<String>? id,
     Expression<String>? user,
@@ -531,6 +579,7 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
     Expression<double>? amount,
     Expression<String>? transactionType,
     Expression<String>? notes,
+    Expression<String>? currency,
     Expression<DateTime>? transactionDate,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
@@ -544,6 +593,7 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
       if (amount != null) 'amount': amount,
       if (transactionType != null) 'transaction_type': transactionType,
       if (notes != null) 'notes': notes,
+      if (currency != null) 'currency': currency,
       if (transactionDate != null) 'transaction_date': transactionDate,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
@@ -558,7 +608,8 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
       Value<String>? title,
       Value<double>? amount,
       Value<TransactionTypeEnum>? transactionType,
-      Value<String?>? notes,
+      Value<String>? notes,
+      Value<Currency>? currency,
       Value<DateTime>? transactionDate,
       Value<DateTime>? createdAt,
       Value<DateTime?>? updatedAt,
@@ -571,6 +622,7 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
       amount: amount ?? this.amount,
       transactionType: transactionType ?? this.transactionType,
       notes: notes ?? this.notes,
+      currency: currency ?? this.currency,
       transactionDate: transactionDate ?? this.transactionDate,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -602,6 +654,10 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
     if (notes.present) {
       map['notes'] = Variable<String>(notes.value);
     }
+    if (currency.present) {
+      map['currency'] = Variable<String>(
+          $TransactionTableTable.$convertercurrency.toSql(currency.value));
+    }
     if (transactionDate.present) {
       map['transaction_date'] = Variable<DateTime>(transactionDate.value);
     }
@@ -629,6 +685,7 @@ class TransactionTableCompanion extends UpdateCompanion<Transaction> {
           ..write('amount: $amount, ')
           ..write('transactionType: $transactionType, ')
           ..write('notes: $notes, ')
+          ..write('currency: $currency, ')
           ..write('transactionDate: $transactionDate, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
@@ -657,6 +714,7 @@ typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
   Value<String> id,
   required String firstName,
   required String lastName,
+  required UserType userType,
   required String email,
   required String password,
   Value<DateTime> createdAt,
@@ -668,6 +726,7 @@ typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<String> id,
   Value<String> firstName,
   Value<String> lastName,
+  Value<UserType> userType,
   Value<String> email,
   Value<String> password,
   Value<DateTime> createdAt,
@@ -715,6 +774,13 @@ class $$UserTableTableFilterComposer
       column: $state.table.lastName,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnWithTypeConverterFilters<UserType, UserType, String> get userType =>
+      $state.composableBuilder(
+          column: $state.table.userType,
+          builder: (column, joinBuilders) => ColumnWithTypeConverterFilters(
+              column,
+              joinBuilders: joinBuilders));
 
   ColumnFilters<String> get email => $state.composableBuilder(
       column: $state.table.email,
@@ -774,6 +840,11 @@ class $$UserTableTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
+  ColumnOrderings<String> get userType => $state.composableBuilder(
+      column: $state.table.userType,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
   ColumnOrderings<String> get email => $state.composableBuilder(
       column: $state.table.email,
       builder: (column, joinBuilders) =>
@@ -823,6 +894,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             Value<String> id = const Value.absent(),
             Value<String> firstName = const Value.absent(),
             Value<String> lastName = const Value.absent(),
+            Value<UserType> userType = const Value.absent(),
             Value<String> email = const Value.absent(),
             Value<String> password = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
@@ -834,6 +906,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             id: id,
             firstName: firstName,
             lastName: lastName,
+            userType: userType,
             email: email,
             password: password,
             createdAt: createdAt,
@@ -845,6 +918,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             Value<String> id = const Value.absent(),
             required String firstName,
             required String lastName,
+            required UserType userType,
             required String email,
             required String password,
             Value<DateTime> createdAt = const Value.absent(),
@@ -856,6 +930,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             id: id,
             firstName: firstName,
             lastName: lastName,
+            userType: userType,
             email: email,
             password: password,
             createdAt: createdAt,
@@ -915,7 +990,8 @@ typedef $$TransactionTableTableCreateCompanionBuilder
   required String title,
   required double amount,
   Value<TransactionTypeEnum> transactionType,
-  Value<String?> notes,
+  Value<String> notes,
+  required Currency currency,
   Value<DateTime> transactionDate,
   Value<DateTime> createdAt,
   Value<DateTime?> updatedAt,
@@ -929,7 +1005,8 @@ typedef $$TransactionTableTableUpdateCompanionBuilder
   Value<String> title,
   Value<double> amount,
   Value<TransactionTypeEnum> transactionType,
-  Value<String?> notes,
+  Value<String> notes,
+  Value<Currency> currency,
   Value<DateTime> transactionDate,
   Value<DateTime> createdAt,
   Value<DateTime?> updatedAt,
@@ -986,6 +1063,13 @@ class $$TransactionTableTableFilterComposer
       column: $state.table.notes,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnWithTypeConverterFilters<Currency, Currency, String> get currency =>
+      $state.composableBuilder(
+          column: $state.table.currency,
+          builder: (column, joinBuilders) => ColumnWithTypeConverterFilters(
+              column,
+              joinBuilders: joinBuilders));
 
   ColumnFilters<DateTime> get transactionDate => $state.composableBuilder(
       column: $state.table.transactionDate,
@@ -1048,6 +1132,11 @@ class $$TransactionTableTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
+  ColumnOrderings<String> get currency => $state.composableBuilder(
+      column: $state.table.currency,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
   ColumnOrderings<DateTime> get transactionDate => $state.composableBuilder(
       column: $state.table.transactionDate,
       builder: (column, joinBuilders) =>
@@ -1107,7 +1196,8 @@ class $$TransactionTableTableTableManager extends RootTableManager<
             Value<String> title = const Value.absent(),
             Value<double> amount = const Value.absent(),
             Value<TransactionTypeEnum> transactionType = const Value.absent(),
-            Value<String?> notes = const Value.absent(),
+            Value<String> notes = const Value.absent(),
+            Value<Currency> currency = const Value.absent(),
             Value<DateTime> transactionDate = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime?> updatedAt = const Value.absent(),
@@ -1121,6 +1211,7 @@ class $$TransactionTableTableTableManager extends RootTableManager<
             amount: amount,
             transactionType: transactionType,
             notes: notes,
+            currency: currency,
             transactionDate: transactionDate,
             createdAt: createdAt,
             updatedAt: updatedAt,
@@ -1133,7 +1224,8 @@ class $$TransactionTableTableTableManager extends RootTableManager<
             required String title,
             required double amount,
             Value<TransactionTypeEnum> transactionType = const Value.absent(),
-            Value<String?> notes = const Value.absent(),
+            Value<String> notes = const Value.absent(),
+            required Currency currency,
             Value<DateTime> transactionDate = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime?> updatedAt = const Value.absent(),
@@ -1147,6 +1239,7 @@ class $$TransactionTableTableTableManager extends RootTableManager<
             amount: amount,
             transactionType: transactionType,
             notes: notes,
+            currency: currency,
             transactionDate: transactionDate,
             createdAt: createdAt,
             updatedAt: updatedAt,

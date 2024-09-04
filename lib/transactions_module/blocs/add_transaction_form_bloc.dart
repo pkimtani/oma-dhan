@@ -9,7 +9,7 @@ class AddTransactionFormBloc
       (event, emit) => event.map(
         init: (event) => _initAddTransactionForm(event, emit),
         titleChanged: (event) => _titleChanged(event, emit),
-        amountChanged: (event) => null,
+        amountChanged: (event) => _amountChanged(event, emit),
         dateChanged: (event) => null,
         submitting: (event) => null,
         success: (event) => null,
@@ -28,6 +28,13 @@ class AddTransactionFormBloc
       Emitter<AddTransactionFormState> emit) async {
     emit(state.copyWith(
       title: event.title,
+    ));
+  }
+
+  Future<void> _amountChanged(AmountChangedTransactionEvent event,
+      Emitter<AddTransactionFormState> emit) async {
+    emit(state.copyWith(
+      amount: double.parse(event.amount),
     ));
   }
 }

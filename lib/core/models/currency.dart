@@ -47,9 +47,4 @@ sealed class Currency with _$Currency {
 
   factory Currency.fromJson(Map<String, dynamic> json) =>
       _$CurrencyFromJson(json);
-
-  // static TypeConverter<Currency, String> converter = TypeConverter.json(
-  //   fromJson: (json) => Currency.fromJson(json as Map<String, Object?>),
-  //   toJson: (pref) => pref.toJson(),
-  // );
 }

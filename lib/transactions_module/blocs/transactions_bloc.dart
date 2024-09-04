@@ -1,8 +1,7 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:apps/transactions_module/states/transactions_state.dart';
-import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/events/transactions_events.dart';
+import 'package:apps/transactions_module/repositories/transaction_repository.dart';
+import 'package:apps/transactions_module/states/transactions_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final TransactionRepository transactionRepository;
@@ -23,6 +22,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       TransactionsEvent event, Emitter<TransactionsState> emit) async {
     try {
       final transactions = await transactionRepository.getAllTransactions();
+
+      if (transactions.isEmpty) {
+        emit(TransactionsState.initial());
+        return;
+      }
+
       emit(TransactionsState.fetchSuccess(transactions));
     } catch (e) {
       emit(TransactionsState.fetchError(e.toString()));

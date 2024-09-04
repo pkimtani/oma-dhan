@@ -6,37 +6,6 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserTypeImpl _$$UserTypeImplFromJson(Map<String, dynamic> json) =>
-    _$UserTypeImpl(
-      type: json['type'] as String,
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$UserTypeImplToJson(_$UserTypeImpl instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'runtimeType': instance.$type,
-    };
-
-_$IndividualImpl _$$IndividualImplFromJson(Map<String, dynamic> json) =>
-    _$IndividualImpl(
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$IndividualImplToJson(_$IndividualImpl instance) =>
-    <String, dynamic>{
-      'runtimeType': instance.$type,
-    };
-
-_$GroupImpl _$$GroupImplFromJson(Map<String, dynamic> json) => _$GroupImpl(
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$GroupImplToJson(_$GroupImpl instance) =>
-    <String, dynamic>{
-      'runtimeType': instance.$type,
-    };
-
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: json['id'] as String,
       firstName: json['firstName'] as String,

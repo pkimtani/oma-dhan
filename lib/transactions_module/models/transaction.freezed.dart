@@ -24,8 +24,8 @@ mixin _$Transaction {
   String get user => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
-  String? get notes =>
-      throw _privateConstructorUsedError; // @Default(Currency.usd()) Currency currency,
+  String get notes => throw _privateConstructorUsedError;
+  Currency get currency => throw _privateConstructorUsedError;
   TransactionTypeEnum get transactionType => throw _privateConstructorUsedError;
   DateTime get transactionDate => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -53,12 +53,15 @@ abstract class $TransactionCopyWith<$Res> {
       String user,
       String title,
       double amount,
-      String? notes,
+      String notes,
+      Currency currency,
       TransactionTypeEnum transactionType,
       DateTime transactionDate,
       DateTime createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
+
+  $CurrencyCopyWith<$Res> get currency;
 }
 
 /// @nodoc
@@ -80,7 +83,8 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
     Object? user = null,
     Object? title = null,
     Object? amount = null,
-    Object? notes = freezed,
+    Object? notes = null,
+    Object? currency = null,
     Object? transactionType = null,
     Object? transactionDate = null,
     Object? createdAt = null,
@@ -104,10 +108,14 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      notes: freezed == notes
+      notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as Currency,
       transactionType: null == transactionType
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
@@ -130,6 +138,16 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
               as DateTime?,
     ) as $Val);
   }
+
+  /// Create a copy of Transaction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CurrencyCopyWith<$Res> get currency {
+    return $CurrencyCopyWith<$Res>(_value.currency, (value) {
+      return _then(_value.copyWith(currency: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -145,12 +163,16 @@ abstract class _$$TransactionImplCopyWith<$Res>
       String user,
       String title,
       double amount,
-      String? notes,
+      String notes,
+      Currency currency,
       TransactionTypeEnum transactionType,
       DateTime transactionDate,
       DateTime createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
+
+  @override
+  $CurrencyCopyWith<$Res> get currency;
 }
 
 /// @nodoc
@@ -170,7 +192,8 @@ class __$$TransactionImplCopyWithImpl<$Res>
     Object? user = null,
     Object? title = null,
     Object? amount = null,
-    Object? notes = freezed,
+    Object? notes = null,
+    Object? currency = null,
     Object? transactionType = null,
     Object? transactionDate = null,
     Object? createdAt = null,
@@ -194,10 +217,14 @@ class __$$TransactionImplCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      notes: freezed == notes
+      notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as Currency,
       transactionType: null == transactionType
           ? _value.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
@@ -230,7 +257,8 @@ class _$TransactionImpl extends _Transaction {
       required this.user,
       required this.title,
       required this.amount,
-      this.notes,
+      this.notes = '',
+      this.currency = const Currency.usd(),
       required this.transactionType,
       required this.transactionDate,
       required this.createdAt,
@@ -250,8 +278,11 @@ class _$TransactionImpl extends _Transaction {
   @override
   final double amount;
   @override
-  final String? notes;
-// @Default(Currency.usd()) Currency currency,
+  @JsonKey()
+  final String notes;
+  @override
+  @JsonKey()
+  final Currency currency;
   @override
   final TransactionTypeEnum transactionType;
   @override
@@ -265,7 +296,7 @@ class _$TransactionImpl extends _Transaction {
 
   @override
   String toString() {
-    return 'Transaction(id: $id, user: $user, title: $title, amount: $amount, notes: $notes, transactionType: $transactionType, transactionDate: $transactionDate, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'Transaction(id: $id, user: $user, title: $title, amount: $amount, notes: $notes, currency: $currency, transactionType: $transactionType, transactionDate: $transactionDate, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -278,6 +309,8 @@ class _$TransactionImpl extends _Transaction {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency) &&
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType) &&
             (identical(other.transactionDate, transactionDate) ||
@@ -292,8 +325,19 @@ class _$TransactionImpl extends _Transaction {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, user, title, amount, notes,
-      transactionType, transactionDate, createdAt, updatedAt, deletedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      user,
+      title,
+      amount,
+      notes,
+      currency,
+      transactionType,
+      transactionDate,
+      createdAt,
+      updatedAt,
+      deletedAt);
 
   /// Create a copy of Transaction
   /// with the given fields replaced by the non-null parameter values.
@@ -317,7 +361,8 @@ abstract class _Transaction extends Transaction {
       required final String user,
       required final String title,
       required final double amount,
-      final String? notes,
+      final String notes,
+      final Currency currency,
       required final TransactionTypeEnum transactionType,
       required final DateTime transactionDate,
       required final DateTime createdAt,
@@ -337,7 +382,9 @@ abstract class _Transaction extends Transaction {
   @override
   double get amount;
   @override
-  String? get notes; // @Default(Currency.usd()) Currency currency,
+  String get notes;
+  @override
+  Currency get currency;
   @override
   TransactionTypeEnum get transactionType;
   @override
