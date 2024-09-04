@@ -1,11 +1,11 @@
 import 'package:apps/core/app.bloc_observer.dart';
-import 'package:apps/data/transaction_data.dart';
 import 'package:apps/transactions_module/blocs/transactions_bloc.dart';
-import 'package:apps/transactions_module/events/transactions_events.dart';
+import 'package:apps/transactions_module/events/transactions_event.dart';
 import 'package:apps/transactions_module/pages/grouped_transactions_list_view.dart';
 import 'package:apps/transactions_module/pages/transaction_form.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/states/transactions_state.dart';
+import 'package:apps/transactions_module/transaction_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

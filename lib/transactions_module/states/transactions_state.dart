@@ -13,9 +13,9 @@ sealed class TransactionsState with _$TransactionsState {
   }) = _TransactionState;
 
   factory TransactionsState.initial() {
-    return TransactionsState(
+    return const TransactionsState(
       message: null,
-      transactions: [Transaction.nullTransaction],
+      transactions: [],
     );
   }
 

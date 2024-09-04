@@ -9,13 +9,7 @@ class TransactionRepository {
 
   /// Get all transactions
   Future<List<Transaction>> getAllTransactions() async {
-    final List<Transaction> transactions = [];
-
-    await for (final transactionsFromAPI in _transactionAPI.getTransactions()) {
-      transactions.addAll(transactionsFromAPI);
-    }
-
-    return transactions;
+    return await _transactionAPI.getTransactions();
   }
 
   /// Group transactions by month

@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:apps/core/data.dart';
 import 'package:apps/core/models/currency.dart';
-import 'package:apps/data/data.dart';
 import 'package:apps/database/local_db.dart';
 import 'package:apps/transactions_module/enums/transaction_type_enum.dart';
 import 'package:apps/transactions_module/interfaces/transactions_api.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
 import 'package:apps/user-module/models/user.dart';
+import 'package:apps/user-module/user_data.dart';
 import 'package:drift/drift.dart';
 import 'package:faker_dart/faker_dart.dart';
 
@@ -14,24 +15,23 @@ class TransactionData extends Data implements TransactionAPI {
   @override
   final bool mockData;
 
-  final database = LocalDB();
-
   TransactionData({this.mockData = false});
 
   @override
-  Stream<List<Transaction>> getTransactions() async* {
+  Future<List<Transaction>> getTransactions() async {
+    late List<Transaction> transactions;
+
     if (mockData) {
-      final transactions = await _getSampleData();
-      yield transactions;
+      transactions = await _getSampleData();
     } else {
-      final transactions =
-          await database.select(database.transactionTable).get();
-      yield transactions;
+      transactions = await database.select(database.transactionTable).get();
     }
+
+    return transactions;
   }
 
   @override
-  Stream<void> createTransaction(Transaction transaction) {
+  Future<void> createTransaction(Transaction transaction) async {
     database.transaction(() async {
       await database
           .into(database.transactionTable)
@@ -44,24 +44,22 @@ class TransactionData extends Data implements TransactionAPI {
             transactionDate: Value(transaction.transactionDate),
           ));
     });
-
-    return Stream.value(null);
   }
 
   @override
-  Stream<void> deleteTransaction(Transaction transaction) {
+  Future<void> deleteTransaction(Transaction transaction) {
     // TODO: implement deleteTransaction
     throw UnimplementedError();
   }
 
   @override
-  Stream<Transaction> getTransaction() {
+  Future<Transaction> getTransaction() {
     // TODO: implement getTransaction
     throw UnimplementedError();
   }
 
   @override
-  Stream<Transaction> updateTransaction(Transaction transaction) {
+  Future<Transaction> updateTransaction(Transaction transaction) {
     // TODO: implement updateTransaction
     throw UnimplementedError();
   }
@@ -69,9 +67,10 @@ class TransactionData extends Data implements TransactionAPI {
   _getSampleData([int? total]) async {
     final faker = Faker.instance;
     total ??= faker.datatype.number(min: 1, max: 100);
+    final User sampleUser = await (UserData(mockData: true)).getUser();
 
     return List.generate(total, (ignored) {
-      final user = (User.getSampleData(1)).first;
+      final user = sampleUser;
       final title = faker.commerce.productName();
       final amount = faker.datatype.number(min: 1, max: 10000).toDouble();
       final transactionType = TransactionTypeEnum

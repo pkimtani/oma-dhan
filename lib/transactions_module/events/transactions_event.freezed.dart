@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'transactions_events.dart';
+part of 'transactions_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TransactionsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() error,
+    required TResult Function(String? message) error,
     required TResult Function() loadAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? error,
+    TResult? Function(String? message)? error,
     TResult? Function()? loadAll,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? error,
+    TResult Function(String? message)? error,
     TResult Function()? loadAll,
     required TResult orElse(),
   }) =>
@@ -83,6 +83,8 @@ abstract class _$$ErrorLoadingTransactionsEventImplCopyWith<$Res> {
           _$ErrorLoadingTransactionsEventImpl value,
           $Res Function(_$ErrorLoadingTransactionsEventImpl) then) =
       __$$ErrorLoadingTransactionsEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -97,56 +99,82 @@ class __$$ErrorLoadingTransactionsEventImplCopyWithImpl<$Res>
 
   /// Create a copy of TransactionsEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_$ErrorLoadingTransactionsEventImpl(
+      freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ErrorLoadingTransactionsEventImpl
     extends ErrorLoadingTransactionsEvent {
-  const _$ErrorLoadingTransactionsEventImpl() : super._();
+  const _$ErrorLoadingTransactionsEventImpl(this.message) : super._();
+
+  @override
+  final String? message;
 
   @override
   String toString() {
-    return 'TransactionsEvent.error()';
+    return 'TransactionsEvent.error(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorLoadingTransactionsEventImpl);
+            other is _$ErrorLoadingTransactionsEventImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of TransactionsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorLoadingTransactionsEventImplCopyWith<
+          _$ErrorLoadingTransactionsEventImpl>
+      get copyWith => __$$ErrorLoadingTransactionsEventImplCopyWithImpl<
+          _$ErrorLoadingTransactionsEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() error,
+    required TResult Function(String? message) error,
     required TResult Function() loadAll,
   }) {
-    return error();
+    return error(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? error,
+    TResult? Function(String? message)? error,
     TResult? Function()? loadAll,
   }) {
-    return error?.call();
+    return error?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? error,
+    TResult Function(String? message)? error,
     TResult Function()? loadAll,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(message);
     }
     return orElse();
   }
@@ -184,9 +212,18 @@ class _$ErrorLoadingTransactionsEventImpl
 }
 
 abstract class ErrorLoadingTransactionsEvent extends TransactionsEvent {
-  const factory ErrorLoadingTransactionsEvent() =
+  const factory ErrorLoadingTransactionsEvent(final String? message) =
       _$ErrorLoadingTransactionsEventImpl;
   const ErrorLoadingTransactionsEvent._() : super._();
+
+  String? get message;
+
+  /// Create a copy of TransactionsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ErrorLoadingTransactionsEventImplCopyWith<
+          _$ErrorLoadingTransactionsEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -234,7 +271,7 @@ class _$LoadAllTransactionsEventImpl extends LoadAllTransactionsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() error,
+    required TResult Function(String? message) error,
     required TResult Function() loadAll,
   }) {
     return loadAll();
@@ -243,7 +280,7 @@ class _$LoadAllTransactionsEventImpl extends LoadAllTransactionsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? error,
+    TResult? Function(String? message)? error,
     TResult? Function()? loadAll,
   }) {
     return loadAll?.call();
@@ -252,7 +289,7 @@ class _$LoadAllTransactionsEventImpl extends LoadAllTransactionsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? error,
+    TResult Function(String? message)? error,
     TResult Function()? loadAll,
     required TResult orElse(),
   }) {
