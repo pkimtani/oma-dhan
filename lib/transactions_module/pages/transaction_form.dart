@@ -1,10 +1,11 @@
-import 'package:apps/database/database_cubit.dart';
 import 'package:apps/transactions_module/blocs/transaction_form_bloc.dart';
 import 'package:apps/transactions_module/events/transaction_form_event.dart';
 import 'package:apps/transactions_module/states/transaction_form_state.dart';
 import 'package:apps/user-module/blocs/users_block.dart';
 import 'package:apps/user-module/events/users_event.dart';
+import 'package:apps/user-module/models/user.dart';
 import 'package:apps/user-module/repositories/user_repository.dart';
+import 'package:apps/user-module/states/users_state.dart';
 import 'package:apps/user-module/user_data.dart';
 import 'package:apps/widgets/picker_form_row.dart';
 import 'package:apps/widgets/text_field_form_row.dart';
@@ -16,74 +17,73 @@ class AddNewTransaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final databaseCubit = context.read<DatabaseCubit>();
+    // final databaseCubit = context.read<DatabaseCubit>();
 
-    return RepositoryProvider<UserRepository>(
-      create: (context) => UserRepository(
-          userApi: UserData(mockData: true, database: databaseCubit.state)),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<TransactionFormBloc>(
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text('Add New Transaction'),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min, // Adjust to fit content size
+          children: [
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Row(
+                children: <Widget>[
+                  Icon(CupertinoIcons.check_mark, size: 20),
+                  SizedBox(width: 5), // Space between text and icon
+                  Text('Save'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          // Transaction Form Bloc
+          RepositoryProvider(
             create: (context) =>
-                TransactionFormBloc()..add(const TransactionFormEvent.init()),
-          ),
-          BlocProvider<UsersBloc>(
-            create: (context) => UsersBloc(
-              userRepository: context.read<UserRepository>(),
-            )..add(const UsersEvent.loadAll()),
-          ),
-        ],
-        child: CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: const Text('Add New Transaction'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min, // Adjust to fit content size
-              children: [
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Row(
-                    children: <Widget>[
-                      Icon(CupertinoIcons.check_mark, size: 20),
-                      SizedBox(width: 5), // Space between text and icon
-                      Text('Save'),
-                    ],
-                  ),
+                UserRepository(userApi: UserData(mockData: true)),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider<TransactionFormBloc>(
+                  create: (context) => TransactionFormBloc()
+                    ..add(const TransactionFormEvent.init()),
+                ),
+                BlocProvider<UsersBloc>(
+                  create: (context) => UsersBloc(
+                    userRepository: context.read<UserRepository>(),
+                  )..add(const UsersEvent.loadAll()),
                 ),
               ],
-            ),
-          ),
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-              ),
-              // Transaction Form Bloc
-              BlocBuilder<TransactionFormBloc, TransactionFormState>(
+              child: BlocBuilder<TransactionFormBloc, TransactionFormState>(
                 builder: (context, state) {
                   // Users Bloc
-                  return BlocBuilder(builder: (context, state) {
+                  return BlocBuilder<UsersBloc, UsersState>(
+                      builder: (context, state) {
                     final transactionFormBloc =
                         context.read<TransactionFormBloc>();
-                    // final usersBloc = context.read<UsersBloc>();
+                    final usersBloc = context.read<UsersBloc>();
 
                     return CupertinoFormSection.insetGrouped(
                       children: [
                         PickerFormRow(
-                          // users: usersBloc.state.users ?? [],
-                          users: const [],
+                          users: usersBloc.state.users ?? [],
                           selectedUser: transactionFormBloc.state.user,
                           onSelectedUserChanged: (selectUserIndex) {
-                            print(selectUserIndex);
-                            // final User selectedUser =
-                            //     usersBloc.state.users![selectUserIndex];
-                            // transactionFormBloc.add(
-                            //   TransactionFormEvent.userChanged(
-                            //     selectedUser,
-                            //   ),
-                            // );
+                            final User selectedUser =
+                                usersBloc.state.users![selectUserIndex];
+                            transactionFormBloc.add(
+                              TransactionFormEvent.userChanged(
+                                selectedUser,
+                              ),
+                            );
                           },
                         ),
 
@@ -192,9 +192,9 @@ class AddNewTransaction extends StatelessWidget {
                   });
                 },
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
