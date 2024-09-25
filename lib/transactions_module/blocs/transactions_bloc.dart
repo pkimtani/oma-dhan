@@ -7,7 +7,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final TransactionRepository transactionRepository;
 
   TransactionsBloc({required this.transactionRepository})
-      : super(TransactionsState.initial()) {
+      : super(const TransactionsState.initial()) {
     on<TransactionsEvent>(
       (event, emit) => event.map(
         loadAll: (event) => _loadTransactions(event, emit),
@@ -23,7 +23,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       final transactions = await transactionRepository.getAllTransactions();
 
       if (transactions.isEmpty) {
-        emit(TransactionsState.initial());
+        emit(const TransactionsState.initial());
         return;
       }
 

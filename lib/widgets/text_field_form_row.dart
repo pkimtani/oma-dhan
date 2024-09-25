@@ -24,7 +24,8 @@ class TextFieldFormRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoFormRow(
       error: errorMessage != null ? Text(errorMessage!) : null,
-      helper: helperText != null ? Text(helperText!) : null,
+      helper:
+          helperText != null && errorMessage == null ? Text(helperText!) : null,
       child: Row(
         children: <Widget>[
           Icon(icon, size: 20),

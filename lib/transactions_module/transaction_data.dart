@@ -15,7 +15,10 @@ class TransactionData extends Data implements TransactionAPI {
   @override
   final bool mockData;
 
-  TransactionData({this.mockData = false});
+  @override
+  final LocalDB? database;
+
+  TransactionData({this.mockData = false, this.database});
 
   @override
   Future<List<Transaction>> getTransactions() async {
@@ -23,8 +26,8 @@ class TransactionData extends Data implements TransactionAPI {
 
     if (mockData) {
       transactions = await _getSampleData();
-    } else {
-      transactions = await database.select(database.transactionTable).get();
+    } else if (database != null) {
+      transactions = await database!.select(database!.transactionTable).get();
     }
 
     return transactions;
@@ -32,18 +35,20 @@ class TransactionData extends Data implements TransactionAPI {
 
   @override
   Future<void> createTransaction(Transaction transaction) async {
-    database.transaction(() async {
-      await database
-          .into(database.transactionTable)
-          .insert(TransactionTableCompanion(
-            title: Value(transaction.title),
-            amount: Value(transaction.amount),
-            notes: Value(transaction.notes),
-            transactionType: Value(transaction.transactionType),
-            currency: Value(transaction.currency),
-            transactionDate: Value(transaction.transactionDate),
-          ));
-    });
+    if (database == null) {
+      database!.transaction(() async {
+        await database!
+            .into(database!.transactionTable)
+            .insert(TransactionTableCompanion(
+              title: Value(transaction.title),
+              amount: Value(transaction.amount),
+              notes: Value(transaction.notes),
+              transactionType: Value(transaction.transactionType),
+              currency: Value(transaction.currency),
+              transactionDate: Value(transaction.transactionDate),
+            ));
+      });
+    }
   }
 
   @override
@@ -67,7 +72,8 @@ class TransactionData extends Data implements TransactionAPI {
   _getSampleData([int? total]) async {
     final faker = Faker.instance;
     total ??= faker.datatype.number(min: 1, max: 100);
-    final User sampleUser = await (UserData(mockData: true)).getUser();
+    final User sampleUser =
+        await (UserData(mockData: true, database: null)).getUser();
 
     return List.generate(total, (ignored) {
       final user = sampleUser;

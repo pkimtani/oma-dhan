@@ -5,38 +5,17 @@ part 'transactions_state.freezed.dart';
 
 @freezed
 sealed class TransactionsState with _$TransactionsState {
-  const TransactionsState._();
-
   const factory TransactionsState({
     String? message,
     List<Transaction>? transactions,
   }) = _TransactionState;
 
-  factory TransactionsState.initial() {
-    return const TransactionsState(
-      message: null,
-      transactions: [],
-    );
-  }
+  const factory TransactionsState.initial() = Initial;
 
-  factory TransactionsState.fetching() {
-    return const TransactionsState(
-      message: null,
-      transactions: null,
-    );
-  }
+  const factory TransactionsState.fetching() = Fetching;
 
-  factory TransactionsState.fetchSuccess(List<Transaction> transactions) {
-    return TransactionsState(
-      message: null,
-      transactions: transactions,
-    );
-  }
+  const factory TransactionsState.fetchSuccess(List<Transaction> transactions) =
+      FetchSuccess;
 
-  factory TransactionsState.fetchError(String message) {
-    return TransactionsState(
-      message: message,
-      transactions: null,
-    );
-  }
+  const factory TransactionsState.fetchError(String message) = FetchError;
 }

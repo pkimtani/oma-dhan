@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:apps/core/data.dart';
+import 'package:apps/database/local_db.dart';
 import 'package:apps/user-module/interfaces/user_api.dart';
 import 'package:apps/user-module/models/user.dart';
 import 'package:apps/user-module/models/user_type.dart';
@@ -10,7 +11,10 @@ class UserData extends Data implements UserAPI {
   @override
   final bool mockData;
 
-  UserData({this.mockData = false});
+  @override
+  final LocalDB? database;
+
+  UserData({this.mockData = false, this.database});
 
   @override
   Future<void> createUser(User user) {
@@ -42,8 +46,10 @@ class UserData extends Data implements UserAPI {
     late List<User> users;
     if (mockData) {
       users = _getSampleData();
+    } else if (database != null) {
+      users = await database!.select(database!.userTable).get();
     } else {
-      users = await database.select(database.userTable).get();
+      users = [];
     }
 
     return users;
