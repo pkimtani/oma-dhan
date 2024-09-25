@@ -75,6 +75,19 @@ class AddNewTransaction extends StatelessWidget {
                       children: [
                         PickerFormRow(
                           users: usersBloc.state.users ?? [],
+                          errorMessage: () {
+                            switch (transactionFormBloc
+                                .state.transactionFormState) {
+                              case TransactionFormStates.initial:
+                                return '';
+                              case TransactionFormStates.editing:
+                                return state.users?.length == 1
+                                    ? ''
+                                    : 'Incorrect or no user selected';
+                              default:
+                                return '';
+                            }
+                          }(),
                           selectedUser: transactionFormBloc.state.user,
                           onSelectedUserChanged: (selectUserIndex) {
                             final User selectedUser =

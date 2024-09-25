@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransactionFormBloc
     extends Bloc<TransactionFormEvent, TransactionFormState> {
-  TransactionFormBloc() : super(TransactionFormState.initial()) {
+  TransactionFormBloc()
+      : super(const TransactionFormState(
+            transactionFormState: TransactionFormStates.initial)) {
     on<TransactionFormEvent>(
       (event, emit) => event.map(
         init: (event) => _initAddTransactionForm(event, emit),
@@ -23,26 +25,37 @@ class TransactionFormBloc
 
   Future<void> _initAddTransactionForm(
       TransactionFormEvent event, Emitter<TransactionFormState> emit) async {
-    emit(TransactionFormState.initial());
+    emit(state.copyWith(transactionFormState: TransactionFormStates.initial));
   }
 
   Future<void> _formChanged(
       TransactionFormEvent event, Emitter<TransactionFormState> emit) async {
     switch (event) {
       case UserChangedTransactionEvent(:final user):
-        emit(TransactionFormState.editing(state.copyWith(user: user)));
+        emit(state.copyWith(
+          transactionFormState: TransactionFormStates.editing,
+          user: user,
+        ));
         break;
       case TitleChangedTransactionEvent(:final title):
-        emit(TransactionFormState.editing(
-            state.copyWith(title: FormFieldValue.requiredText(title))));
+        emit(state.copyWith(
+          transactionFormState: TransactionFormStates.editing,
+          title: FormFieldValue.requiredText(title),
+        ));
         break;
       case NotesChangedTransactionEvent(:final notes):
-        emit(TransactionFormState.editing(
-            state.copyWith(notes: FormFieldValue.text(notes))));
+        emit(state.copyWith(
+          transactionFormState: TransactionFormStates.editing,
+          notes: FormFieldValue.text(notes),
+        ));
         break;
       case AmountChangedTransactionEvent(:final amount):
-        emit(TransactionFormState.editing(
-            state.copyWith(amount: FormFieldValue.double(amount))));
+        emit(
+          state.copyWith(
+            transactionFormState: TransactionFormStates.editing,
+            amount: FormFieldValue.double(amount),
+          ),
+        );
         break;
       default:
         break;

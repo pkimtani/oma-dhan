@@ -18,11 +18,19 @@ part 'transaction_form_state.freezed.dart';
 /// Deleted - state when the form has deleted data
 /// DeleteError - state when the form has an error deleting data
 
+enum TransactionFormStates {
+  initial,
+  editing,
+  saving,
+  saved,
+  saveError,
+}
+
 @freezed
 class TransactionFormState with _$TransactionFormState {
-  const TransactionFormState._();
-
   const factory TransactionFormState({
+    @Default(TransactionFormStates.initial)
+    TransactionFormStates transactionFormState,
     FormFieldValue? title,
     FormFieldValue? notes,
     FormFieldValue? amount,
@@ -32,15 +40,20 @@ class TransactionFormState with _$TransactionFormState {
     String? deleteError,
   }) = _AddTransactionFormState;
 
-  factory TransactionFormState.initial() => const TransactionFormState();
-
-  factory TransactionFormState.editing(TransactionFormState transaction) =>
-      transaction;
-
-  factory TransactionFormState.saving() => const TransactionFormState();
-
-  factory TransactionFormState.saved() => const TransactionFormState();
-
-  factory TransactionFormState.saveError(TransactionFormState transaction) =>
-      transaction;
+  // factory TransactionFormState.initial() = TransactionFormStateInitial;
+  //
+  // factory TransactionFormState.editing({
+  //   FormFieldValue? title,
+  //   FormFieldValue? notes,
+  //   FormFieldValue? amount,
+  //   User? user,
+  // }) = TransactionFormStateEditing;
+  //
+  // factory TransactionFormState.saving() = TransactionFormStateSaving;
+  //
+  // factory TransactionFormState.saved() = TransactionFormStateSaved;
+  //
+  // factory TransactionFormState.saveError({
+  //   String? saveError,
+  // }) = TransactionFormStateSaveError;
 }

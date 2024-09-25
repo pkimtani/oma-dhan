@@ -16,6 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TransactionFormState {
+  TransactionFormStates get transactionFormState =>
+      throw _privateConstructorUsedError;
   FormFieldValue? get title => throw _privateConstructorUsedError;
   FormFieldValue? get notes => throw _privateConstructorUsedError;
   FormFieldValue? get amount => throw _privateConstructorUsedError;
@@ -38,7 +40,8 @@ abstract class $TransactionFormStateCopyWith<$Res> {
       _$TransactionFormStateCopyWithImpl<$Res, TransactionFormState>;
   @useResult
   $Res call(
-      {FormFieldValue? title,
+      {TransactionFormStates transactionFormState,
+      FormFieldValue? title,
       FormFieldValue? notes,
       FormFieldValue? amount,
       User? user,
@@ -65,6 +68,7 @@ class _$TransactionFormStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? transactionFormState = null,
     Object? title = freezed,
     Object? notes = freezed,
     Object? amount = freezed,
@@ -74,6 +78,10 @@ class _$TransactionFormStateCopyWithImpl<$Res,
     Object? deleteError = freezed,
   }) {
     return _then(_value.copyWith(
+      transactionFormState: null == transactionFormState
+          ? _value.transactionFormState
+          : transactionFormState // ignore: cast_nullable_to_non_nullable
+              as TransactionFormStates,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -130,7 +138,8 @@ abstract class _$$AddTransactionFormStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {FormFieldValue? title,
+      {TransactionFormStates transactionFormState,
+      FormFieldValue? title,
       FormFieldValue? notes,
       FormFieldValue? amount,
       User? user,
@@ -157,6 +166,7 @@ class __$$AddTransactionFormStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? transactionFormState = null,
     Object? title = freezed,
     Object? notes = freezed,
     Object? amount = freezed,
@@ -166,6 +176,10 @@ class __$$AddTransactionFormStateImplCopyWithImpl<$Res>
     Object? deleteError = freezed,
   }) {
     return _then(_$AddTransactionFormStateImpl(
+      transactionFormState: null == transactionFormState
+          ? _value.transactionFormState
+          : transactionFormState // ignore: cast_nullable_to_non_nullable
+              as TransactionFormStates,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -200,17 +214,20 @@ class __$$AddTransactionFormStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
+class _$AddTransactionFormStateImpl implements _AddTransactionFormState {
   const _$AddTransactionFormStateImpl(
-      {this.title,
+      {this.transactionFormState = TransactionFormStates.initial,
+      this.title,
       this.notes,
       this.amount,
       this.user,
       this.saveError,
       this.loadError,
-      this.deleteError})
-      : super._();
+      this.deleteError});
 
+  @override
+  @JsonKey()
+  final TransactionFormStates transactionFormState;
   @override
   final FormFieldValue? title;
   @override
@@ -228,7 +245,7 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
 
   @override
   String toString() {
-    return 'TransactionFormState(title: $title, notes: $notes, amount: $amount, user: $user, saveError: $saveError, loadError: $loadError, deleteError: $deleteError)';
+    return 'TransactionFormState(transactionFormState: $transactionFormState, title: $title, notes: $notes, amount: $amount, user: $user, saveError: $saveError, loadError: $loadError, deleteError: $deleteError)';
   }
 
   @override
@@ -236,6 +253,8 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddTransactionFormStateImpl &&
+            (identical(other.transactionFormState, transactionFormState) ||
+                other.transactionFormState == transactionFormState) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.amount, amount) || other.amount == amount) &&
@@ -249,8 +268,8 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, notes, amount, user,
-      saveError, loadError, deleteError);
+  int get hashCode => Object.hash(runtimeType, transactionFormState, title,
+      notes, amount, user, saveError, loadError, deleteError);
 
   /// Create a copy of TransactionFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -262,17 +281,19 @@ class _$AddTransactionFormStateImpl extends _AddTransactionFormState {
           _$AddTransactionFormStateImpl>(this, _$identity);
 }
 
-abstract class _AddTransactionFormState extends TransactionFormState {
+abstract class _AddTransactionFormState implements TransactionFormState {
   const factory _AddTransactionFormState(
-      {final FormFieldValue? title,
+      {final TransactionFormStates transactionFormState,
+      final FormFieldValue? title,
       final FormFieldValue? notes,
       final FormFieldValue? amount,
       final User? user,
       final String? saveError,
       final String? loadError,
       final String? deleteError}) = _$AddTransactionFormStateImpl;
-  const _AddTransactionFormState._() : super._();
 
+  @override
+  TransactionFormStates get transactionFormState;
   @override
   FormFieldValue? get title;
   @override
