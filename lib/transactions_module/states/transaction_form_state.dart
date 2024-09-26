@@ -1,4 +1,5 @@
 import 'package:apps/core/validators/form_field_value.dart';
+import 'package:apps/transactions_module/models/transaction.dart';
 import 'package:apps/user-module/models/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,7 +19,7 @@ part 'transaction_form_state.freezed.dart';
 /// Deleted - state when the form has deleted data
 /// DeleteError - state when the form has an error deleting data
 
-enum TransactionFormStates {
+enum TransactionFormStatus {
   initial,
   editing,
   saving,
@@ -26,34 +27,32 @@ enum TransactionFormStates {
   saveError,
 }
 
+extension TransactionFormStatusX on TransactionFormStatus {
+  bool get isSaving => [
+        TransactionFormStatus.saving,
+      ].contains(this);
+
+  bool get isSavedSuccessfully => [
+        TransactionFormStatus.saved,
+      ].contains(this);
+
+  bool get hasError => [
+        TransactionFormStatus.saveError,
+      ].contains(this);
+}
+
 @freezed
 class TransactionFormState with _$TransactionFormState {
   const factory TransactionFormState({
-    @Default(TransactionFormStates.initial)
-    TransactionFormStates transactionFormState,
-    FormFieldValue? title,
-    FormFieldValue? notes,
-    FormFieldValue? amount,
+    @Default(TransactionFormStatus.initial)
+    TransactionFormStatus transactionFormStatus,
+    @Default(FormFieldValue(value: null)) FormFieldValue title,
+    @Default(FormFieldValue(value: null)) FormFieldValue notes,
+    @Default(FormFieldValue(value: null)) FormFieldValue amount,
     User? user,
+    Transaction? transaction,
     String? saveError,
     String? loadError,
     String? deleteError,
   }) = _AddTransactionFormState;
-
-  // factory TransactionFormState.initial() = TransactionFormStateInitial;
-  //
-  // factory TransactionFormState.editing({
-  //   FormFieldValue? title,
-  //   FormFieldValue? notes,
-  //   FormFieldValue? amount,
-  //   User? user,
-  // }) = TransactionFormStateEditing;
-  //
-  // factory TransactionFormState.saving() = TransactionFormStateSaving;
-  //
-  // factory TransactionFormState.saved() = TransactionFormStateSaved;
-  //
-  // factory TransactionFormState.saveError({
-  //   String? saveError,
-  // }) = TransactionFormStateSaveError;
 }

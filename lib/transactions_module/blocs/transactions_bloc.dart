@@ -1,13 +1,16 @@
 import 'package:apps/transactions_module/events/transactions_event.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/states/transactions_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
-  final TransactionRepository transactionRepository;
+  final TransactionRepository _transactionRepository;
 
-  TransactionsBloc({required this.transactionRepository})
-      : super(const TransactionsState.initial()) {
+  TransactionsBloc({required TransactionRepository transactionRepository})
+      : _transactionRepository = transactionRepository,
+        super(const TransactionsState(
+            transactionStatus: TransactionsStatus.initial)) {
     on<TransactionsEvent>(
       (event, emit) => event.map(
         loadAll: (event) => _loadTransactions(event, emit),
@@ -20,22 +23,46 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Future<void> _loadTransactions(
       TransactionsEvent event, Emitter<TransactionsState> emit) async {
     try {
-      final transactions = await transactionRepository.getAllTransactions();
+      emit(state.copyWith(transactionStatus: TransactionsStatus.fetching));
 
-      if (transactions.isEmpty) {
-        emit(const TransactionsState.initial());
-        return;
-      }
+      await emit.forEach(
+        _transactionRepository.streamTransactions(),
+        onData: (transactions) {
+          if (transactions.isEmpty) {
+            return state.copyWith(
+              transactionStatus: TransactionsStatus.initial,
+              transactions: [],
+            );
+          }
+          print("(onDate) Stream is done: ${emit.isDone}");
+          return state.copyWith(
+            transactionStatus: TransactionsStatus.fetchedSuccessfully,
+            transactions: transactions,
+          );
+        },
+        onError: (e, s) {
+          if (kDebugMode) {
+            print('Error loading transactions: $e');
+          }
 
-      emit(TransactionsState.fetchSuccess(transactions));
+          print("(onError) Stream is done: ${emit.isDone}");
+
+          return state.copyWith(
+            transactionStatus: TransactionsStatus.fetchingFailed,
+            message: 'Error loading transaction(s)',
+          );
+        },
+      );
     } catch (e) {
-      emit(TransactionsState.fetchError(e.toString()));
+      add(const TransactionsEvent.error('Error loading transaction(s)'));
     }
   }
 
   void _errorLoadingTransactions(
       ErrorLoadingTransactionsEvent event, Emitter<TransactionsState> emit) {
-    emit(TransactionsState.fetchError(
-        event.message ?? 'Error loading transaction(s)'));
+    emit(state.copyWith(
+      transactionStatus: TransactionsStatus.fetchingFailed,
+      message: event.message ?? 'Error loading transaction(s)',
+    ));
   }
 }

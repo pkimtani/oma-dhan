@@ -3,19 +3,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transactions_state.freezed.dart';
 
+enum TransactionsStatus {
+  initial,
+  fetching,
+  fetchedSuccessfully,
+  fetchingFailed,
+}
+
 @freezed
 sealed class TransactionsState with _$TransactionsState {
   const factory TransactionsState({
+    @Default(TransactionsStatus.initial) TransactionsStatus transactionStatus,
     String? message,
-    List<Transaction>? transactions,
+    @Default([]) List<Transaction>? transactions,
   }) = _TransactionState;
-
-  const factory TransactionsState.initial() = Initial;
-
-  const factory TransactionsState.fetching() = Fetching;
-
-  const factory TransactionsState.fetchSuccess(List<Transaction> transactions) =
-      FetchSuccess;
-
-  const factory TransactionsState.fetchError(String message) = FetchError;
 }

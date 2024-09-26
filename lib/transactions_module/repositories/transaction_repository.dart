@@ -1,15 +1,36 @@
-import 'package:apps/transactions_module/interfaces/transactions_api.dart';
+import 'package:apps/database/local_db.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
+import 'package:drift/drift.dart';
+import 'package:rxdart/rxdart.dart';
 
 class TransactionRepository {
-  final TransactionAPI _transactionAPI;
+  final LocalDB _database;
+  final BehaviorSubject<List<Transaction>> _transactionsController =
+      BehaviorSubject.seeded([]);
 
-  TransactionRepository({required transactionAPI})
-      : _transactionAPI = transactionAPI;
+  TransactionRepository({required LocalDB database}) : _database = database {
+    _init();
+  }
 
-  /// Get all transactions
-  Future<List<Transaction>> getAllTransactions() async {
-    return await _transactionAPI.getTransactions();
+  Future<void> _init() async {
+    try {
+      final transactions = await _getAllTransactions();
+      _transactionsController.add(transactions);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Stream<List<Transaction>> streamTransactions() {
+    return _transactionsController.asBroadcastStream();
+  }
+
+  Future<List<Transaction>> _getAllTransactions() async {
+    try {
+      return await _database.select(_database.transactionTable).get();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   /// Group transactions by month
@@ -30,4 +51,32 @@ class TransactionRepository {
 
     return transactionsGroupedByMonth;
   }
+
+  /// Save a transaction
+  Future<void> createTransaction(NewTransaction transaction) async {
+    try {
+      await _database.transaction(() async {
+        await _database
+            .into(_database.transactionTable)
+            .insert(TransactionTableCompanion(
+              title: Value(transaction.title),
+              amount: Value(transaction.amount),
+              notes: Value.absentIfNull(transaction.notes),
+              user: Value(transaction.user),
+              transactionType: Value(transaction.transactionType),
+              currency: Value.absentIfNull(transaction.currency),
+              transactionDate: Value(transaction.transactionDate),
+            ));
+      });
+      final transactions = await _getAllTransactions();
+      _transactionsController.add(transactions);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// close the transactions controller
+  // void dispose() {
+  //   _transactionsController.close();
+  // }
 }

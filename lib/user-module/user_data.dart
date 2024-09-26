@@ -12,9 +12,9 @@ class UserData extends Data implements UserAPI {
   final bool mockData;
 
   @override
-  final LocalDB? database;
+  final LocalDB database;
 
-  UserData({this.mockData = false, this.database});
+  UserData({this.mockData = false, required this.database});
 
   @override
   Future<void> createUser(User user) {
@@ -46,10 +46,8 @@ class UserData extends Data implements UserAPI {
     late List<User> users;
     if (mockData) {
       users = _getSampleData();
-    } else if (database != null) {
-      users = await database!.select(database!.userTable).get();
     } else {
-      users = [];
+      users = await database.select(database.userTable).get();
     }
 
     return users;

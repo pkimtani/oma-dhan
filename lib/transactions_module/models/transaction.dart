@@ -16,7 +16,7 @@ class Transaction with _$Transaction {
     required String title,
     required double amount,
     @Default('') String notes,
-    @Default(Currency.usd()) Currency currency,
+    @Default(Currency.eur()) Currency currency,
     required TransactionTypeEnum transactionType,
     required DateTime transactionDate,
     required DateTime createdAt,
@@ -26,6 +26,20 @@ class Transaction with _$Transaction {
 
   factory Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);
+
+  factory Transaction.newTransaction({
+    String? id,
+    required String user,
+    required String title,
+    required double amount,
+    @Default('') String? notes,
+    @Default(Currency.eur()) Currency? currency,
+    required TransactionTypeEnum transactionType,
+    required DateTime transactionDate,
+    required DateTime createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
+  }) = NewTransaction;
 
   static get nullTransaction => Transaction(
         id: '',

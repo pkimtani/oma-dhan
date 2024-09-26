@@ -8,32 +8,30 @@ sealed class TransactionFormEvent with _$TransactionFormEvent {
   const TransactionFormEvent._();
 
   // initialize form
-  const factory TransactionFormEvent.init() = InitTransactionFormEvent;
+  const factory TransactionFormEvent.init() = TransactionFormInitEvent;
 
   // user change
   const factory TransactionFormEvent.userChanged(User user) =
-      UserChangedTransactionEvent;
+      TransactionFormUserChangedEvent;
 
   // update title field
   const factory TransactionFormEvent.titleChanged(String title) =
-      TitleChangedTransactionEvent;
+      TransactionFormTitleChangedEvent;
 
   // update notes field
   const factory TransactionFormEvent.notesChanged(String notes) =
-      NotesChangedTransactionEvent;
+      TransactionFormNotesChangedEvent;
 
   // update amount field
   const factory TransactionFormEvent.amountChanged(String amount) =
-      AmountChangedTransactionEvent;
+      TransactionFormAmountChangedEvent;
 
   // update date field
 
-  // submit transaction
-  const factory TransactionFormEvent.submitting() = SubmittingTransactionEvent;
+  // save transaction form
+  const factory TransactionFormEvent.save() = TransactionFormSaveEvent;
 
-  // submit success
-  const factory TransactionFormEvent.success() = SuccessSavingTransactionEvent;
-
-  // error saving transaction
-  const factory TransactionFormEvent.error() = ErrorSavingTransactionEvent;
+  // transaction form error
+  const factory TransactionFormEvent.saveError(String message) =
+      TransactionFormErrorOnSaveEvent;
 }

@@ -1,6 +1,6 @@
 import 'package:apps/core/app.bloc_observer.dart';
+import 'package:apps/core/pages/home_screen.dart';
 import 'package:apps/database/database_cubit.dart';
-import 'package:apps/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
