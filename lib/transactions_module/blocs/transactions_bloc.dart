@@ -26,7 +26,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       emit(state.copyWith(transactionStatus: TransactionsStatus.fetching));
 
       await emit.forEach(
-        _transactionRepository.streamTransactions(),
+        _transactionRepository.getTransactionsInStream(),
         onData: (transactions) {
           if (transactions.isEmpty) {
             return state.copyWith(
@@ -34,7 +34,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
               transactions: [],
             );
           }
-          print("(onDate) Stream is done: ${emit.isDone}");
+
           return state.copyWith(
             transactionStatus: TransactionsStatus.fetchedSuccessfully,
             transactions: transactions,
@@ -44,8 +44,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           if (kDebugMode) {
             print('Error loading transactions: $e');
           }
-
-          print("(onError) Stream is done: ${emit.isDone}");
 
           return state.copyWith(
             transactionStatus: TransactionsStatus.fetchingFailed,

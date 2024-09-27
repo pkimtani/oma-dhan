@@ -1,36 +1,14 @@
 import 'package:apps/database/local_db.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
 import 'package:drift/drift.dart';
-import 'package:rxdart/rxdart.dart';
 
 class TransactionRepository {
   final LocalDB _database;
-  final BehaviorSubject<List<Transaction>> _transactionsController =
-      BehaviorSubject.seeded([]);
 
-  TransactionRepository({required LocalDB database}) : _database = database {
-    _init();
-  }
+  TransactionRepository({required LocalDB database}) : _database = database;
 
-  Future<void> _init() async {
-    try {
-      final transactions = await _getAllTransactions();
-      _transactionsController.add(transactions);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Stream<List<Transaction>> streamTransactions() {
-    return _transactionsController.asBroadcastStream();
-  }
-
-  Future<List<Transaction>> _getAllTransactions() async {
-    try {
-      return await _database.select(_database.transactionTable).get();
-    } catch (e) {
-      rethrow;
-    }
+  Stream<List<Transaction>> getTransactionsInStream() async* {
+    yield* _database.select(_database.transactionTable).watch();
   }
 
   /// Group transactions by month
@@ -68,15 +46,8 @@ class TransactionRepository {
               transactionDate: Value(transaction.transactionDate),
             ));
       });
-      final transactions = await _getAllTransactions();
-      _transactionsController.add(transactions);
     } catch (e) {
       rethrow;
     }
   }
-
-  /// close the transactions controller
-  // void dispose() {
-  //   _transactionsController.close();
-  // }
 }
