@@ -116,8 +116,8 @@ class __$$ErrorLoadingTransactionsEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorLoadingTransactionsEventImpl
-    extends ErrorLoadingTransactionsEvent {
-  const _$ErrorLoadingTransactionsEventImpl(this.message) : super._();
+    implements ErrorLoadingTransactionsEvent {
+  const _$ErrorLoadingTransactionsEventImpl(this.message);
 
   @override
   final String? message;
@@ -211,10 +211,9 @@ class _$ErrorLoadingTransactionsEventImpl
   }
 }
 
-abstract class ErrorLoadingTransactionsEvent extends TransactionsEvent {
+abstract class ErrorLoadingTransactionsEvent implements TransactionsEvent {
   const factory ErrorLoadingTransactionsEvent(final String? message) =
       _$ErrorLoadingTransactionsEventImpl;
-  const ErrorLoadingTransactionsEvent._() : super._();
 
   String? get message;
 
@@ -250,8 +249,8 @@ class __$$LoadAllTransactionsEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadAllTransactionsEventImpl extends LoadAllTransactionsEvent {
-  const _$LoadAllTransactionsEventImpl() : super._();
+class _$LoadAllTransactionsEventImpl implements LoadAllTransactionsEvent {
+  const _$LoadAllTransactionsEventImpl();
 
   @override
   String toString() {
@@ -331,7 +330,6 @@ class _$LoadAllTransactionsEventImpl extends LoadAllTransactionsEvent {
   }
 }
 
-abstract class LoadAllTransactionsEvent extends TransactionsEvent {
+abstract class LoadAllTransactionsEvent implements TransactionsEvent {
   const factory LoadAllTransactionsEvent() = _$LoadAllTransactionsEventImpl;
-  const LoadAllTransactionsEvent._() : super._();
 }

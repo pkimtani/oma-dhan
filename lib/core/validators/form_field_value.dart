@@ -4,7 +4,7 @@ class FormFieldValue {
   final String? value;
   final String? error;
 
-  FormFieldValue({
+  const FormFieldValue({
     this.value,
     this.error,
   });

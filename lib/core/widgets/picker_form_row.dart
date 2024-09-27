@@ -5,11 +5,15 @@ class PickerFormRow extends StatelessWidget {
   final List<User> users;
   final User? selectedUser;
   final ValueChanged<int> onSelectedUserChanged;
+  final String errorMessage;
+  final String helperText;
 
   const PickerFormRow({
     super.key,
     required this.users,
     required this.onSelectedUserChanged,
+    this.errorMessage = 'Incorrect option picked',
+    this.helperText = 'Select an option',
     this.selectedUser,
   });
 
@@ -38,8 +42,8 @@ class PickerFormRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoFormRow(
-      error: const Text('Incorrect user'),
-      helper: const Text('Select a user'),
+      error: Text(errorMessage),
+      helper: Text(helperText),
       child: Row(
         children: [
           const Icon(CupertinoIcons.person, size: 20),

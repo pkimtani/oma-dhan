@@ -10,6 +10,9 @@ class TransactionTable extends Table {
   @override
   String get tableName => 'transaction';
 
+  @override
+  Set<Column> get primaryKey => {id};
+
   TextColumn get id => text().clientDefault(() => const Uuid().v8())();
   TextColumn get user => text().references(UserTable, #id)();
   TextColumn get title => text().withLength(min: 1, max: 50)();
