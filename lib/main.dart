@@ -1,6 +1,9 @@
 import 'package:apps/core/app.bloc_observer.dart';
 import 'package:apps/core/pages/home_screen.dart';
 import 'package:apps/database/database_cubit.dart';
+import 'package:apps/transactions_module/blocs/transactions_bloc.dart';
+import 'package:apps/transactions_module/events/transactions_event.dart';
+import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,9 +26,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return CupertinoApp(
       title: appTitle,
-      theme: CupertinoThemeData(
+      theme: const CupertinoThemeData(
         brightness: Brightness.dark,
         primaryColor: CupertinoColors.systemBlue,
         barBackgroundColor: CupertinoColors.black,
@@ -35,7 +38,20 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: SafeArea(
-        child: HomeScreen(title: appTitle),
+        child: RepositoryProvider(
+          create: (BuildContext context) {
+            final database = context.read<DatabaseCubit>();
+            return TransactionRepository(
+              database: database.state,
+            );
+          },
+          child: BlocProvider(
+            create: (BuildContext context) => TransactionsBloc(
+              transactionRepository: context.read<TransactionRepository>(),
+            )..add(const TransactionsEvent.loadAll()),
+            child: const HomeScreen(title: appTitle),
+          ),
+        ),
       ),
     );
   }

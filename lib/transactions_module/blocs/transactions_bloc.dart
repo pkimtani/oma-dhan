@@ -55,6 +55,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       );
     } catch (e) {
       add(const TransactionsEvent.error('Error loading transaction(s)'));
+      rethrow;
     }
   }
 
