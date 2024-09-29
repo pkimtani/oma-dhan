@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "431468570677",
+    "project_id": "oma-dhan",
+    "storage_bucket": "oma-dhan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431468570677:android:a68fce7b8c833425ff697c",
+        "android_client_info": {
+          "package_name": "com.omadhan.apps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJYNY0tooJ11RQsRX5Dxv-ng9FF4F7CLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
