@@ -59,6 +59,7 @@ dev_dependencies:
   drift_dev: ^2.20.1
   freezed: ^2.5.7
   json_serializable: ^6.8.0
+  melos: ^6.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
