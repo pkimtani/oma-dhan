@@ -22,10 +22,16 @@ to_upper_camel_case() {
 }
 
 
-# Check if the --module_directory is given
+############################
+# Main script
+#
+# TODO:
+# - Add support for log levels with -v(debug) -vv(verbose) flags
+# - Add support to convert "-" to "_" when creating files
+############################
 MODULE_NAME=""
 BLOC_NAME=""
-PACKAGE_NAME="lib"
+PACKAGE_NAME="apps" # default package's name is "apps"
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -58,8 +64,6 @@ while [ "$#" -gt 0 ]; do
     esac
 done
 
-echo "Creating bloc: $BLOC_NAME in module: $MODULE_NAME for package: $PACKAGE_NAME"
-
 if [ -z "$MODULE_NAME" ]; then
     echo "Please specify the module where the bloc will be created"
     echo "Check usage with --help command"
@@ -72,56 +76,67 @@ if [ -z "$BLOC_NAME" ]; then
     exit 1
 fi
 
-# set $PACKAGE_NAME to "packages/$PACKAGE_NAME" if it is not "lib"
-LIB_DIR="$PACKAGE_NAME"
-PACKAGE_DIR="$PACKAGE_NAME"
-if [ "$PACKAGE_NAME" != "lib" ]; then
+BLOC_NAME_UPPER=$(to_upper_camel_case "$BLOC_NAME")
+
+echo "Creating bloc: $BLOC_NAME_UPPER in module: $MODULE_NAME for package: $PACKAGE_NAME"
+
+LIB_DIR="lib"
+PACKAGE_DIR="/"
+MODULE_DIR="$LIB_DIR/$MODULE_NAME"
+STATES_DIR_NAME="states"
+EVENTS_DIR_NAME="events"
+BLOCS_DIR_NAME="blocs"
+STATES_DIR="$MODULE_DIR/$STATES_DIR_NAME"
+EVENTS_DIR="$MODULE_DIR/$EVENTS_DIR_NAME"
+BLOCS_DIR="$MODULE_DIR/$BLOCS_DIR_NAME"
+
+# set $PACKAGE_NAME to "packages/$PACKAGE_NAME" if it is not "apps"
+if [ "$PACKAGE_NAME" != "apps" ]; then
     PACKAGE_DIR="packages/$PACKAGE_NAME"
     LIB_DIR="$PACKAGE_DIR/lib"
 fi
 
-MODULE_DIR="$LIB_DIR/$MODULE_DIR"
-BLOC_DIR="$MODULE_DIR/bloc"
-STATE_DIR="$MODULE_DIR/state"
-EVENT_DIR="$MODULE_DIR/event"
-
+# check if the package exists
 if [ ! -d "$PACKAGE_DIR" ]; then
     echo "Package not found: $PACKAGE_DIR"
     exit 1
 fi
 
+# check if the lib exists
 if [ ! -d "$LIB_DIR" ]; then
     echo "lib directory for $PACKAGE_NAME not found"
     exit 1
 fi
 
+# check if the module exists
 if [ ! -d "$MODULE_DIR" ]; then
     echo "Module not found: $MODULE_DIR"
     exit 1
 fi
 
-if [ ! -d "$BLOC_DIR" ]; then
-    echo "Creating bloc directory $BLOC_DIR"
-    mkdir -p "$BLOC_DIR"
+# create bloc directory if it does not exists
+if [ ! -d "$BLOCS_DIR" ]; then
+    echo "Creating bloc directory $BLOCS_DIR"
+    mkdir -p "$BLOCS_DIR"
 fi
 
-if [ ! -d "$STATE_DIR" ]; then
-    echo "Creating state directory $STATE_DIR"
-    mkdir -p "$STATE_DIR"
+# create states directory if it does not exists
+if [ ! -d "$STATES_DIR" ]; then
+    echo "Creating state directory $STATES_DIR"
+    mkdir -p "$STATES_DIR"
 fi
 
-if [ ! -d "$EVENT_DIR" ]; then
-    echo "Creating event directory $EVENT_DIR"
-    mkdir -p "$EVENT_DIR"
+# create events directory if it does not exists
+if [ ! -d "$EVENTS_DIR" ]; then
+    echo "Creating event directory $EVENTS_DIR"
+    mkdir -p "$EVENTS_DIR"
 fi
-
-BLOC_NAME_UPPER=$(to_upper_camel_case "$BLOC_NAME")
 
 # create state file, if not exists
 # and populate it with the boilerplate code
 # UpperCamelCase for bloc name
-if [ ! -f "$STATE_DIR/${BLOC_NAME}_state.dart" ]; then
-    echo "Creating ${BLOC_NAME}_state.dart with bloc name $BLOC_NAME_UPPER"
+if [ ! -f "$STATES_DIR/${BLOC_NAME}_state.dart" ]; then
+    echo "Creating ${BLOC_NAME}_state.dart in $STATES_DIR"
     {
       echo "import 'package:freezed_annotation/freezed_annotation.dart';"
       echo ""
@@ -129,16 +144,15 @@ if [ ! -f "$STATE_DIR/${BLOC_NAME}_state.dart" ]; then
       echo ""
       echo "@freezed"
       echo "class ${BLOC_NAME_UPPER}State with _\$${BLOC_NAME_UPPER}State {"
-      echo "  const factory ${BLOC_NAME_UPPER}State({"
-      echo "  }) = _${BLOC_NAME_UPPER}State;"
+      echo "  const factory ${BLOC_NAME_UPPER}State() = _${BLOC_NAME_UPPER}State;"
       echo "}"
-    } >> "$STATE_DIR/${BLOC_NAME}_state.dart"
+    } >> "$STATES_DIR/${BLOC_NAME}_state.dart"
 fi
 
 # create event file, if not exists
 # and populate it with the boilerplate code
-if [ ! -f "$EVENT_DIR/${BLOC_NAME}_event.dart" ]; then
-    echo "Creating ${BLOC_NAME}_event.dart"
+if [ ! -f "$EVENTS_DIR/${BLOC_NAME}_event.dart" ]; then
+    echo "Creating ${BLOC_NAME}_event.dart in $EVENTS_DIR"
     {
       echo "import 'package:freezed_annotation/freezed_annotation.dart';"
       echo ""
@@ -146,20 +160,19 @@ if [ ! -f "$EVENT_DIR/${BLOC_NAME}_event.dart" ]; then
       echo ""
       echo "@freezed"
       echo "class ${BLOC_NAME_UPPER}Event with _\$${BLOC_NAME_UPPER}Event {"
-      echo "  const factory ${BLOC_NAME_UPPER}Event({"
-      echo "  }) = _${BLOC_NAME_UPPER}Event;"
+      echo "  const factory ${BLOC_NAME_UPPER}Event() = _${BLOC_NAME_UPPER}Event;"
       echo "}"
-    } >> "$EVENT_DIR/${BLOC_NAME}_event.dart"
+    } >> "$EVENTS_DIR/${BLOC_NAME}_event.dart"
 fi
 
 # create bloc file, if not exists
 # and populate it with the boilerplate code
-if [ ! -f "$BLOC_DIR/${BLOC_NAME}_bloc.dart" ]; then
-    echo "Creating ${BLOC_NAME}_bloc.dart"
+if [ ! -f "${BLOCS_DIR}/${BLOC_NAME}_bloc.dart" ]; then
+    echo "Creating ${BLOC_NAME}_bloc.dart in ${BLOCS_DIR}"
     {
       echo "import 'package:flutter_bloc/flutter_bloc.dart';"
-      echo "import 'package:$PACKAGE_NAME/$MODULE_NAME/event/${BLOC_NAME}_event.dart';"
-      echo "import 'package:$PACKAGE_NAME/$MODULE_NAME/state/${BLOC_NAME}_state.dart';"
+      echo "import 'package:$PACKAGE_NAME/$MODULE_NAME/$EVENTS_DIR_NAME/${BLOC_NAME}_event.dart';"
+      echo "import 'package:$PACKAGE_NAME/$MODULE_NAME/$STATES_DIR_NAME/${BLOC_NAME}_state.dart';"
       echo ""
       echo "part '${BLOC_NAME}_bloc.freezed.dart';"
       echo ""
@@ -167,8 +180,8 @@ if [ ! -f "$BLOC_DIR/${BLOC_NAME}_bloc.dart" ]; then
       echo "  ${BLOC_NAME_UPPER}Bloc() : super(const ${BLOC_NAME_UPPER}State());"
       echo ""
       echo "}"
-    } >> "$BLOC_DIR/${BLOC_NAME}_bloc.dart"
+    } >> "${BLOCS_DIR}/${BLOC_NAME}_bloc.dart"
 fi
 
-#echo "Created bloc: $("$BLOC_NAME" | sed -E 's/(^| )(\w)/\U\2/g') in $MODULE_DIR";
-echo "Created bloc: $(to_upper_camel_case "$BLOC_NAME") in $MODULE_DIR";
+echo "Done.";
+echo "Remember to run the build_runner";
