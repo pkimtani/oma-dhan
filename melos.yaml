@@ -56,3 +56,7 @@ scripts:
       failFast: true
     packageFilters:
       scope: 'authentication'
+
+  create-bloc:
+    description: Create files and directories for a new bloc and populate with boilerplate code. Provide --help for usage.
+    run: $MELOS_ROOT_PATH/scripts/create-bloc.sh
