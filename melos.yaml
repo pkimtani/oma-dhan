@@ -56,3 +56,7 @@ scripts:
       failFast: true
     packageFilters:
       scope: 'authentication'
+
+  create-bloc:
+    description: Create a new bloc. Provide --module_directory and --bloc_name as arguments
+    run: $MELOS_ROOT_PATH/scripts/create-bloc.sh
