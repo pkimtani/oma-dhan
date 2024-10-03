@@ -27,3 +27,8 @@ migrate_working_dir/
 **/doc/api/
 .dart_tool/
 build/
+
+# firebase
+packages/authentication/firebase.json
+packages/authentication/lib/firebase_options.dart
+packages/authentication/firepit-log.txt
