@@ -29,6 +29,6 @@ migrate_working_dir/
 build/
 
 # firebase
-packages/authentication/firebase.json
-packages/authentication/lib/firebase_options.dart
-packages/authentication/firepit-log.txt
+firebase.json
+lib/firebase_options.dart
+firepit-log.txt
