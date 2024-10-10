@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:apps/core/data.dart';
 import 'package:apps/database/local_db.dart';
 import 'package:apps/user-module/interfaces/user_api.dart';
 import 'package:apps/user-module/models/user.dart';
-import 'package:apps/user-module/models/user_type.dart';
 import 'package:faker_dart/faker_dart.dart';
 
 class UserData extends Data implements UserAPI {
@@ -65,7 +62,6 @@ class UserData extends Data implements UserAPI {
 
     return List.generate(total, (ignored) {
       final fakeEmail = faker.internet.email();
-      final userType = UserType.all[Random().nextInt(UserType.all.length)];
       final date = faker.date.past(DateTime.now(), rangeInYears: 1);
 
       return User(
@@ -73,9 +69,7 @@ class UserData extends Data implements UserAPI {
         firstName: userOverride?.firstName ?? faker.name.firstName(),
         lastName: userOverride?.lastName ?? faker.name.lastName(),
         email: userOverride?.email ?? fakeEmail,
-        userType: userOverride?.userType ?? userType,
         createdAt: userOverride?.createdAt ?? date,
-        password: userOverride?.password ?? 'password',
       );
     });
   }

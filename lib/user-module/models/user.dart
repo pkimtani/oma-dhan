@@ -1,4 +1,3 @@
-import 'package:apps/user-module/models/user_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
@@ -11,8 +10,7 @@ class User with _$User {
     required String firstName,
     required String lastName,
     required String email,
-    required String password,
-    @Default(UserType.individual()) UserType userType,
+    String? profilePicUrl,
     required DateTime createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
@@ -25,8 +23,6 @@ class User with _$User {
         firstName: 'No',
         lastName: 'User',
         email: 'user@example.com',
-        password: 'password',
-        userType: const UserType.individual(),
         createdAt: DateTime.now(),
       );
 }
