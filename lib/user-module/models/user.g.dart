@@ -11,10 +11,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       email: json['email'] as String,
-      password: json['password'] as String,
-      userType: json['userType'] == null
-          ? const UserType.individual()
-          : UserType.fromJson(json['userType'] as Map<String, dynamic>),
+      profilePicUrl: json['profilePicUrl'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
@@ -30,8 +27,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'email': instance.email,
-      'password': instance.password,
-      'userType': instance.userType,
+      'profilePicUrl': instance.profilePicUrl,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'deletedAt': instance.deletedAt?.toIso8601String(),

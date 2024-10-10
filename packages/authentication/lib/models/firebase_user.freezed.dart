@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user.dart';
+part of 'firebase_user.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,31 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+FirebaseUser _$FirebaseUserFromJson(Map<String, dynamic> json) {
+  return _FirebaseUser.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
+mixin _$FirebaseUser {
   String? get uid => throw _privateConstructorUsedError;
   String? get providerId => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get profilePicUrl => throw _privateConstructorUsedError;
 
-  /// Serializes this User to a JSON map.
+  /// Serializes this FirebaseUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of User
+  /// Create a copy of FirebaseUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $FirebaseUserCopyWith<FirebaseUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $FirebaseUserCopyWith<$Res> {
+  factory $FirebaseUserCopyWith(
+          FirebaseUser value, $Res Function(FirebaseUser) then) =
+      _$FirebaseUserCopyWithImpl<$Res, FirebaseUser>;
   @useResult
   $Res call(
       {String? uid,
@@ -49,16 +51,16 @@ abstract class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$FirebaseUserCopyWithImpl<$Res, $Val extends FirebaseUser>
+    implements $FirebaseUserCopyWith<$Res> {
+  _$FirebaseUserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of User
+  /// Create a copy of FirebaseUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -95,10 +97,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
 }
 
 /// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
+abstract class _$$FirebaseUserImplCopyWith<$Res>
+    implements $FirebaseUserCopyWith<$Res> {
+  factory _$$FirebaseUserImplCopyWith(
+          _$FirebaseUserImpl value, $Res Function(_$FirebaseUserImpl) then) =
+      __$$FirebaseUserImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,13 +113,14 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
+class __$$FirebaseUserImplCopyWithImpl<$Res>
+    extends _$FirebaseUserCopyWithImpl<$Res, _$FirebaseUserImpl>
+    implements _$$FirebaseUserImplCopyWith<$Res> {
+  __$$FirebaseUserImplCopyWithImpl(
+      _$FirebaseUserImpl _value, $Res Function(_$FirebaseUserImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of User
+  /// Create a copy of FirebaseUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -127,7 +131,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? profilePicUrl = freezed,
   }) {
-    return _then(_$UserImpl(
+    return _then(_$FirebaseUserImpl(
       uid: freezed == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -154,43 +158,38 @@ class __$$UserImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserImpl implements _User {
-  const _$UserImpl(
-      {this.uid = '',
-      this.providerId = '',
-      this.displayName = '',
-      this.email = '',
-      this.profilePicUrl = ''});
+class _$FirebaseUserImpl implements _FirebaseUser {
+  const _$FirebaseUserImpl(
+      {this.uid,
+      this.providerId,
+      this.displayName,
+      this.email,
+      this.profilePicUrl});
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
+  factory _$FirebaseUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FirebaseUserImplFromJson(json);
 
   @override
-  @JsonKey()
   final String? uid;
   @override
-  @JsonKey()
   final String? providerId;
   @override
-  @JsonKey()
   final String? displayName;
   @override
-  @JsonKey()
   final String? email;
   @override
-  @JsonKey()
   final String? profilePicUrl;
 
   @override
   String toString() {
-    return 'User(uid: $uid, providerId: $providerId, displayName: $displayName, email: $email, profilePicUrl: $profilePicUrl)';
+    return 'FirebaseUser(uid: $uid, providerId: $providerId, displayName: $displayName, email: $email, profilePicUrl: $profilePicUrl)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
+            other is _$FirebaseUserImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.providerId, providerId) ||
                 other.providerId == providerId) &&
@@ -206,31 +205,32 @@ class _$UserImpl implements _User {
   int get hashCode => Object.hash(
       runtimeType, uid, providerId, displayName, email, profilePicUrl);
 
-  /// Create a copy of User
+  /// Create a copy of FirebaseUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+  _$$FirebaseUserImplCopyWith<_$FirebaseUserImpl> get copyWith =>
+      __$$FirebaseUserImplCopyWithImpl<_$FirebaseUserImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
+    return _$$FirebaseUserImplToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
+abstract class _FirebaseUser implements FirebaseUser {
+  const factory _FirebaseUser(
       {final String? uid,
       final String? providerId,
       final String? displayName,
       final String? email,
-      final String? profilePicUrl}) = _$UserImpl;
+      final String? profilePicUrl}) = _$FirebaseUserImpl;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _FirebaseUser.fromJson(Map<String, dynamic> json) =
+      _$FirebaseUserImpl.fromJson;
 
   @override
   String? get uid;
@@ -243,10 +243,10 @@ abstract class _User implements User {
   @override
   String? get profilePicUrl;
 
-  /// Create a copy of User
+  /// Create a copy of FirebaseUser
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$FirebaseUserImplCopyWith<_$FirebaseUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,10 +1,10 @@
 import 'package:authentication/exceptions/signup_email_password_exception.dart';
-import 'package:authentication/models/user.dart';
+import 'package:authentication/models/firebase_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 extension on firebase_auth.User {
-  User get toUser {
-    return User(
+  FirebaseUser get toUser {
+    return FirebaseUser(
       uid: uid,
       email: email,
       displayName: displayName,
@@ -20,13 +20,14 @@ class AuthenticationRepository {
     firebase_auth.FirebaseAuth? firebaseAuth,
   ) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
-  Stream<User> get user {
+  Stream<FirebaseUser> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      return firebaseUser?.toUser ?? User.nullUser();
+      return firebaseUser?.toUser ?? FirebaseUser.nullUser();
     });
   }
 
-  Future<User> login({required String email, required String password}) async {
+  Future<FirebaseUser> login(
+      {required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,

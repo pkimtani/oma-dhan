@@ -1,8 +1,10 @@
 import 'package:apps/core/app.bloc_observer.dart';
+import 'package:apps/core/blocs/app_bloc.dart';
+import 'package:apps/core/events/app_event.dart';
 import 'package:apps/core/pages/home_screen.dart';
+import 'package:apps/core/pages/login_screen.dart';
+import 'package:apps/core/states/app_state.dart';
 import 'package:apps/database/database_cubit.dart';
-import 'package:apps/transactions_module/blocs/transactions_bloc.dart';
-import 'package:apps/transactions_module/events/transactions_event.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:authentication/authentication.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,8 +37,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _authenticationRepository,
-      child: BlocProvider(
-        create: (BuildContext context) => DatabaseCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (BuildContext context) => DatabaseCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AppBloc(
+              authenticationRepository: _authenticationRepository,
+            )..add(const AppEvent.getAuthenticationStatus()),
+          ),
+        ],
         child: CupertinoApp(
           title: appTitle,
           theme: const CupertinoThemeData(
@@ -50,18 +61,22 @@ class MyApp extends StatelessWidget {
           ),
           home: SafeArea(
             child: RepositoryProvider(
-              create: (BuildContext context) {
-                final database = context.read<DatabaseCubit>();
-                return TransactionRepository(
-                  database: database.state,
-                );
-              },
-              child: BlocProvider(
-                create: (BuildContext context) => TransactionsBloc(
-                  transactionRepository: context.read<TransactionRepository>(),
-                )..add(const TransactionsEvent.loadAll()),
-                child: const HomeScreen(title: appTitle),
+              create: (context) => TransactionRepository(
+                database: context.read<DatabaseCubit>().state,
               ),
+              child:
+                  BlocBuilder<AppBloc, AppState>(builder: (context, appState) {
+                switch (appState.userAuthenticationStatus) {
+                  case UserAuthenticationStatus.authenticated:
+                    return const HomeScreen(
+                      title: appTitle,
+                    );
+                  case UserAuthenticationStatus.unauthenticated:
+                    return const LoginScreen();
+                  default:
+                    return const CupertinoActivityIndicator();
+                }
+              }),
             ),
           ),
         ),

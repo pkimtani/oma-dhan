@@ -1,6 +1,5 @@
 import 'package:apps/core/widgets/alert.dart';
 import 'package:apps/core/widgets/text_field_form_row.dart';
-import 'package:apps/database/database_cubit.dart';
 import 'package:apps/transactions_module/blocs/transaction_form_bloc.dart';
 import 'package:apps/transactions_module/events/transaction_form_event.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
@@ -9,16 +8,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewTransaction extends StatelessWidget {
-  const AddNewTransaction({super.key});
+  final TransactionRepository _transactionRepository;
+  const AddNewTransaction(
+      {super.key, required TransactionRepository transactionRepository})
+      : _transactionRepository = transactionRepository;
 
   @override
   Widget build(BuildContext context) {
-    final databaseCubit = context.read<DatabaseCubit>();
-
-    return RepositoryProvider(
-      create: (context) => TransactionRepository(
-        database: databaseCubit.state,
-      ),
+    return RepositoryProvider.value(
+      value: _transactionRepository,
       child: BlocProvider(
         create: (context) => TransactionFormBloc(
           transactionRepository: context.read<TransactionRepository>(),
