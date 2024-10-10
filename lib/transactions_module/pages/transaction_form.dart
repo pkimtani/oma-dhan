@@ -1,4 +1,5 @@
 import 'package:apps/core/widgets/alert.dart';
+import 'package:apps/core/widgets/navbar_icon_button.dart';
 import 'package:apps/core/widgets/text_field_form_row.dart';
 import 'package:apps/transactions_module/blocs/transaction_form_bloc.dart';
 import 'package:apps/transactions_module/events/transaction_form_event.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewTransaction extends StatelessWidget {
   final TransactionRepository _transactionRepository;
+
   const AddNewTransaction(
       {super.key, required TransactionRepository transactionRepository})
       : _transactionRepository = transactionRepository;
@@ -71,21 +73,14 @@ class AddNewTransaction extends StatelessWidget {
                     children: [
                       transactionFormState.transactionFormStatus.isSaving
                           ? const CupertinoActivityIndicator()
-                          : CupertinoButton(
-                              padding: EdgeInsets.zero,
+                          : NavbarIconButton(
+                              icon: CupertinoIcons.check_mark,
                               onPressed: () {
                                 transactionFormBloc.add(
                                   const TransactionFormEvent.save(),
                                 );
                               },
-                              child: const Row(
-                                children: <Widget>[
-                                  Icon(CupertinoIcons.check_mark, size: 20),
-                                  SizedBox(width: 5),
-                                  // Space between text and icon
-                                  Text('Save'),
-                                ],
-                              ),
+                              iconText: 'Save',
                             ),
                     ],
                   ),

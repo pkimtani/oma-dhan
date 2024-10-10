@@ -42,12 +42,14 @@ scripts:
     run: dart run build_runner build --delete-conflicting-outputs
     exec:
       failFast: true
+      concurrency: 1
 
   watch:
     description: Run build runner watch for all packages
     run: dart run build_runner watch --delete-conflicting-outputs
     exec:
       failFast: true
+      concurrency: 2 # The value should be the number of packages to be watched
 
   watch-authentication:
     description: Run build runner watch for authentication package

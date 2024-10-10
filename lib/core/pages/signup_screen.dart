@@ -1,30 +1,21 @@
-import 'package:apps/core/pages/signup_screen.dart';
 import 'package:apps/core/widgets/navbar_icon_button.dart';
-import 'package:apps/core/widgets/password_field_form_row.dart';
 import 'package:apps/core/widgets/text_field_form_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: NavbarIconButton(
-          icon: CupertinoIcons.person_add,
-          onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (BuildContext context) => const SignupScreen(),
-              ),
-            );
-          },
-          iconText: 'Sign up',
+          icon: CupertinoIcons.back,
+          onPressed: () => Navigator.pop(context),
+          iconText: 'Login',
         ),
-        middle: const Text('Login'),
+        middle: const Text('Sign Up'),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           // Adjust to fit content size
@@ -34,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                 : NavbarIconButton(
                     icon: CupertinoIcons.check_mark,
                     onPressed: () {},
-                    iconText: 'Login',
+                    iconText: 'Sign Up',
                   ),
           ],
         ),
@@ -52,7 +43,9 @@ class LoginScreen extends StatelessWidget {
                 icon: CupertinoIcons.mail,
                 onChanged: (String? value) {},
               ),
-              PasswordField(
+              TextFieldFormRow(
+                placeholder: 'password',
+                icon: CupertinoIcons.lock,
                 onChanged: (String? value) {},
               ),
             ],
