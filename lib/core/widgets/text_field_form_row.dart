@@ -7,6 +7,7 @@ class TextFieldFormRow extends StatelessWidget {
   final String? helperText;
   final int? maxLines;
   final TextInputType? keyboardType;
+  final bool obscureText;
   final ValueChanged<String>? onChanged;
 
   const TextFieldFormRow({
@@ -17,6 +18,7 @@ class TextFieldFormRow extends StatelessWidget {
     this.helperText,
     this.maxLines,
     this.keyboardType,
+    this.obscureText = false,
     required this.onChanged,
   });
 
@@ -34,9 +36,10 @@ class TextFieldFormRow extends StatelessWidget {
           Expanded(
             child: CupertinoTextFormFieldRow(
               placeholder: placeholder,
-              maxLines: maxLines,
+              maxLines: obscureText ? 1 : maxLines,
               onChanged: onChanged,
               keyboardType: keyboardType,
+              obscureText: obscureText,
             ),
           )
         ],

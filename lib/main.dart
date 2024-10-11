@@ -1,9 +1,12 @@
 import 'package:apps/core/app.bloc_observer.dart';
+import 'package:apps/core/blocs/app_bloc.dart';
+import 'package:apps/core/events/app_event.dart';
 import 'package:apps/core/pages/home_screen.dart';
+import 'package:apps/core/pages/login_screen.dart';
+import 'package:apps/core/states/app_state.dart';
 import 'package:apps/database/database_cubit.dart';
-import 'package:apps/transactions_module/blocs/transactions_bloc.dart';
-import 'package:apps/transactions_module/events/transactions_event.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
+import 'package:authentication/authentication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,44 +15,71 @@ void main() async {
 
   Bloc.observer = AppBlocObserver();
 
-  runApp(
-    BlocProvider(
-        create: (BuildContext context) => DatabaseCubit(),
-        child: const MyApp()),
-  );
+  await Authentication.init();
+
+  final AuthenticationRepository authenticationRepository =
+      AuthenticationRepository(null);
+  await authenticationRepository.authenticatedUser.first;
+
+  runApp(MyApp(authenticationRepository: authenticationRepository));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AuthenticationRepository _authenticationRepository;
+
+  const MyApp(
+      {super.key, required AuthenticationRepository authenticationRepository})
+      : _authenticationRepository = authenticationRepository;
 
   static const appTitle = 'OmaDhan';
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: appTitle,
-      theme: const CupertinoThemeData(
-        brightness: Brightness.dark,
-        primaryColor: CupertinoColors.systemBlue,
-        barBackgroundColor: CupertinoColors.black,
-        scaffoldBackgroundColor: CupertinoColors.black,
-        textTheme: CupertinoTextThemeData(
-          textStyle: TextStyle(color: CupertinoColors.white),
-        ),
-      ),
-      home: SafeArea(
-        child: RepositoryProvider(
-          create: (BuildContext context) {
-            final database = context.read<DatabaseCubit>();
-            return TransactionRepository(
-              database: database.state,
-            );
-          },
-          child: BlocProvider(
-            create: (BuildContext context) => TransactionsBloc(
-              transactionRepository: context.read<TransactionRepository>(),
-            )..add(const TransactionsEvent.loadAll()),
-            child: const HomeScreen(title: appTitle),
+    return RepositoryProvider.value(
+      value: _authenticationRepository,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (BuildContext context) => DatabaseCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AppBloc(
+              authenticationRepository: _authenticationRepository,
+            )..add(const AppEvent.getAuthenticationStatus()),
+          ),
+        ],
+        child: CupertinoApp(
+          title: appTitle,
+          theme: const CupertinoThemeData(
+            brightness: Brightness.dark,
+            primaryColor: CupertinoColors.systemBlue,
+            barBackgroundColor: CupertinoColors.black,
+            scaffoldBackgroundColor: CupertinoColors.black,
+            textTheme: CupertinoTextThemeData(
+              textStyle: TextStyle(color: CupertinoColors.white),
+            ),
+          ),
+          home: SafeArea(
+            child: RepositoryProvider(
+              create: (context) => TransactionRepository(
+                database: context.read<DatabaseCubit>().state,
+              ),
+              child:
+                  BlocBuilder<AppBloc, AppState>(builder: (context, appState) {
+                switch (appState.userAuthenticationStatus) {
+                  case UserAuthenticationStatus.authenticated:
+                    return HomeScreen(
+                      username: appState.user.username,
+                    );
+                  case UserAuthenticationStatus.unauthenticated:
+                    return LoginScreen(
+                      authenticationRepository: _authenticationRepository,
+                    );
+                  default:
+                    return const CupertinoActivityIndicator();
+                }
+              }),
+            ),
           ),
         ),
       ),

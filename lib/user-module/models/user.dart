@@ -1,4 +1,3 @@
-import 'package:apps/user-module/models/user_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
@@ -8,11 +7,11 @@ part 'user.g.dart';
 class User with _$User {
   const factory User({
     required String id,
+    required String username,
     required String firstName,
     required String lastName,
     required String email,
-    required String password,
-    @Default(UserType.individual()) UserType userType,
+    String? profilePicUrl,
     required DateTime createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
@@ -21,12 +20,11 @@ class User with _$User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   static User get nullUser => User(
-        id: '1',
+        id: '',
+        username: 'no-user',
         firstName: 'No',
         lastName: 'User',
         email: 'user@example.com',
-        password: 'password',
-        userType: const UserType.individual(),
         createdAt: DateTime.now(),
       );
 }

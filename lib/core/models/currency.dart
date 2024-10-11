@@ -7,43 +7,33 @@ part 'currency.g.dart';
 sealed class Currency with _$Currency {
   const Currency._();
 
-  const factory Currency.usd() = _Usd;
+  const factory Currency.usd() = USD;
+  const factory Currency.eur() = EUR;
+  const factory Currency.gbp() = GBP;
+  const factory Currency.jpy() = JPY;
+  const factory Currency.aud() = AUD;
+  const factory Currency.cad() = CAD;
+  const factory Currency.inr() = INR;
 
-  const factory Currency.eur() = _Eur;
+  String get name => switch (this) {
+        USD() => 'USD',
+        EUR() => 'EUR',
+        GBP() => 'GBP',
+        JPY() => 'JPY',
+        AUD() => 'AUD',
+        CAD() => 'CAD',
+        INR() => 'INR',
+      };
 
-  const factory Currency.gbp() = _Gbp;
-
-  const factory Currency.jpy() = _Jpy;
-
-  const factory Currency.aud() = _Aud;
-
-  const factory Currency.cad() = _Cad;
-
-  const factory Currency.inr() = _Inr;
-
-  String get name {
-    return map(
-      usd: (_) => 'USD',
-      eur: (_) => 'EUR',
-      gbp: (_) => 'GBP',
-      jpy: (_) => 'JPY',
-      aud: (_) => 'AUD',
-      cad: (_) => 'CAD',
-      inr: (_) => 'INR',
-    );
-  }
-
-  String get symbol {
-    return map(
-      usd: (_) => '\$',
-      eur: (_) => '€',
-      gbp: (_) => '£',
-      jpy: (_) => '¥',
-      aud: (_) => 'A\$',
-      cad: (_) => 'C\$',
-      inr: (_) => '₹',
-    );
-  }
+  String get symbol => switch (this) {
+        USD() => '\$',
+        EUR() => '€',
+        GBP() => '£',
+        JPY() => '¥',
+        AUD() => '\$',
+        CAD() => '\$',
+        INR() => '₹',
+      };
 
   factory Currency.fromJson(Map<String, dynamic> json) =>
       _$CurrencyFromJson(json);

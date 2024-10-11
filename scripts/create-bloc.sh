@@ -174,8 +174,6 @@ if [ ! -f "${BLOCS_DIR}/${BLOC_NAME}_bloc.dart" ]; then
       echo "import 'package:$PACKAGE_NAME/$MODULE_NAME/$EVENTS_DIR_NAME/${BLOC_NAME}_event.dart';"
       echo "import 'package:$PACKAGE_NAME/$MODULE_NAME/$STATES_DIR_NAME/${BLOC_NAME}_state.dart';"
       echo ""
-      echo "part '${BLOC_NAME}_bloc.freezed.dart';"
-      echo ""
       echo "class ${BLOC_NAME_UPPER}Bloc extends Bloc<${BLOC_NAME_UPPER}Event, ${BLOC_NAME_UPPER}State> {"
       echo "  ${BLOC_NAME_UPPER}Bloc() : super(const ${BLOC_NAME_UPPER}State());"
       echo ""

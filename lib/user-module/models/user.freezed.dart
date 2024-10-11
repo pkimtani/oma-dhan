@@ -21,11 +21,11 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  UserType get userType => throw _privateConstructorUsedError;
+  String? get profilePicUrl => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
@@ -46,16 +46,14 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String username,
       String firstName,
       String lastName,
       String email,
-      String password,
-      UserType userType,
+      String? profilePicUrl,
       DateTime createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
-
-  $UserTypeCopyWith<$Res> get userType;
 }
 
 /// @nodoc
@@ -74,11 +72,11 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
+    Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
-    Object? password = null,
-    Object? userType = null,
+    Object? profilePicUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = freezed,
     Object? deletedAt = freezed,
@@ -87,6 +85,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       firstName: null == firstName
           ? _value.firstName
@@ -100,14 +102,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      userType: null == userType
-          ? _value.userType
-          : userType // ignore: cast_nullable_to_non_nullable
-              as UserType,
+      profilePicUrl: freezed == profilePicUrl
+          ? _value.profilePicUrl
+          : profilePicUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -122,16 +120,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
               as DateTime?,
     ) as $Val);
   }
-
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $UserTypeCopyWith<$Res> get userType {
-    return $UserTypeCopyWith<$Res>(_value.userType, (value) {
-      return _then(_value.copyWith(userType: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -143,17 +131,14 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String username,
       String firstName,
       String lastName,
       String email,
-      String password,
-      UserType userType,
+      String? profilePicUrl,
       DateTime createdAt,
       DateTime? updatedAt,
       DateTime? deletedAt});
-
-  @override
-  $UserTypeCopyWith<$Res> get userType;
 }
 
 /// @nodoc
@@ -169,11 +154,11 @@ class __$$UserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
-    Object? password = null,
-    Object? userType = null,
+    Object? profilePicUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = freezed,
     Object? deletedAt = freezed,
@@ -182,6 +167,10 @@ class __$$UserImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       firstName: null == firstName
           ? _value.firstName
@@ -195,14 +184,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      userType: null == userType
-          ? _value.userType
-          : userType // ignore: cast_nullable_to_non_nullable
-              as UserType,
+      profilePicUrl: freezed == profilePicUrl
+          ? _value.profilePicUrl
+          : profilePicUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -224,11 +209,11 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl implements _User {
   const _$UserImpl(
       {required this.id,
+      required this.username,
       required this.firstName,
       required this.lastName,
       required this.email,
-      required this.password,
-      this.userType = const UserType.individual(),
+      this.profilePicUrl,
       required this.createdAt,
       this.updatedAt,
       this.deletedAt});
@@ -239,16 +224,15 @@ class _$UserImpl implements _User {
   @override
   final String id;
   @override
+  final String username;
+  @override
   final String firstName;
   @override
   final String lastName;
   @override
   final String email;
   @override
-  final String password;
-  @override
-  @JsonKey()
-  final UserType userType;
+  final String? profilePicUrl;
   @override
   final DateTime createdAt;
   @override
@@ -258,7 +242,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, password: $password, userType: $userType, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'User(id: $id, username: $username, firstName: $firstName, lastName: $lastName, email: $email, profilePicUrl: $profilePicUrl, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -267,15 +251,15 @@ class _$UserImpl implements _User {
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.userType, userType) ||
-                other.userType == userType) &&
+            (identical(other.profilePicUrl, profilePicUrl) ||
+                other.profilePicUrl == profilePicUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -286,8 +270,8 @@ class _$UserImpl implements _User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, firstName, lastName, email,
-      password, userType, createdAt, updatedAt, deletedAt);
+  int get hashCode => Object.hash(runtimeType, id, username, firstName,
+      lastName, email, profilePicUrl, createdAt, updatedAt, deletedAt);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -308,11 +292,11 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   const factory _User(
       {required final String id,
+      required final String username,
       required final String firstName,
       required final String lastName,
       required final String email,
-      required final String password,
-      final UserType userType,
+      final String? profilePicUrl,
       required final DateTime createdAt,
       final DateTime? updatedAt,
       final DateTime? deletedAt}) = _$UserImpl;
@@ -322,15 +306,15 @@ abstract class _User implements User {
   @override
   String get id;
   @override
+  String get username;
+  @override
   String get firstName;
   @override
   String get lastName;
   @override
   String get email;
   @override
-  String get password;
-  @override
-  UserType get userType;
+  String? get profilePicUrl;
   @override
   DateTime get createdAt;
   @override
