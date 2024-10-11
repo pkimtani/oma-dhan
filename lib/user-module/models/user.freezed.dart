@@ -21,6 +21,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String username,
       String firstName,
       String lastName,
       String email,
@@ -70,6 +72,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
+    Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
@@ -82,6 +85,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       firstName: null == firstName
           ? _value.firstName
@@ -124,6 +131,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String username,
       String firstName,
       String lastName,
       String email,
@@ -146,6 +154,7 @@ class __$$UserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
@@ -158,6 +167,10 @@ class __$$UserImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       firstName: null == firstName
           ? _value.firstName
@@ -196,6 +209,7 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl implements _User {
   const _$UserImpl(
       {required this.id,
+      required this.username,
       required this.firstName,
       required this.lastName,
       required this.email,
@@ -209,6 +223,8 @@ class _$UserImpl implements _User {
 
   @override
   final String id;
+  @override
+  final String username;
   @override
   final String firstName;
   @override
@@ -226,7 +242,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, profilePicUrl: $profilePicUrl, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'User(id: $id, username: $username, firstName: $firstName, lastName: $lastName, email: $email, profilePicUrl: $profilePicUrl, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 
   @override
@@ -235,6 +251,8 @@ class _$UserImpl implements _User {
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -252,8 +270,8 @@ class _$UserImpl implements _User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, firstName, lastName, email,
-      profilePicUrl, createdAt, updatedAt, deletedAt);
+  int get hashCode => Object.hash(runtimeType, id, username, firstName,
+      lastName, email, profilePicUrl, createdAt, updatedAt, deletedAt);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -274,6 +292,7 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   const factory _User(
       {required final String id,
+      required final String username,
       required final String firstName,
       required final String lastName,
       required final String email,
@@ -286,6 +305,8 @@ abstract class _User implements User {
 
   @override
   String get id;
+  @override
+  String get username;
   @override
   String get firstName;
   @override

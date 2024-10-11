@@ -11,6 +11,7 @@ class UserTable extends Table {
   Set<Column> get primaryKey => {id};
 
   TextColumn get id => text().clientDefault(() => const Uuid().v8())();
+  TextColumn get username => text().withLength(min: 1, max: 50)();
   TextColumn get firstName => text().withLength(min: 1, max: 50)();
   TextColumn get lastName => text().withLength(min: 1, max: 50)();
   TextColumn get email => text().withLength(min: 1, max: 50)();

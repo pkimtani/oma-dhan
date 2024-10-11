@@ -15,6 +15,15 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       clientDefault: () => const Uuid().v8());
+  static const VerificationMeta _usernameMeta =
+      const VerificationMeta('username');
+  @override
+  late final GeneratedColumn<String> username = GeneratedColumn<String>(
+      'username', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
   static const VerificationMeta _firstNameMeta =
       const VerificationMeta('firstName');
   @override
@@ -73,6 +82,7 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        username,
         firstName,
         lastName,
         email,
@@ -93,6 +103,12 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('username')) {
+      context.handle(_usernameMeta,
+          username.isAcceptableOrUnknown(data['username']!, _usernameMeta));
+    } else if (isInserting) {
+      context.missing(_usernameMeta);
     }
     if (data.containsKey('first_name')) {
       context.handle(_firstNameMeta,
@@ -141,6 +157,8 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
     return User(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      username: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}username'])!,
       firstName: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}first_name'])!,
       lastName: attachedDatabase.typeMapping
@@ -164,6 +182,7 @@ class $UserTableTable extends UserTable with TableInfo<$UserTableTable, User> {
 
 class UserTableCompanion extends UpdateCompanion<User> {
   final Value<String> id;
+  final Value<String> username;
   final Value<String> firstName;
   final Value<String> lastName;
   final Value<String> email;
@@ -174,6 +193,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
   final Value<int> rowid;
   const UserTableCompanion({
     this.id = const Value.absent(),
+    this.username = const Value.absent(),
     this.firstName = const Value.absent(),
     this.lastName = const Value.absent(),
     this.email = const Value.absent(),
@@ -185,6 +205,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
   });
   UserTableCompanion.insert({
     this.id = const Value.absent(),
+    required String username,
     required String firstName,
     required String lastName,
     required String email,
@@ -193,12 +214,14 @@ class UserTableCompanion extends UpdateCompanion<User> {
     this.updatedAt = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : firstName = Value(firstName),
+  })  : username = Value(username),
+        firstName = Value(firstName),
         lastName = Value(lastName),
         email = Value(email),
         password = Value(password);
   static Insertable<User> custom({
     Expression<String>? id,
+    Expression<String>? username,
     Expression<String>? firstName,
     Expression<String>? lastName,
     Expression<String>? email,
@@ -210,6 +233,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (username != null) 'username': username,
       if (firstName != null) 'first_name': firstName,
       if (lastName != null) 'last_name': lastName,
       if (email != null) 'email': email,
@@ -223,6 +247,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
 
   UserTableCompanion copyWith(
       {Value<String>? id,
+      Value<String>? username,
       Value<String>? firstName,
       Value<String>? lastName,
       Value<String>? email,
@@ -233,6 +258,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
       Value<int>? rowid}) {
     return UserTableCompanion(
       id: id ?? this.id,
+      username: username ?? this.username,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
@@ -249,6 +275,9 @@ class UserTableCompanion extends UpdateCompanion<User> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<String>(id.value);
+    }
+    if (username.present) {
+      map['username'] = Variable<String>(username.value);
     }
     if (firstName.present) {
       map['first_name'] = Variable<String>(firstName.value);
@@ -281,6 +310,7 @@ class UserTableCompanion extends UpdateCompanion<User> {
   String toString() {
     return (StringBuffer('UserTableCompanion(')
           ..write('id: $id, ')
+          ..write('username: $username, ')
           ..write('firstName: $firstName, ')
           ..write('lastName: $lastName, ')
           ..write('email: $email, ')
@@ -682,6 +712,7 @@ abstract class _$LocalDB extends GeneratedDatabase {
 
 typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
   Value<String> id,
+  required String username,
   required String firstName,
   required String lastName,
   required String email,
@@ -693,6 +724,7 @@ typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
 });
 typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<String> id,
+  Value<String> username,
   Value<String> firstName,
   Value<String> lastName,
   Value<String> email,
@@ -730,6 +762,11 @@ class $$UserTableTableFilterComposer
   $$UserTableTableFilterComposer(super.$state);
   ColumnFilters<String> get id => $state.composableBuilder(
       column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get username => $state.composableBuilder(
+      column: $state.table.username,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -791,6 +828,11 @@ class $$UserTableTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
+  ColumnOrderings<String> get username => $state.composableBuilder(
+      column: $state.table.username,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
   ColumnOrderings<String> get firstName => $state.composableBuilder(
       column: $state.table.firstName,
       builder: (column, joinBuilders) =>
@@ -848,6 +890,7 @@ class $$UserTableTableTableManager extends RootTableManager<
               $$UserTableTableOrderingComposer(ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
+            Value<String> username = const Value.absent(),
             Value<String> firstName = const Value.absent(),
             Value<String> lastName = const Value.absent(),
             Value<String> email = const Value.absent(),
@@ -859,6 +902,7 @@ class $$UserTableTableTableManager extends RootTableManager<
           }) =>
               UserTableCompanion(
             id: id,
+            username: username,
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -870,6 +914,7 @@ class $$UserTableTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<String> id = const Value.absent(),
+            required String username,
             required String firstName,
             required String lastName,
             required String email,
@@ -881,6 +926,7 @@ class $$UserTableTableTableManager extends RootTableManager<
           }) =>
               UserTableCompanion.insert(
             id: id,
+            username: username,
             firstName: firstName,
             lastName: lastName,
             email: email,

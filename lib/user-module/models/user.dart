@@ -7,6 +7,7 @@ part 'user.g.dart';
 class User with _$User {
   const factory User({
     required String id,
+    required String username,
     required String firstName,
     required String lastName,
     required String email,
@@ -20,6 +21,7 @@ class User with _$User {
 
   static User get nullUser => User(
         id: '',
+        username: 'no-user',
         firstName: 'No',
         lastName: 'User',
         email: 'user@example.com',

@@ -68,8 +68,8 @@ class MyApp extends StatelessWidget {
                   BlocBuilder<AppBloc, AppState>(builder: (context, appState) {
                 switch (appState.userAuthenticationStatus) {
                   case UserAuthenticationStatus.authenticated:
-                    return const HomeScreen(
-                      title: appTitle,
+                    return HomeScreen(
+                      username: appState.user.username,
                     );
                   case UserAuthenticationStatus.unauthenticated:
                     return LoginScreen(

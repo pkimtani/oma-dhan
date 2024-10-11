@@ -66,6 +66,8 @@ class UserData extends Data implements UserAPI {
 
       return User(
         id: faker.datatype.number.toString(),
+        // TODO: replace with username when the lib supports it
+        username: userOverride?.username ?? faker.name.firstName(),
         firstName: userOverride?.firstName ?? faker.name.firstName(),
         lastName: userOverride?.lastName ?? faker.name.lastName(),
         email: userOverride?.email ?? fakeEmail,

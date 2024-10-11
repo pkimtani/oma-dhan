@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 extension on AuthenticatedUser {
   oma_dhan_user.User get toOmaDhanUser => oma_dhan_user.User(
         id: id ?? oma_dhan_user.User.nullUser.id,
+        username: username ?? oma_dhan_user.User.nullUser.username,
         email: email ?? oma_dhan_user.User.nullUser.email,
         firstName: fireName ?? oma_dhan_user.User.nullUser.firstName,
         lastName: lastName ?? oma_dhan_user.User.nullUser.lastName,

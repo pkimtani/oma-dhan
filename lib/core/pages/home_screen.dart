@@ -6,27 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  final String title;
+  final String username;
 
-  const HomeScreen({super.key, required this.title});
+  const HomeScreen({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: const Icon(CupertinoIcons.line_horizontal_3),
+        middle: Text('Hello! $username'),
         trailing: IconButton(
           onPressed: () {
-            final TransactionRepository transactionRepository =
-                context.read<TransactionRepository>();
-
-            // TODO: why is the context.read<TransactionRepository>() not working inside the navigator -> CupertinoPageRoute -> builder?
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (BuildContext context) => AddNewTransaction(
-                  transactionRepository: transactionRepository,
-                ),
+                builder: (BuildContext buildContext) {
+                  final TransactionRepository transactionRepository =
+                      context.read<TransactionRepository>();
+
+                  return AddNewTransaction(
+                    transactionRepository: transactionRepository,
+                  );
+                },
               ),
             );
           },
