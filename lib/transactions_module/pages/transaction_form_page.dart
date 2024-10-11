@@ -21,7 +21,7 @@ class AddNewTransaction extends StatelessWidget {
       value: _transactionRepository,
       child: BlocProvider(
         create: (context) => TransactionFormBloc(
-          transactionRepository: context.read<TransactionRepository>(),
+          transactionRepository: _transactionRepository,
         )..add(const TransactionFormEvent.init()),
         child: BlocBuilder<TransactionFormBloc, TransactionFormState>(
           builder: (context, transactionFormState) {

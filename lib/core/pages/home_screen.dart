@@ -1,5 +1,5 @@
-import 'package:apps/transactions_module/pages/transaction_form.dart';
-import 'package:apps/transactions_module/pages/transactions_list.dart';
+import 'package:apps/transactions_module/pages/transaction_form_page.dart';
+import 'package:apps/transactions_module/pages/transactions_list_page.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

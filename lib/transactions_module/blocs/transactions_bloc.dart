@@ -1,16 +1,19 @@
 import 'package:apps/transactions_module/events/transactions_event.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/states/transactions_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
+final class TransactionsBloc
+    extends Bloc<TransactionsEvent, TransactionsState> {
   final TransactionRepository _transactionRepository;
 
   TransactionsBloc({required TransactionRepository transactionRepository})
       : _transactionRepository = transactionRepository,
-        super(const TransactionsState(
-            transactionStatus: TransactionsStatus.initial)) {
+        super(
+          const TransactionsState(
+            transactionStatus: TransactionsStatus.initial,
+          ),
+        ) {
     on<TransactionsEvent>(
       (event, emit) => event.map(
         loadAll: (event) => _loadTransactions(event, emit),
@@ -41,10 +44,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           );
         },
         onError: (e, s) {
-          if (kDebugMode) {
-            print('Error loading transactions: $e');
-          }
-
           return state.copyWith(
             transactionStatus: TransactionsStatus.fetchingFailed,
             message: 'Error loading transaction(s)',
