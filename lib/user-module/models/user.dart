@@ -19,7 +19,7 @@ class User with _$User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   static User get nullUser => User(
-        id: '1',
+        id: '',
         firstName: 'No',
         lastName: 'User',
         email: 'user@example.com',

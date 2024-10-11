@@ -44,7 +44,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   Future<AuthenticatedUser> loginWithEmailAndPassword(
       String email, String password) async {
     try {
-      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );

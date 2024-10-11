@@ -1,15 +1,21 @@
 import 'package:apps/core/events/login_event.dart';
 import 'package:apps/core/states/login_state.dart';
 import 'package:apps/core/validators/form_field_value.dart';
-import 'package:flutter/foundation.dart';
+import 'package:authentication/authentication.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(const LoginState(status: LoginStatus.initial)) {
+final class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  final AuthenticationRepositoryInterface _authenticationRepository;
+
+  LoginBloc(
+      {required AuthenticationRepositoryInterface authenticationRepository})
+      : _authenticationRepository = authenticationRepository,
+        super(const LoginState(status: LoginStatus.initial)) {
     on<LoginEvent>((event, emit) => event.map(
+          init: (_) => null,
           emailChanged: (event) => _formChanged(event, emit),
           passwordChanged: (event) => _formChanged(event, emit),
-          loggingIn: (event) => _login(event, emit),
+          login: (event) => _login(event, emit),
           loggedIn: (event) => null,
           loginError: (event) => _loginError(event, emit),
         ));
@@ -35,21 +41,35 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _login(LoginEvent event, Emitter<LoginState> emit) async {
-    await emit.forEach(
-      stream,
-      onData: (data) => state.copyWith(status: LoginStatus.loggedIn),
-      onError: (e, s) => state.copyWith(
-        status: LoginStatus.loginError,
-        errorMessage: 'Error logging in',
-      ),
+    final LoginState loginFormState = state.copyWith(
+      status: LoginStatus.loggingIn,
+      email: FormFieldValue.email(state.email.value),
+      password: FormFieldValue.requiredText(state.password.value),
     );
+
+    if (loginFormState.email.error != null ||
+        loginFormState.password.error != null) {
+      emit(loginFormState.copyWith(status: LoginStatus.initial));
+      return;
+    }
+
+    try {
+      await _authenticationRepository.loginWithEmailAndPassword(
+        loginFormState.email.value!,
+        loginFormState.password.value!,
+      );
+
+      emit(loginFormState.copyWith(status: LoginStatus.loggedIn));
+    } on LoginWithEmailAndPasswordException catch (error) {
+      add(LoginError('Login failed: ${error.message}'));
+      return;
+    } catch (_) {
+      add(const LoginError('An unknown error occurred'));
+      return;
+    }
   }
 
   void _loginError(LoginError event, Emitter<LoginState> emit) {
-    if (kDebugMode) {
-      print('Login Error: ${event.message}');
-    }
-
     emit(state.copyWith(
       status: LoginStatus.loginError,
       errorMessage: event.message,

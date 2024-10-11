@@ -23,6 +23,10 @@ class LoginWithEmailAndPasswordException implements Exception {
         return const LoginWithEmailAndPasswordException(
           'Incorrect password, please try again.',
         );
+      case 'invalid-credential':
+        return const LoginWithEmailAndPasswordException(
+          'Invalid email or password, please try again.',
+        );
       default:
         return const LoginWithEmailAndPasswordException();
     }

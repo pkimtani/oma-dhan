@@ -6,7 +6,7 @@ part 'app_state.freezed.dart';
 enum UserAuthenticationStatus { authenticated, unauthenticated }
 
 @freezed
-class AppState with _$AppState {
+sealed class AppState with _$AppState {
   const factory AppState(
       {required UserAuthenticationStatus userAuthenticationStatus,
       required User user,

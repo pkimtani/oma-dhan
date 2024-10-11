@@ -72,7 +72,9 @@ class MyApp extends StatelessWidget {
                       title: appTitle,
                     );
                   case UserAuthenticationStatus.unauthenticated:
-                    return const LoginScreen();
+                    return LoginScreen(
+                      authenticationRepository: _authenticationRepository,
+                    );
                   default:
                     return const CupertinoActivityIndicator();
                 }
