@@ -19,7 +19,7 @@ void main() async {
 
   final AuthenticationRepository authenticationRepository =
       AuthenticationRepository(null);
-  await authenticationRepository.user.first;
+  await authenticationRepository.authenticatedUser.first;
 
   runApp(MyApp(authenticationRepository: authenticationRepository));
 }

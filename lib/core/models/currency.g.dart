@@ -6,58 +6,58 @@ part of 'currency.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UsdImpl _$$UsdImplFromJson(Map<String, dynamic> json) => _$UsdImpl(
+_$USDImpl _$$USDImplFromJson(Map<String, dynamic> json) => _$USDImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$UsdImplToJson(_$UsdImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$USDImplToJson(_$USDImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$EurImpl _$$EurImplFromJson(Map<String, dynamic> json) => _$EurImpl(
+_$EURImpl _$$EURImplFromJson(Map<String, dynamic> json) => _$EURImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$EurImplToJson(_$EurImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$EURImplToJson(_$EURImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$GbpImpl _$$GbpImplFromJson(Map<String, dynamic> json) => _$GbpImpl(
+_$GBPImpl _$$GBPImplFromJson(Map<String, dynamic> json) => _$GBPImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$GbpImplToJson(_$GbpImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$GBPImplToJson(_$GBPImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$JpyImpl _$$JpyImplFromJson(Map<String, dynamic> json) => _$JpyImpl(
+_$JPYImpl _$$JPYImplFromJson(Map<String, dynamic> json) => _$JPYImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$JpyImplToJson(_$JpyImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$JPYImplToJson(_$JPYImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$AudImpl _$$AudImplFromJson(Map<String, dynamic> json) => _$AudImpl(
+_$AUDImpl _$$AUDImplFromJson(Map<String, dynamic> json) => _$AUDImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$AudImplToJson(_$AudImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$AUDImplToJson(_$AUDImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$CadImpl _$$CadImplFromJson(Map<String, dynamic> json) => _$CadImpl(
+_$CADImpl _$$CADImplFromJson(Map<String, dynamic> json) => _$CADImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$CadImplToJson(_$CadImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$CADImplToJson(_$CADImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };
 
-_$InrImpl _$$InrImplFromJson(Map<String, dynamic> json) => _$InrImpl(
+_$INRImpl _$$INRImplFromJson(Map<String, dynamic> json) => _$INRImpl(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$InrImplToJson(_$InrImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$INRImplToJson(_$INRImpl instance) => <String, dynamic>{
       'runtimeType': instance.$type,
     };

@@ -17,19 +17,19 @@ final _privateConstructorUsedError = UnsupportedError(
 Currency _$CurrencyFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'usd':
-      return _Usd.fromJson(json);
+      return USD.fromJson(json);
     case 'eur':
-      return _Eur.fromJson(json);
+      return EUR.fromJson(json);
     case 'gbp':
-      return _Gbp.fromJson(json);
+      return GBP.fromJson(json);
     case 'jpy':
-      return _Jpy.fromJson(json);
+      return JPY.fromJson(json);
     case 'aud':
-      return _Aud.fromJson(json);
+      return AUD.fromJson(json);
     case 'cad':
-      return _Cad.fromJson(json);
+      return CAD.fromJson(json);
     case 'inr':
-      return _Inr.fromJson(json);
+      return INR.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'Currency',
@@ -75,35 +75,35 @@ mixin _$Currency {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -133,16 +133,16 @@ class _$CurrencyCopyWithImpl<$Res, $Val extends Currency>
 }
 
 /// @nodoc
-abstract class _$$UsdImplCopyWith<$Res> {
-  factory _$$UsdImplCopyWith(_$UsdImpl value, $Res Function(_$UsdImpl) then) =
-      __$$UsdImplCopyWithImpl<$Res>;
+abstract class _$$USDImplCopyWith<$Res> {
+  factory _$$USDImplCopyWith(_$USDImpl value, $Res Function(_$USDImpl) then) =
+      __$$USDImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UsdImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$UsdImpl>
-    implements _$$UsdImplCopyWith<$Res> {
-  __$$UsdImplCopyWithImpl(_$UsdImpl _value, $Res Function(_$UsdImpl) _then)
+class __$$USDImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$USDImpl>
+    implements _$$USDImplCopyWith<$Res> {
+  __$$USDImplCopyWithImpl(_$USDImpl _value, $Res Function(_$USDImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -151,13 +151,13 @@ class __$$UsdImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UsdImpl extends _Usd {
-  const _$UsdImpl({final String? $type})
+class _$USDImpl extends USD {
+  const _$USDImpl({final String? $type})
       : $type = $type ?? 'usd',
         super._();
 
-  factory _$UsdImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UsdImplFromJson(json);
+  factory _$USDImpl.fromJson(Map<String, dynamic> json) =>
+      _$$USDImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -170,7 +170,7 @@ class _$UsdImpl extends _Usd {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UsdImpl);
+        (other.runtimeType == runtimeType && other is _$USDImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -226,13 +226,13 @@ class _$UsdImpl extends _Usd {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return usd(this);
   }
@@ -240,13 +240,13 @@ class _$UsdImpl extends _Usd {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return usd?.call(this);
   }
@@ -254,13 +254,13 @@ class _$UsdImpl extends _Usd {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (usd != null) {
@@ -271,30 +271,30 @@ class _$UsdImpl extends _Usd {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UsdImplToJson(
+    return _$$USDImplToJson(
       this,
     );
   }
 }
 
-abstract class _Usd extends Currency {
-  const factory _Usd() = _$UsdImpl;
-  const _Usd._() : super._();
+abstract class USD extends Currency {
+  const factory USD() = _$USDImpl;
+  const USD._() : super._();
 
-  factory _Usd.fromJson(Map<String, dynamic> json) = _$UsdImpl.fromJson;
+  factory USD.fromJson(Map<String, dynamic> json) = _$USDImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$EurImplCopyWith<$Res> {
-  factory _$$EurImplCopyWith(_$EurImpl value, $Res Function(_$EurImpl) then) =
-      __$$EurImplCopyWithImpl<$Res>;
+abstract class _$$EURImplCopyWith<$Res> {
+  factory _$$EURImplCopyWith(_$EURImpl value, $Res Function(_$EURImpl) then) =
+      __$$EURImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$EurImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$EurImpl>
-    implements _$$EurImplCopyWith<$Res> {
-  __$$EurImplCopyWithImpl(_$EurImpl _value, $Res Function(_$EurImpl) _then)
+class __$$EURImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$EURImpl>
+    implements _$$EURImplCopyWith<$Res> {
+  __$$EURImplCopyWithImpl(_$EURImpl _value, $Res Function(_$EURImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -303,13 +303,13 @@ class __$$EurImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EurImpl extends _Eur {
-  const _$EurImpl({final String? $type})
+class _$EURImpl extends EUR {
+  const _$EURImpl({final String? $type})
       : $type = $type ?? 'eur',
         super._();
 
-  factory _$EurImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EurImplFromJson(json);
+  factory _$EURImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EURImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -322,7 +322,7 @@ class _$EurImpl extends _Eur {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EurImpl);
+        (other.runtimeType == runtimeType && other is _$EURImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -378,13 +378,13 @@ class _$EurImpl extends _Eur {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return eur(this);
   }
@@ -392,13 +392,13 @@ class _$EurImpl extends _Eur {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return eur?.call(this);
   }
@@ -406,13 +406,13 @@ class _$EurImpl extends _Eur {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (eur != null) {
@@ -423,30 +423,30 @@ class _$EurImpl extends _Eur {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EurImplToJson(
+    return _$$EURImplToJson(
       this,
     );
   }
 }
 
-abstract class _Eur extends Currency {
-  const factory _Eur() = _$EurImpl;
-  const _Eur._() : super._();
+abstract class EUR extends Currency {
+  const factory EUR() = _$EURImpl;
+  const EUR._() : super._();
 
-  factory _Eur.fromJson(Map<String, dynamic> json) = _$EurImpl.fromJson;
+  factory EUR.fromJson(Map<String, dynamic> json) = _$EURImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$GbpImplCopyWith<$Res> {
-  factory _$$GbpImplCopyWith(_$GbpImpl value, $Res Function(_$GbpImpl) then) =
-      __$$GbpImplCopyWithImpl<$Res>;
+abstract class _$$GBPImplCopyWith<$Res> {
+  factory _$$GBPImplCopyWith(_$GBPImpl value, $Res Function(_$GBPImpl) then) =
+      __$$GBPImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GbpImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$GbpImpl>
-    implements _$$GbpImplCopyWith<$Res> {
-  __$$GbpImplCopyWithImpl(_$GbpImpl _value, $Res Function(_$GbpImpl) _then)
+class __$$GBPImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$GBPImpl>
+    implements _$$GBPImplCopyWith<$Res> {
+  __$$GBPImplCopyWithImpl(_$GBPImpl _value, $Res Function(_$GBPImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -455,13 +455,13 @@ class __$$GbpImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$GbpImpl extends _Gbp {
-  const _$GbpImpl({final String? $type})
+class _$GBPImpl extends GBP {
+  const _$GBPImpl({final String? $type})
       : $type = $type ?? 'gbp',
         super._();
 
-  factory _$GbpImpl.fromJson(Map<String, dynamic> json) =>
-      _$$GbpImplFromJson(json);
+  factory _$GBPImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GBPImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -474,7 +474,7 @@ class _$GbpImpl extends _Gbp {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GbpImpl);
+        (other.runtimeType == runtimeType && other is _$GBPImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -530,13 +530,13 @@ class _$GbpImpl extends _Gbp {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return gbp(this);
   }
@@ -544,13 +544,13 @@ class _$GbpImpl extends _Gbp {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return gbp?.call(this);
   }
@@ -558,13 +558,13 @@ class _$GbpImpl extends _Gbp {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (gbp != null) {
@@ -575,30 +575,30 @@ class _$GbpImpl extends _Gbp {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GbpImplToJson(
+    return _$$GBPImplToJson(
       this,
     );
   }
 }
 
-abstract class _Gbp extends Currency {
-  const factory _Gbp() = _$GbpImpl;
-  const _Gbp._() : super._();
+abstract class GBP extends Currency {
+  const factory GBP() = _$GBPImpl;
+  const GBP._() : super._();
 
-  factory _Gbp.fromJson(Map<String, dynamic> json) = _$GbpImpl.fromJson;
+  factory GBP.fromJson(Map<String, dynamic> json) = _$GBPImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$JpyImplCopyWith<$Res> {
-  factory _$$JpyImplCopyWith(_$JpyImpl value, $Res Function(_$JpyImpl) then) =
-      __$$JpyImplCopyWithImpl<$Res>;
+abstract class _$$JPYImplCopyWith<$Res> {
+  factory _$$JPYImplCopyWith(_$JPYImpl value, $Res Function(_$JPYImpl) then) =
+      __$$JPYImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$JpyImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$JpyImpl>
-    implements _$$JpyImplCopyWith<$Res> {
-  __$$JpyImplCopyWithImpl(_$JpyImpl _value, $Res Function(_$JpyImpl) _then)
+class __$$JPYImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$JPYImpl>
+    implements _$$JPYImplCopyWith<$Res> {
+  __$$JPYImplCopyWithImpl(_$JPYImpl _value, $Res Function(_$JPYImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -607,13 +607,13 @@ class __$$JpyImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$JpyImpl extends _Jpy {
-  const _$JpyImpl({final String? $type})
+class _$JPYImpl extends JPY {
+  const _$JPYImpl({final String? $type})
       : $type = $type ?? 'jpy',
         super._();
 
-  factory _$JpyImpl.fromJson(Map<String, dynamic> json) =>
-      _$$JpyImplFromJson(json);
+  factory _$JPYImpl.fromJson(Map<String, dynamic> json) =>
+      _$$JPYImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -626,7 +626,7 @@ class _$JpyImpl extends _Jpy {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$JpyImpl);
+        (other.runtimeType == runtimeType && other is _$JPYImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -682,13 +682,13 @@ class _$JpyImpl extends _Jpy {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return jpy(this);
   }
@@ -696,13 +696,13 @@ class _$JpyImpl extends _Jpy {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return jpy?.call(this);
   }
@@ -710,13 +710,13 @@ class _$JpyImpl extends _Jpy {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (jpy != null) {
@@ -727,30 +727,30 @@ class _$JpyImpl extends _Jpy {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$JpyImplToJson(
+    return _$$JPYImplToJson(
       this,
     );
   }
 }
 
-abstract class _Jpy extends Currency {
-  const factory _Jpy() = _$JpyImpl;
-  const _Jpy._() : super._();
+abstract class JPY extends Currency {
+  const factory JPY() = _$JPYImpl;
+  const JPY._() : super._();
 
-  factory _Jpy.fromJson(Map<String, dynamic> json) = _$JpyImpl.fromJson;
+  factory JPY.fromJson(Map<String, dynamic> json) = _$JPYImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$AudImplCopyWith<$Res> {
-  factory _$$AudImplCopyWith(_$AudImpl value, $Res Function(_$AudImpl) then) =
-      __$$AudImplCopyWithImpl<$Res>;
+abstract class _$$AUDImplCopyWith<$Res> {
+  factory _$$AUDImplCopyWith(_$AUDImpl value, $Res Function(_$AUDImpl) then) =
+      __$$AUDImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AudImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$AudImpl>
-    implements _$$AudImplCopyWith<$Res> {
-  __$$AudImplCopyWithImpl(_$AudImpl _value, $Res Function(_$AudImpl) _then)
+class __$$AUDImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$AUDImpl>
+    implements _$$AUDImplCopyWith<$Res> {
+  __$$AUDImplCopyWithImpl(_$AUDImpl _value, $Res Function(_$AUDImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -759,13 +759,13 @@ class __$$AudImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AudImpl extends _Aud {
-  const _$AudImpl({final String? $type})
+class _$AUDImpl extends AUD {
+  const _$AUDImpl({final String? $type})
       : $type = $type ?? 'aud',
         super._();
 
-  factory _$AudImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AudImplFromJson(json);
+  factory _$AUDImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AUDImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -778,7 +778,7 @@ class _$AudImpl extends _Aud {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AudImpl);
+        (other.runtimeType == runtimeType && other is _$AUDImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -834,13 +834,13 @@ class _$AudImpl extends _Aud {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return aud(this);
   }
@@ -848,13 +848,13 @@ class _$AudImpl extends _Aud {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return aud?.call(this);
   }
@@ -862,13 +862,13 @@ class _$AudImpl extends _Aud {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (aud != null) {
@@ -879,30 +879,30 @@ class _$AudImpl extends _Aud {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AudImplToJson(
+    return _$$AUDImplToJson(
       this,
     );
   }
 }
 
-abstract class _Aud extends Currency {
-  const factory _Aud() = _$AudImpl;
-  const _Aud._() : super._();
+abstract class AUD extends Currency {
+  const factory AUD() = _$AUDImpl;
+  const AUD._() : super._();
 
-  factory _Aud.fromJson(Map<String, dynamic> json) = _$AudImpl.fromJson;
+  factory AUD.fromJson(Map<String, dynamic> json) = _$AUDImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$CadImplCopyWith<$Res> {
-  factory _$$CadImplCopyWith(_$CadImpl value, $Res Function(_$CadImpl) then) =
-      __$$CadImplCopyWithImpl<$Res>;
+abstract class _$$CADImplCopyWith<$Res> {
+  factory _$$CADImplCopyWith(_$CADImpl value, $Res Function(_$CADImpl) then) =
+      __$$CADImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CadImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$CadImpl>
-    implements _$$CadImplCopyWith<$Res> {
-  __$$CadImplCopyWithImpl(_$CadImpl _value, $Res Function(_$CadImpl) _then)
+class __$$CADImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$CADImpl>
+    implements _$$CADImplCopyWith<$Res> {
+  __$$CADImplCopyWithImpl(_$CADImpl _value, $Res Function(_$CADImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -911,13 +911,13 @@ class __$$CadImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CadImpl extends _Cad {
-  const _$CadImpl({final String? $type})
+class _$CADImpl extends CAD {
+  const _$CADImpl({final String? $type})
       : $type = $type ?? 'cad',
         super._();
 
-  factory _$CadImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CadImplFromJson(json);
+  factory _$CADImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CADImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -930,7 +930,7 @@ class _$CadImpl extends _Cad {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CadImpl);
+        (other.runtimeType == runtimeType && other is _$CADImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -986,13 +986,13 @@ class _$CadImpl extends _Cad {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return cad(this);
   }
@@ -1000,13 +1000,13 @@ class _$CadImpl extends _Cad {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return cad?.call(this);
   }
@@ -1014,13 +1014,13 @@ class _$CadImpl extends _Cad {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (cad != null) {
@@ -1031,30 +1031,30 @@ class _$CadImpl extends _Cad {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CadImplToJson(
+    return _$$CADImplToJson(
       this,
     );
   }
 }
 
-abstract class _Cad extends Currency {
-  const factory _Cad() = _$CadImpl;
-  const _Cad._() : super._();
+abstract class CAD extends Currency {
+  const factory CAD() = _$CADImpl;
+  const CAD._() : super._();
 
-  factory _Cad.fromJson(Map<String, dynamic> json) = _$CadImpl.fromJson;
+  factory CAD.fromJson(Map<String, dynamic> json) = _$CADImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$InrImplCopyWith<$Res> {
-  factory _$$InrImplCopyWith(_$InrImpl value, $Res Function(_$InrImpl) then) =
-      __$$InrImplCopyWithImpl<$Res>;
+abstract class _$$INRImplCopyWith<$Res> {
+  factory _$$INRImplCopyWith(_$INRImpl value, $Res Function(_$INRImpl) then) =
+      __$$INRImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InrImplCopyWithImpl<$Res>
-    extends _$CurrencyCopyWithImpl<$Res, _$InrImpl>
-    implements _$$InrImplCopyWith<$Res> {
-  __$$InrImplCopyWithImpl(_$InrImpl _value, $Res Function(_$InrImpl) _then)
+class __$$INRImplCopyWithImpl<$Res>
+    extends _$CurrencyCopyWithImpl<$Res, _$INRImpl>
+    implements _$$INRImplCopyWith<$Res> {
+  __$$INRImplCopyWithImpl(_$INRImpl _value, $Res Function(_$INRImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Currency
@@ -1063,13 +1063,13 @@ class __$$InrImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$InrImpl extends _Inr {
-  const _$InrImpl({final String? $type})
+class _$INRImpl extends INR {
+  const _$INRImpl({final String? $type})
       : $type = $type ?? 'inr',
         super._();
 
-  factory _$InrImpl.fromJson(Map<String, dynamic> json) =>
-      _$$InrImplFromJson(json);
+  factory _$INRImpl.fromJson(Map<String, dynamic> json) =>
+      _$$INRImplFromJson(json);
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1082,7 +1082,7 @@ class _$InrImpl extends _Inr {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InrImpl);
+        (other.runtimeType == runtimeType && other is _$INRImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1138,13 +1138,13 @@ class _$InrImpl extends _Inr {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Usd value) usd,
-    required TResult Function(_Eur value) eur,
-    required TResult Function(_Gbp value) gbp,
-    required TResult Function(_Jpy value) jpy,
-    required TResult Function(_Aud value) aud,
-    required TResult Function(_Cad value) cad,
-    required TResult Function(_Inr value) inr,
+    required TResult Function(USD value) usd,
+    required TResult Function(EUR value) eur,
+    required TResult Function(GBP value) gbp,
+    required TResult Function(JPY value) jpy,
+    required TResult Function(AUD value) aud,
+    required TResult Function(CAD value) cad,
+    required TResult Function(INR value) inr,
   }) {
     return inr(this);
   }
@@ -1152,13 +1152,13 @@ class _$InrImpl extends _Inr {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Usd value)? usd,
-    TResult? Function(_Eur value)? eur,
-    TResult? Function(_Gbp value)? gbp,
-    TResult? Function(_Jpy value)? jpy,
-    TResult? Function(_Aud value)? aud,
-    TResult? Function(_Cad value)? cad,
-    TResult? Function(_Inr value)? inr,
+    TResult? Function(USD value)? usd,
+    TResult? Function(EUR value)? eur,
+    TResult? Function(GBP value)? gbp,
+    TResult? Function(JPY value)? jpy,
+    TResult? Function(AUD value)? aud,
+    TResult? Function(CAD value)? cad,
+    TResult? Function(INR value)? inr,
   }) {
     return inr?.call(this);
   }
@@ -1166,13 +1166,13 @@ class _$InrImpl extends _Inr {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Usd value)? usd,
-    TResult Function(_Eur value)? eur,
-    TResult Function(_Gbp value)? gbp,
-    TResult Function(_Jpy value)? jpy,
-    TResult Function(_Aud value)? aud,
-    TResult Function(_Cad value)? cad,
-    TResult Function(_Inr value)? inr,
+    TResult Function(USD value)? usd,
+    TResult Function(EUR value)? eur,
+    TResult Function(GBP value)? gbp,
+    TResult Function(JPY value)? jpy,
+    TResult Function(AUD value)? aud,
+    TResult Function(CAD value)? cad,
+    TResult Function(INR value)? inr,
     required TResult orElse(),
   }) {
     if (inr != null) {
@@ -1183,15 +1183,15 @@ class _$InrImpl extends _Inr {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$InrImplToJson(
+    return _$$INRImplToJson(
       this,
     );
   }
 }
 
-abstract class _Inr extends Currency {
-  const factory _Inr() = _$InrImpl;
-  const _Inr._() : super._();
+abstract class INR extends Currency {
+  const factory INR() = _$INRImpl;
+  const INR._() : super._();
 
-  factory _Inr.fromJson(Map<String, dynamic> json) = _$InrImpl.fromJson;
+  factory INR.fromJson(Map<String, dynamic> json) = _$INRImpl.fromJson;
 }
