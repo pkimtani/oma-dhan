@@ -1,6 +1,6 @@
 import 'package:apps/transactions_module/pages/transaction_form_page.dart';
-import 'package:apps/transactions_module/pages/transactions_list_page.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
+import 'package:apps/transactions_module/widgets/transactions_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
