@@ -52,8 +52,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
   }
 
-  void _unAuthenticateUser(AppEvent event, Emitter<AppState> emit) =>
+  void _unAuthenticateUser(AppEvent event, Emitter<AppState> emit) {
+    try {
+      _authenticationRepository.logout();
       emit(AppState.unauthenticated(null));
+    } catch (_) {
+      add(const AppEvent.authenticationError('Error logging out'));
+    }
+  }
 
   void _authenticationError(AuthenticationError event, Emitter<AppState> emit) {
     emit(AppState.unauthenticated(event.message));

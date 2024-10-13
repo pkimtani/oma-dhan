@@ -1,3 +1,5 @@
+import 'package:apps/core/blocs/app_bloc.dart';
+import 'package:apps/core/events/app_event.dart';
 import 'package:apps/core/widgets/navbar_leading_icon_button.dart';
 import 'package:apps/transactions_module/pages/transaction_form_page.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
@@ -18,7 +20,9 @@ class HomeScreen extends StatelessWidget {
         leading: NavbarLeadingIconButton(
           icon: CupertinoIcons.power,
           iconText: 'Logout',
-          onPressed: () {},
+          onPressed: () {
+            context.read<AppBloc>().add(const AppEvent.unAuthenticateUser());
+          },
         ),
         middle: Text('Hello! $username'),
         trailing: IconButton(
