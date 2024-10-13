@@ -1,4 +1,4 @@
-import 'package:apps/core/widgets/navbar_icon_button.dart';
+import 'package:apps/core/widgets/navbar_trailing_icon_button.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -18,16 +18,10 @@ class TransactionDetailsPage extends StatelessWidget {
           _transaction.title,
           overflow: TextOverflow.ellipsis,
         ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          // Adjust to fit content size
-          children: [
-            NavbarIconButton(
-              icon: CupertinoIcons.square_pencil,
-              onPressed: () {},
-              iconText: 'Edit',
-            )
-          ],
+        trailing: NavbarTrailingIconButton(
+          iconText: 'Edit',
+          icon: CupertinoIcons.square_pencil,
+          onPressed: () {},
         ),
       ),
       child: Column(

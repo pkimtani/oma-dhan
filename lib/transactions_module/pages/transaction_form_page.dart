@@ -1,5 +1,5 @@
 import 'package:apps/core/widgets/alert.dart';
-import 'package:apps/core/widgets/navbar_icon_button.dart';
+import 'package:apps/core/widgets/navbar_trailing_icon_button.dart';
 import 'package:apps/core/widgets/text_field_form_row.dart';
 import 'package:apps/transactions_module/blocs/transaction_form_bloc.dart';
 import 'package:apps/transactions_module/events/transaction_form_event.dart';
@@ -67,23 +67,17 @@ class AddNewTransaction extends StatelessWidget {
               child: CupertinoPageScaffold(
                 navigationBar: CupertinoNavigationBar(
                   middle: const Text('Add New Transaction'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    // Adjust to fit content size
-                    children: [
-                      transactionFormState.transactionFormStatus.isSaving
-                          ? const CupertinoActivityIndicator()
-                          : NavbarIconButton(
-                              icon: CupertinoIcons.check_mark,
-                              onPressed: () {
-                                transactionFormBloc.add(
-                                  const TransactionFormEvent.save(),
-                                );
-                              },
-                              iconText: 'Save',
-                            ),
-                    ],
-                  ),
+                  trailing: transactionFormState.transactionFormStatus.isSaving
+                      ? const CupertinoActivityIndicator()
+                      : NavbarTrailingIconButton(
+                          iconText: 'Save',
+                          icon: CupertinoIcons.check_mark,
+                          onPressed: () {
+                            transactionFormBloc.add(
+                              const TransactionFormEvent.save(),
+                            );
+                          },
+                        ),
                 ),
                 child: Column(
                   children: [
