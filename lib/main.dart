@@ -56,7 +56,10 @@ class MyApp extends StatelessWidget {
             barBackgroundColor: CupertinoColors.black,
             scaffoldBackgroundColor: CupertinoColors.black,
             textTheme: CupertinoTextThemeData(
-              textStyle: TextStyle(color: CupertinoColors.white),
+              textStyle: TextStyle(
+                color: CupertinoColors.white,
+                fontSize: 16,
+              ),
             ),
           ),
           home: SafeArea(

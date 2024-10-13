@@ -1,4 +1,5 @@
 import 'package:apps/transactions_module/blocs/transactions_bloc.dart';
+import 'package:apps/transactions_module/events/transactions_event.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:apps/transactions_module/states/transactions_state.dart';
@@ -20,8 +21,9 @@ class TransactionsList extends StatelessWidget {
       child: RepositoryProvider.value(
         value: _transactionRepository,
         child: BlocProvider(
-          create: (context) =>
-              TransactionsBloc(transactionRepository: _transactionRepository),
+          create: (context) => TransactionsBloc(
+            transactionRepository: _transactionRepository,
+          )..add(const LoadAllTransactionsEvent()),
           child: BlocBuilder<TransactionsBloc, TransactionsState>(
             builder: (BuildContext context, TransactionsState state) {
               switch (state.transactionStatus) {
