@@ -3,7 +3,8 @@ import 'package:apps/core/events/login_event.dart';
 import 'package:apps/core/pages/signup_screen.dart';
 import 'package:apps/core/states/login_state.dart';
 import 'package:apps/core/widgets/alert.dart';
-import 'package:apps/core/widgets/navbar_icon_button.dart';
+import 'package:apps/core/widgets/navbar_leading_icon_button.dart';
+import 'package:apps/core/widgets/navbar_trailing_icon_button.dart';
 import 'package:apps/core/widgets/password_field_form_row.dart';
 import 'package:apps/core/widgets/text_field_form_row.dart';
 import 'package:authentication/authentication.dart';
@@ -39,7 +40,8 @@ class LoginScreen extends StatelessWidget {
               ),
               child: CupertinoPageScaffold(
                 navigationBar: CupertinoNavigationBar(
-                  leading: NavbarIconButton(
+                  leading: NavbarLeadingIconButton(
+                    iconText: 'Sign up',
                     icon: CupertinoIcons.person_add,
                     onPressed: () {
                       Navigator.push(
@@ -50,22 +52,15 @@ class LoginScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    iconText: 'Sign up',
                   ),
                   middle: const Text('Login'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    // Adjust to fit content size
-                    children: [
-                      state.status.isLoggingIn
-                          ? const CupertinoActivityIndicator()
-                          : NavbarIconButton(
-                              icon: CupertinoIcons.check_mark,
-                              onPressed: () => loginBloc.add(const Login()),
-                              iconText: 'Login',
-                            ),
-                    ],
-                  ),
+                  trailing: state.status.isLoggingIn
+                      ? const CupertinoActivityIndicator()
+                      : NavbarTrailingIconButton(
+                          icon: CupertinoIcons.check_mark,
+                          onPressed: () => loginBloc.add(const Login()),
+                          iconText: 'Login',
+                        ),
                 ),
                 child: Column(
                   children: [

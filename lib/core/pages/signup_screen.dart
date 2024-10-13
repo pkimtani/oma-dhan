@@ -1,4 +1,5 @@
-import 'package:apps/core/widgets/navbar_icon_button.dart';
+import 'package:apps/core/widgets/navbar_leading_icon_button.dart';
+import 'package:apps/core/widgets/navbar_trailing_icon_button.dart';
 import 'package:apps/core/widgets/text_field_form_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,24 +11,16 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: NavbarIconButton(
+        leading: NavbarLeadingIconButton(
           icon: CupertinoIcons.back,
           onPressed: () => Navigator.pop(context),
           iconText: 'Login',
         ),
         middle: const Text('Sign Up'),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          // Adjust to fit content size
-          children: [
-            false // TODO: replace with status check
-                ? const CupertinoActivityIndicator()
-                : NavbarIconButton(
-                    icon: CupertinoIcons.check_mark,
-                    onPressed: () {},
-                    iconText: 'Sign Up',
-                  ),
-          ],
+        trailing: NavbarTrailingIconButton(
+          icon: CupertinoIcons.check_mark,
+          onPressed: () {},
+          iconText: 'Sign Up',
         ),
       ),
       child: Column(
