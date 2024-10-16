@@ -7,4 +7,4 @@ The ultimate goal of the project is to provide a self sufficient tool to manage 
 This app is still in development and is being actively supported by my current employer [Wunderdog Oy](https://wunderdog.io).
 
 ### Documentation
-- [Local development setup](./docs/local_development_setup.md)
+- [Local development setup](docs/local_development_setup.md)

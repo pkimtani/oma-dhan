@@ -4,7 +4,6 @@ Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Setting up the project](#setting-up-the-project)
-- [Running the project](#running-the-project)
 
 ### Prerequisites
 
