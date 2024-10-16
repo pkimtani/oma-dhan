@@ -1,16 +1,10 @@
-# apps
+# OmaDhan
 
-OmaDhan client applications
+Oma (="My own" in Finnish) Dhan (= "Money/Wealth" in Hindi), therefore meaning, "My own Wealth" in English.
+This project is inspired by Splitwise and Ghostfolio.
+The ultimate goal of the project is to provide a self sufficient tool to manage your finances and know your net worth.
 
-## Getting Started
+This app is still in development and is being actively supported by my current employer [Wunderdog Oy](https://wunderdog.io).
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Documentation
+- [Local development setup](./docs/local_development_setup.md)
