@@ -8,3 +8,4 @@ This app is still in development and is being actively supported by my current e
 
 ### Documentation
 - [Local development setup](docs/local_development_setup.md)
+- [Project structure and ideology](docs/project-structure-and-ideology.md)
