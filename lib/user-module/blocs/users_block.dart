@@ -1,12 +1,12 @@
 import 'package:apps/user-module/events/users_event.dart';
-import 'package:apps/user-module/repositories/user_repository.dart';
+import 'package:apps/user-module/interfaces/user_repository_interface.dart';
 import 'package:apps/user-module/states/users_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
-  final UserRepository _userRepository;
+  final UserRepositoryInterface _userRepository;
 
-  UsersBloc({required UserRepository userRepository})
+  UsersBloc({required UserRepositoryInterface userRepository})
       : _userRepository = userRepository,
         super(UsersState.initial()) {
     on<UsersEvent>(
