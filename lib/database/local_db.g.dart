@@ -324,6 +324,137 @@ class UserTableCompanion extends UpdateCompanion<User> {
   }
 }
 
+class $UserFriendsTableTable extends UserFriendsTable
+    with TableInfo<$UserFriendsTableTable, UserFriends> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UserFriendsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES user (id)'));
+  static const VerificationMeta _friendIdMeta =
+      const VerificationMeta('friendId');
+  @override
+  late final GeneratedColumn<String> friendId = GeneratedColumn<String>(
+      'friend_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES user (id)'));
+  @override
+  List<GeneratedColumn> get $columns => [userId, friendId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'user_friends';
+  @override
+  VerificationContext validateIntegrity(Insertable<UserFriends> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('friend_id')) {
+      context.handle(_friendIdMeta,
+          friendId.isAcceptableOrUnknown(data['friend_id']!, _friendIdMeta));
+    } else if (isInserting) {
+      context.missing(_friendIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  UserFriends map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserFriends(
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      friendId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}friend_id'])!,
+    );
+  }
+
+  @override
+  $UserFriendsTableTable createAlias(String alias) {
+    return $UserFriendsTableTable(attachedDatabase, alias);
+  }
+}
+
+class UserFriendsTableCompanion extends UpdateCompanion<UserFriends> {
+  final Value<String> userId;
+  final Value<String> friendId;
+  final Value<int> rowid;
+  const UserFriendsTableCompanion({
+    this.userId = const Value.absent(),
+    this.friendId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  UserFriendsTableCompanion.insert({
+    required String userId,
+    required String friendId,
+    this.rowid = const Value.absent(),
+  })  : userId = Value(userId),
+        friendId = Value(friendId);
+  static Insertable<UserFriends> custom({
+    Expression<String>? userId,
+    Expression<String>? friendId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (friendId != null) 'friend_id': friendId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  UserFriendsTableCompanion copyWith(
+      {Value<String>? userId, Value<String>? friendId, Value<int>? rowid}) {
+    return UserFriendsTableCompanion(
+      userId: userId ?? this.userId,
+      friendId: friendId ?? this.friendId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (friendId.present) {
+      map['friend_id'] = Variable<String>(friendId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserFriendsTableCompanion(')
+          ..write('userId: $userId, ')
+          ..write('friendId: $friendId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $TransactionTableTable extends TransactionTable
     with TableInfo<$TransactionTableTable, Transaction> {
   @override
@@ -700,6 +831,8 @@ abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
   $LocalDBManager get managers => $LocalDBManager(this);
   late final $UserTableTable userTable = $UserTableTable(this);
+  late final $UserFriendsTableTable userFriendsTable =
+      $UserFriendsTableTable(this);
   late final $TransactionTableTable transactionTable =
       $TransactionTableTable(this);
   @override
@@ -707,7 +840,7 @@ abstract class _$LocalDB extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [userTable, transactionTable];
+      [userTable, userFriendsTable, transactionTable];
 }
 
 typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
@@ -739,6 +872,39 @@ final class $$UserTableTableReferences
     extends BaseReferences<_$LocalDB, $UserTableTable, User> {
   $$UserTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
+  static MultiTypedResultKey<$UserFriendsTableTable, List<UserFriends>>
+      _userTableUserTable(_$LocalDB db) =>
+          MultiTypedResultKey.fromTable(db.userFriendsTable,
+              aliasName: $_aliasNameGenerator(
+                  db.userTable.id, db.userFriendsTable.userId));
+
+  $$UserFriendsTableTableProcessedTableManager get userTableUser {
+    final manager =
+        $$UserFriendsTableTableTableManager($_db, $_db.userFriendsTable)
+            .filter((f) => f.userId.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_userTableUserTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$UserFriendsTableTable, List<UserFriends>>
+      _userTableFriendUserTable(_$LocalDB db) =>
+          MultiTypedResultKey.fromTable(db.userFriendsTable,
+              aliasName: $_aliasNameGenerator(
+                  db.userTable.id, db.userFriendsTable.friendId));
+
+  $$UserFriendsTableTableProcessedTableManager get userTableFriendUser {
+    final manager =
+        $$UserFriendsTableTableTableManager($_db, $_db.userFriendsTable)
+            .filter((f) => f.friendId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_userTableFriendUserTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
   static MultiTypedResultKey<$TransactionTableTable, List<Transaction>>
       _transactionTableRefsTable(_$LocalDB db) => MultiTypedResultKey.fromTable(
           db.transactionTable,
@@ -758,115 +924,240 @@ final class $$UserTableTableReferences
 }
 
 class $$UserTableTableFilterComposer
-    extends FilterComposer<_$LocalDB, $UserTableTable> {
-  $$UserTableTableFilterComposer(super.$state);
-  ColumnFilters<String> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$LocalDB, $UserTableTable> {
+  $$UserTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get username => $state.composableBuilder(
-      column: $state.table.username,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get username => $composableBuilder(
+      column: $table.username, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get firstName => $state.composableBuilder(
-      column: $state.table.firstName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get firstName => $composableBuilder(
+      column: $table.firstName, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get lastName => $state.composableBuilder(
-      column: $state.table.lastName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get lastName => $composableBuilder(
+      column: $table.lastName, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get email => $state.composableBuilder(
-      column: $state.table.email,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get password => $state.composableBuilder(
-      column: $state.table.password,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get password => $composableBuilder(
+      column: $table.password, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get deletedAt => $state.composableBuilder(
-      column: $state.table.deletedAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnFilters(column));
 
-  ComposableFilter transactionTableRefs(
-      ComposableFilter Function($$TransactionTableTableFilterComposer f) f) {
-    final $$TransactionTableTableFilterComposer composer =
-        $state.composerBuilder(
-            composer: this,
-            getCurrentColumn: (t) => t.id,
-            referencedTable: $state.db.transactionTable,
-            getReferencedColumn: (t) => t.user,
-            builder: (joinBuilder, parentComposers) =>
-                $$TransactionTableTableFilterComposer(ComposerState($state.db,
-                    $state.db.transactionTable, joinBuilder, parentComposers)));
+  Expression<bool> userTableUser(
+      Expression<bool> Function($$UserFriendsTableTableFilterComposer f) f) {
+    final $$UserFriendsTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userFriendsTable,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserFriendsTableTableFilterComposer(
+              $db: $db,
+              $table: $db.userFriendsTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> userTableFriendUser(
+      Expression<bool> Function($$UserFriendsTableTableFilterComposer f) f) {
+    final $$UserFriendsTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userFriendsTable,
+        getReferencedColumn: (t) => t.friendId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserFriendsTableTableFilterComposer(
+              $db: $db,
+              $table: $db.userFriendsTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> transactionTableRefs(
+      Expression<bool> Function($$TransactionTableTableFilterComposer f) f) {
+    final $$TransactionTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.transactionTable,
+        getReferencedColumn: (t) => t.user,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$TransactionTableTableFilterComposer(
+              $db: $db,
+              $table: $db.transactionTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return f(composer);
   }
 }
 
 class $$UserTableTableOrderingComposer
-    extends OrderingComposer<_$LocalDB, $UserTableTable> {
-  $$UserTableTableOrderingComposer(super.$state);
-  ColumnOrderings<String> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$LocalDB, $UserTableTable> {
+  $$UserTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get username => $state.composableBuilder(
-      column: $state.table.username,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get username => $composableBuilder(
+      column: $table.username, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get firstName => $state.composableBuilder(
-      column: $state.table.firstName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get firstName => $composableBuilder(
+      column: $table.firstName, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get lastName => $state.composableBuilder(
-      column: $state.table.lastName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get lastName => $composableBuilder(
+      column: $table.lastName, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get email => $state.composableBuilder(
-      column: $state.table.email,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get password => $state.composableBuilder(
-      column: $state.table.password,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get password => $composableBuilder(
+      column: $table.password, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get deletedAt => $state.composableBuilder(
-      column: $state.table.deletedAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$UserTableTableAnnotationComposer
+    extends Composer<_$LocalDB, $UserTableTable> {
+  $$UserTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get username =>
+      $composableBuilder(column: $table.username, builder: (column) => column);
+
+  GeneratedColumn<String> get firstName =>
+      $composableBuilder(column: $table.firstName, builder: (column) => column);
+
+  GeneratedColumn<String> get lastName =>
+      $composableBuilder(column: $table.lastName, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<String> get password =>
+      $composableBuilder(column: $table.password, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  Expression<T> userTableUser<T extends Object>(
+      Expression<T> Function($$UserFriendsTableTableAnnotationComposer a) f) {
+    final $$UserFriendsTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userFriendsTable,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserFriendsTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.userFriendsTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> userTableFriendUser<T extends Object>(
+      Expression<T> Function($$UserFriendsTableTableAnnotationComposer a) f) {
+    final $$UserFriendsTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userFriendsTable,
+        getReferencedColumn: (t) => t.friendId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserFriendsTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.userFriendsTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> transactionTableRefs<T extends Object>(
+      Expression<T> Function($$TransactionTableTableAnnotationComposer a) f) {
+    final $$TransactionTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.transactionTable,
+        getReferencedColumn: (t) => t.user,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$TransactionTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.transactionTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
 class $$UserTableTableTableManager extends RootTableManager<
@@ -875,19 +1166,25 @@ class $$UserTableTableTableManager extends RootTableManager<
     User,
     $$UserTableTableFilterComposer,
     $$UserTableTableOrderingComposer,
+    $$UserTableTableAnnotationComposer,
     $$UserTableTableCreateCompanionBuilder,
     $$UserTableTableUpdateCompanionBuilder,
     (User, $$UserTableTableReferences),
     User,
-    PrefetchHooks Function({bool transactionTableRefs})> {
+    PrefetchHooks Function(
+        {bool userTableUser,
+        bool userTableFriendUser,
+        bool transactionTableRefs})> {
   $$UserTableTableTableManager(_$LocalDB db, $UserTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$UserTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$UserTableTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$UserTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UserTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UserTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> username = const Value.absent(),
@@ -942,15 +1239,44 @@ class $$UserTableTableTableManager extends RootTableManager<
                     $$UserTableTableReferences(db, table, e)
                   ))
               .toList(),
-          prefetchHooksCallback: ({transactionTableRefs = false}) {
+          prefetchHooksCallback: (
+              {userTableUser = false,
+              userTableFriendUser = false,
+              transactionTableRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
+                if (userTableUser) db.userFriendsTable,
+                if (userTableFriendUser) db.userFriendsTable,
                 if (transactionTableRefs) db.transactionTable
               ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
+                  if (userTableUser)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$UserTableTableReferences._userTableUserTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UserTableTableReferences(db, table, p0)
+                                .userTableUser,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.userId == item.id),
+                        typedResults: items),
+                  if (userTableFriendUser)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$UserTableTableReferences
+                            ._userTableFriendUserTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UserTableTableReferences(db, table, p0)
+                                .userTableFriendUser,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.friendId == item.id),
+                        typedResults: items),
                   if (transactionTableRefs)
                     await $_getPrefetchedData(
                         currentTable: table,
@@ -976,11 +1302,320 @@ typedef $$UserTableTableProcessedTableManager = ProcessedTableManager<
     User,
     $$UserTableTableFilterComposer,
     $$UserTableTableOrderingComposer,
+    $$UserTableTableAnnotationComposer,
     $$UserTableTableCreateCompanionBuilder,
     $$UserTableTableUpdateCompanionBuilder,
     (User, $$UserTableTableReferences),
     User,
-    PrefetchHooks Function({bool transactionTableRefs})>;
+    PrefetchHooks Function(
+        {bool userTableUser,
+        bool userTableFriendUser,
+        bool transactionTableRefs})>;
+typedef $$UserFriendsTableTableCreateCompanionBuilder
+    = UserFriendsTableCompanion Function({
+  required String userId,
+  required String friendId,
+  Value<int> rowid,
+});
+typedef $$UserFriendsTableTableUpdateCompanionBuilder
+    = UserFriendsTableCompanion Function({
+  Value<String> userId,
+  Value<String> friendId,
+  Value<int> rowid,
+});
+
+final class $$UserFriendsTableTableReferences
+    extends BaseReferences<_$LocalDB, $UserFriendsTableTable, UserFriends> {
+  $$UserFriendsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $UserTableTable _userIdTable(_$LocalDB db) => db.userTable.createAlias(
+      $_aliasNameGenerator(db.userFriendsTable.userId, db.userTable.id));
+
+  $$UserTableTableProcessedTableManager? get userId {
+    if ($_item.userId == null) return null;
+    final manager = $$UserTableTableTableManager($_db, $_db.userTable)
+        .filter((f) => f.id($_item.userId!));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $UserTableTable _friendIdTable(_$LocalDB db) =>
+      db.userTable.createAlias(
+          $_aliasNameGenerator(db.userFriendsTable.friendId, db.userTable.id));
+
+  $$UserTableTableProcessedTableManager? get friendId {
+    if ($_item.friendId == null) return null;
+    final manager = $$UserTableTableTableManager($_db, $_db.userTable)
+        .filter((f) => f.id($_item.friendId!));
+    final item = $_typedResult.readTableOrNull(_friendIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$UserFriendsTableTableFilterComposer
+    extends Composer<_$LocalDB, $UserFriendsTableTable> {
+  $$UserFriendsTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$UserTableTableFilterComposer get userId {
+    final $$UserTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableFilterComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UserTableTableFilterComposer get friendId {
+    final $$UserTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.friendId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableFilterComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$UserFriendsTableTableOrderingComposer
+    extends Composer<_$LocalDB, $UserFriendsTableTable> {
+  $$UserFriendsTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$UserTableTableOrderingComposer get userId {
+    final $$UserTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UserTableTableOrderingComposer get friendId {
+    final $$UserTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.friendId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$UserFriendsTableTableAnnotationComposer
+    extends Composer<_$LocalDB, $UserFriendsTableTable> {
+  $$UserFriendsTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$UserTableTableAnnotationComposer get userId {
+    final $$UserTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UserTableTableAnnotationComposer get friendId {
+    final $$UserTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.friendId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$UserFriendsTableTableTableManager extends RootTableManager<
+    _$LocalDB,
+    $UserFriendsTableTable,
+    UserFriends,
+    $$UserFriendsTableTableFilterComposer,
+    $$UserFriendsTableTableOrderingComposer,
+    $$UserFriendsTableTableAnnotationComposer,
+    $$UserFriendsTableTableCreateCompanionBuilder,
+    $$UserFriendsTableTableUpdateCompanionBuilder,
+    (UserFriends, $$UserFriendsTableTableReferences),
+    UserFriends,
+    PrefetchHooks Function({bool userId, bool friendId})> {
+  $$UserFriendsTableTableTableManager(
+      _$LocalDB db, $UserFriendsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$UserFriendsTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UserFriendsTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UserFriendsTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> userId = const Value.absent(),
+            Value<String> friendId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              UserFriendsTableCompanion(
+            userId: userId,
+            friendId: friendId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String userId,
+            required String friendId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              UserFriendsTableCompanion.insert(
+            userId: userId,
+            friendId: friendId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$UserFriendsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({userId = false, friendId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (userId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.userId,
+                    referencedTable:
+                        $$UserFriendsTableTableReferences._userIdTable(db),
+                    referencedColumn:
+                        $$UserFriendsTableTableReferences._userIdTable(db).id,
+                  ) as T;
+                }
+                if (friendId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.friendId,
+                    referencedTable:
+                        $$UserFriendsTableTableReferences._friendIdTable(db),
+                    referencedColumn:
+                        $$UserFriendsTableTableReferences._friendIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$UserFriendsTableTableProcessedTableManager = ProcessedTableManager<
+    _$LocalDB,
+    $UserFriendsTableTable,
+    UserFriends,
+    $$UserFriendsTableTableFilterComposer,
+    $$UserFriendsTableTableOrderingComposer,
+    $$UserFriendsTableTableAnnotationComposer,
+    $$UserFriendsTableTableCreateCompanionBuilder,
+    $$UserFriendsTableTableUpdateCompanionBuilder,
+    (UserFriends, $$UserFriendsTableTableReferences),
+    UserFriends,
+    PrefetchHooks Function({bool userId, bool friendId})>;
 typedef $$TransactionTableTableCreateCompanionBuilder
     = TransactionTableCompanion Function({
   Value<String> id,
@@ -1032,138 +1667,190 @@ final class $$TransactionTableTableReferences
 }
 
 class $$TransactionTableTableFilterComposer
-    extends FilterComposer<_$LocalDB, $TransactionTableTable> {
-  $$TransactionTableTableFilterComposer(super.$state);
-  ColumnFilters<String> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+    extends Composer<_$LocalDB, $TransactionTableTable> {
+  $$TransactionTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<double> get amount => $state.composableBuilder(
-      column: $state.table.amount,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<TransactionTypeEnum, TransactionTypeEnum,
           String>
-      get transactionType => $state.composableBuilder(
-          column: $state.table.transactionType,
-          builder: (column, joinBuilders) => ColumnWithTypeConverterFilters(
-              column,
-              joinBuilders: joinBuilders));
+      get transactionType => $composableBuilder(
+          column: $table.transactionType,
+          builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<String> get notes => $state.composableBuilder(
-      column: $state.table.notes,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<Currency, Currency, String> get currency =>
-      $state.composableBuilder(
-          column: $state.table.currency,
-          builder: (column, joinBuilders) => ColumnWithTypeConverterFilters(
-              column,
-              joinBuilders: joinBuilders));
+      $composableBuilder(
+          column: $table.currency,
+          builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get transactionDate => $state.composableBuilder(
-      column: $state.table.transactionDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get transactionDate => $composableBuilder(
+      column: $table.transactionDate,
+      builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get deletedAt => $state.composableBuilder(
-      column: $state.table.deletedAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnFilters(column));
 
   $$UserTableTableFilterComposer get user {
-    final $$UserTableTableFilterComposer composer = $state.composerBuilder(
+    final $$UserTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.user,
-        referencedTable: $state.db.userTable,
+        referencedTable: $db.userTable,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$UserTableTableFilterComposer(ComposerState(
-                $state.db, $state.db.userTable, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableFilterComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
 
 class $$TransactionTableTableOrderingComposer
-    extends OrderingComposer<_$LocalDB, $TransactionTableTable> {
-  $$TransactionTableTableOrderingComposer(super.$state);
-  ColumnOrderings<String> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+    extends Composer<_$LocalDB, $TransactionTableTable> {
+  $$TransactionTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<double> get amount => $state.composableBuilder(
-      column: $state.table.amount,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get transactionType => $state.composableBuilder(
-      column: $state.table.transactionType,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get transactionType => $composableBuilder(
+      column: $table.transactionType,
+      builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get notes => $state.composableBuilder(
-      column: $state.table.notes,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get currency => $state.composableBuilder(
-      column: $state.table.currency,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<String> get currency => $composableBuilder(
+      column: $table.currency, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get transactionDate => $state.composableBuilder(
-      column: $state.table.transactionDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get transactionDate => $composableBuilder(
+      column: $table.transactionDate,
+      builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get deletedAt => $state.composableBuilder(
-      column: $state.table.deletedAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnOrderings(column));
 
   $$UserTableTableOrderingComposer get user {
-    final $$UserTableTableOrderingComposer composer = $state.composerBuilder(
+    final $$UserTableTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.user,
-        referencedTable: $state.db.userTable,
+        referencedTable: $db.userTable,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$UserTableTableOrderingComposer(ComposerState(
-                $state.db, $state.db.userTable, joinBuilder, parentComposers)));
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$TransactionTableTableAnnotationComposer
+    extends Composer<_$LocalDB, $TransactionTableTable> {
+  $$TransactionTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<double> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<TransactionTypeEnum, String>
+      get transactionType => $composableBuilder(
+          column: $table.transactionType, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<Currency, String> get currency =>
+      $composableBuilder(column: $table.currency, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get transactionDate => $composableBuilder(
+      column: $table.transactionDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  $$UserTableTableAnnotationComposer get user {
+    final $$UserTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.user,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
     return composer;
   }
 }
@@ -1174,6 +1861,7 @@ class $$TransactionTableTableTableManager extends RootTableManager<
     Transaction,
     $$TransactionTableTableFilterComposer,
     $$TransactionTableTableOrderingComposer,
+    $$TransactionTableTableAnnotationComposer,
     $$TransactionTableTableCreateCompanionBuilder,
     $$TransactionTableTableUpdateCompanionBuilder,
     (Transaction, $$TransactionTableTableReferences),
@@ -1184,10 +1872,12 @@ class $$TransactionTableTableTableManager extends RootTableManager<
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TransactionTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$TransactionTableTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TransactionTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TransactionTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TransactionTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> user = const Value.absent(),
@@ -1265,6 +1955,7 @@ class $$TransactionTableTableTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic,
+                      dynamic,
                       dynamic>>(state) {
                 if (user) {
                   state = state.withJoin(
@@ -1293,6 +1984,7 @@ typedef $$TransactionTableTableProcessedTableManager = ProcessedTableManager<
     Transaction,
     $$TransactionTableTableFilterComposer,
     $$TransactionTableTableOrderingComposer,
+    $$TransactionTableTableAnnotationComposer,
     $$TransactionTableTableCreateCompanionBuilder,
     $$TransactionTableTableUpdateCompanionBuilder,
     (Transaction, $$TransactionTableTableReferences),
@@ -1304,6 +1996,8 @@ class $LocalDBManager {
   $LocalDBManager(this._db);
   $$UserTableTableTableManager get userTable =>
       $$UserTableTableTableManager(_db, _db.userTable);
+  $$UserFriendsTableTableTableManager get userFriendsTable =>
+      $$UserFriendsTableTableTableManager(_db, _db.userFriendsTable);
   $$TransactionTableTableTableManager get transactionTable =>
       $$TransactionTableTableTableManager(_db, _db.transactionTable);
 }
