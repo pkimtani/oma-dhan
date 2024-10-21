@@ -1,3 +1,6 @@
+volumes:
+  firebase-emulator-data:
+
 services:
   firebase-emulator:
     container_name: firebase-emulator

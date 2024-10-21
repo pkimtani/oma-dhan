@@ -13,6 +13,8 @@ RUN npm install -g firebase-tools
 #COPY . .
 #RUN npm --prefix ./functions install
 
+# TODO: find a way to persist the firebase data
+# one way: --import <export-directory> --export-on-exit <export-directory>
 RUN echo '#!/bin/sh \n firebase emulators:start' > ./entrypoint.sh && \
     chmod +x ./entrypoint.sh
 

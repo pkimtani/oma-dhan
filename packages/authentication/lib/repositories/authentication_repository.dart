@@ -1,11 +1,11 @@
 import 'package:authentication/exceptions/login_email_password_exception.dart';
 import 'package:authentication/exceptions/signup_email_password_exception.dart';
 import 'package:authentication/interfaces/authentication_repository_interface.dart';
-import 'package:authentication/models/auth_provider.dart';
+import 'package:authentication/models/auth_provider.dart' as auth_provider;
 import 'package:authentication/models/authenticated_user.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 
-extension on firebase_auth.User {
+extension on User {
   AuthenticatedUser get toAuthenticatedUser {
     return AuthenticatedUser(
       id: uid,
@@ -14,18 +14,18 @@ extension on firebase_auth.User {
       lastName: '',
       email: email,
       profilePicUrl: photoURL,
-      provider: const AuthProvider
-          .emailAndPassword(), // TODO: logic to port provider_id to provider
+      provider: const auth_provider
+          .AuthProvider.emailAndPassword(), // TODO: logic to port provider_id to provider
     );
   }
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
-  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseAuth _firebaseAuth;
 
   AuthenticationRepository(
-    firebase_auth.FirebaseAuth? firebaseAuth,
-  ) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
+    FirebaseAuth? firebaseAuth,
+  ) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   @override
   Stream<AuthenticatedUser> get authenticatedUser async* {
@@ -51,7 +51,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
 
       return credential.user?.toAuthenticatedUser ??
           AuthenticatedUser.nullUser();
-    } on firebase_auth.FirebaseAuthException catch (error) {
+    } on FirebaseAuthException catch (error) {
       throw LoginWithEmailAndPasswordException.fromCode(error.code);
     } catch (_) {
       throw const LoginWithEmailAndPasswordException();
@@ -87,7 +87,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
         email: email,
         password: password,
       );
-    } on firebase_auth.FirebaseAuthException catch (error) {
+    } on FirebaseAuthException catch (error) {
       throw SignupWithEmailAndPasswordException.fromCode(error.code);
     } catch (_) {
       throw const LoginWithEmailAndPasswordException();
