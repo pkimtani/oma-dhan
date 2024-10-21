@@ -1,0 +1,15 @@
+services:
+  firebase-emulator:
+    container_name: firebase-emulator
+    build:
+      context: .
+      dockerfile: firebase-emulator.Dockerfile
+    working_dir: /app
+    ports:
+      - "4000:4000" # **UI_PORT**
+      - "8080:8080" # **FIRESTORE_PORT**
+      - "5005:5005" # **FIRESTORE_WS_PORT**
+      - "9099:9099" # **AUTH_PORT**
+    volumes:
+      - ../firebase.json:/app/firebase.json
+      - ../.firebaserc:/app/.firebaserc
