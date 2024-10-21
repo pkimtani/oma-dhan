@@ -2,25 +2,18 @@ import 'dart:math';
 
 import 'package:apps/core/data.dart';
 import 'package:apps/core/models/currency.dart';
-import 'package:apps/database/local_db.dart';
 import 'package:apps/transactions_module/enums/transaction_type_enum.dart';
 import 'package:apps/transactions_module/interfaces/transactions_api.dart';
 import 'package:apps/transactions_module/models/transaction.dart';
 import 'package:apps/user-module/models/user.dart';
 import 'package:apps/user-module/user_data.dart';
-import 'package:drift/drift.dart';
 import 'package:faker_dart/faker_dart.dart';
-import 'package:flutter/foundation.dart';
 
 class TransactionData extends Data implements TransactionAPI {
   @override
   final bool mockData;
 
-  // TODO: make this a required parameter
-  @override
-  final LocalDB database;
-
-  TransactionData({this.mockData = false, required this.database});
+  TransactionData({this.mockData = false});
 
   @override
   Stream<List<Transaction>> getTransactions() async* {
@@ -29,16 +22,7 @@ class TransactionData extends Data implements TransactionAPI {
     if (mockData) {
       transactions = await _getSampleData();
     } else {
-      try {
-        transactions = await database.select(database.transactionTable).get();
-      } catch (e) {
-        // TODO: add some logging framework
-        if (kDebugMode) {
-          print('Error getting transactions: $e');
-        }
-
-        transactions = [];
-      }
+      // TODO: call the actual API
     }
 
     yield transactions;
@@ -46,20 +30,8 @@ class TransactionData extends Data implements TransactionAPI {
 
   @override
   Future<void> createTransaction(NewTransaction transaction) async {
-    // TODO: move to repository class
-    await database.transaction(() async {
-      await database
-          .into(database.transactionTable)
-          .insert(TransactionTableCompanion(
-            title: Value(transaction.title),
-            amount: Value(transaction.amount),
-            notes: Value.absentIfNull(transaction.notes),
-            user: Value(transaction.user),
-            transactionType: Value(transaction.transactionType),
-            currency: Value.absentIfNull(transaction.currency),
-            transactionDate: Value(transaction.transactionDate),
-          ));
-    });
+    // TODO: implement createTransaction
+    throw UnimplementedError();
   }
 
   @override
@@ -86,7 +58,7 @@ class TransactionData extends Data implements TransactionAPI {
     final faker = Faker.instance;
     total ??= faker.datatype.number(min: 1, max: 100);
     final User sampleUser =
-        await (UserData(mockData: true, database: database)).getUser();
+        await (UserData(mockData: true)).getUserProfile(null);
 
     return List.generate(total, (ignored) {
       final user = sampleUser;
