@@ -1,6 +1,3 @@
-volumes:
-  firebase-emulator-data:
-
 services:
   firebase-emulator:
     container_name: firebase-emulator
@@ -14,5 +11,4 @@ services:
       - "5005:5005" # **FIRESTORE_WS_PORT**
       - "9099:9099" # **AUTH_PORT**
     volumes:
-      - ../firebase.json:/app/firebase.json
-      - ../.firebaserc:/app/.firebaserc
+      -  ./firebase-emulator:/app
