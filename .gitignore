@@ -49,3 +49,7 @@ pubspec_overrides.yaml
 packages/authentication/firebase.json
 packages/authentication/lib/firebase_options.dart
 packages/authentication/firepit-log.txt
+
+# firebase emulator
+docker/firebase-emulator/data/**/*
+docker/firebase-emulator/*.log
