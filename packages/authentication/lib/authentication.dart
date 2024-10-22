@@ -19,4 +19,8 @@ class Authentication {
   static Future<FirebaseApp> init() async => await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+
+  static void get useFirebaseEmulator {
+    FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  }
 }
