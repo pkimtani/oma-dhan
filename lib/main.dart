@@ -8,6 +8,7 @@ import 'package:apps/database/database_cubit.dart';
 import 'package:apps/transactions_module/repositories/transaction_repository.dart';
 import 'package:authentication/authentication.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
@@ -19,6 +20,12 @@ void main() async {
 
   final AuthenticationRepository authenticationRepository =
       AuthenticationRepository(null);
+
+  if (kDebugMode) {
+    print('In debug mode, using Firebase Emulator');
+    Authentication.useFirebaseEmulator;
+  }
+
   await authenticationRepository.authenticatedUser.first;
 
   runApp(MyApp(authenticationRepository: authenticationRepository));
