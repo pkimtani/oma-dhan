@@ -8,7 +8,11 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
   UsersBloc({required UserRepositoryInterface userRepository})
       : _userRepository = userRepository,
-        super(UsersState.initial()) {
+        super(
+          const UsersState(
+            status: UsersStateStatus.initial,
+          ),
+        ) {
     on<UsersEvent>(
       (event, emit) => event.map(
         loadAll: (event) => _loadUsers(event, emit),
@@ -24,11 +28,16 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       final users = await _userRepository.getUsers();
 
       if (users.isEmpty) {
-        emit(UsersState.initial());
+        emit(const UsersState(
+          status: UsersStateStatus.initial,
+        ));
         return;
       }
 
-      emit(UsersState.loaded(users));
+      emit(UsersState(
+        status: UsersStateStatus.loaded,
+        users: users,
+      ));
     } catch (e) {
       add(UsersEvent.error(e.toString()));
     }
@@ -36,6 +45,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
   void _errorLoadingUsers(
       ErrorLoadingUsersEvent event, Emitter<UsersState> emit) {
-    emit(UsersState.error(event.message ?? 'Error loading user(s)'));
+    emit(UsersState(
+      status: UsersStateStatus.error,
+      message: event.message ?? 'Error loading user(s)',
+    ));
   }
 }

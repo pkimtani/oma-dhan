@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UsersState {
+  UsersStateStatus get status => throw _privateConstructorUsedError;
   List<User>? get users => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
@@ -32,7 +33,7 @@ abstract class $UsersStateCopyWith<$Res> {
           UsersState value, $Res Function(UsersState) then) =
       _$UsersStateCopyWithImpl<$Res, UsersState>;
   @useResult
-  $Res call({List<User>? users, String? message});
+  $Res call({UsersStateStatus status, List<User>? users, String? message});
 }
 
 /// @nodoc
@@ -50,10 +51,15 @@ class _$UsersStateCopyWithImpl<$Res, $Val extends UsersState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? users = freezed,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as UsersStateStatus,
       users: freezed == users
           ? _value.users
           : users // ignore: cast_nullable_to_non_nullable
@@ -74,7 +80,7 @@ abstract class _$$UsersStateImplCopyWith<$Res>
       __$$UsersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<User>? users, String? message});
+  $Res call({UsersStateStatus status, List<User>? users, String? message});
 }
 
 /// @nodoc
@@ -90,10 +96,15 @@ class __$$UsersStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
     Object? users = freezed,
     Object? message = freezed,
   }) {
     return _then(_$UsersStateImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as UsersStateStatus,
       users: freezed == users
           ? _value._users
           : users // ignore: cast_nullable_to_non_nullable
@@ -109,10 +120,13 @@ class __$$UsersStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UsersStateImpl extends _UsersState {
-  const _$UsersStateImpl({final List<User>? users, this.message})
+  const _$UsersStateImpl(
+      {required this.status, final List<User>? users, this.message})
       : _users = users,
         super._();
 
+  @override
+  final UsersStateStatus status;
   final List<User>? _users;
   @override
   List<User>? get users {
@@ -128,7 +142,7 @@ class _$UsersStateImpl extends _UsersState {
 
   @override
   String toString() {
-    return 'UsersState(users: $users, message: $message)';
+    return 'UsersState(status: $status, users: $users, message: $message)';
   }
 
   @override
@@ -136,13 +150,14 @@ class _$UsersStateImpl extends _UsersState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UsersStateImpl &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._users, _users) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_users), message);
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_users), message);
 
   /// Create a copy of UsersState
   /// with the given fields replaced by the non-null parameter values.
@@ -154,10 +169,14 @@ class _$UsersStateImpl extends _UsersState {
 }
 
 abstract class _UsersState extends UsersState {
-  const factory _UsersState({final List<User>? users, final String? message}) =
-      _$UsersStateImpl;
+  const factory _UsersState(
+      {required final UsersStateStatus status,
+      final List<User>? users,
+      final String? message}) = _$UsersStateImpl;
   const _UsersState._() : super._();
 
+  @override
+  UsersStateStatus get status;
   @override
   List<User>? get users;
   @override

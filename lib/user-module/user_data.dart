@@ -1,5 +1,4 @@
 import 'package:apps/core/data.dart';
-import 'package:apps/database/local_db.dart';
 import 'package:apps/user-module/interfaces/user_api.dart';
 import 'package:apps/user-module/models/user.dart';
 import 'package:faker_dart/faker_dart.dart';
@@ -8,53 +7,35 @@ class UserData extends Data implements UserAPI {
   @override
   final bool mockData;
 
-  @override
-  final LocalDB database;
-
-  UserData({this.mockData = false, required this.database});
-
-  @override
-  Future<void> createUser(User user) {
-    // TODO: implement createUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteUser(User user) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<User> getUser() async {
-    late User user;
-
-    if (mockData) {
-      user = _getSampleData(1).first;
-    } else {
-      user = User.nullUser;
-    }
-
-    return user;
-  }
+  UserData({this.mockData = false});
 
   @override
   Future<List<User>> getUsers() async {
-    late List<User> users;
+    List<User> users;
+
     if (mockData) {
       users = _getSampleData();
     } else {
-      users = await database.select(database.userTable).get();
+      // TODO: call the actual API
+      users = [];
     }
 
     return users;
   }
 
   @override
-  Future<void> updateUser(User user) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
+  Future<User> getUserProfile(User? user) {
+    if (mockData) {
+      return Future.value(_getSampleData(1).first);
+    }
+
+    // TODO: else; call the actual API and remove the return statement below
+    return Future.value(User.nullUser);
   }
+
+  ///
+  /// Private methods
+  ///
 
   List<User> _getSampleData([int? total, User? userOverride]) {
     final faker = Faker.instance;
@@ -65,7 +46,7 @@ class UserData extends Data implements UserAPI {
       final date = faker.date.past(DateTime.now(), rangeInYears: 1);
 
       return User(
-        id: faker.datatype.number.toString(),
+        id: faker.datatype.uuid().toString(),
         // TODO: replace with username when the lib supports it
         username: userOverride?.username ?? faker.name.firstName(),
         firstName: userOverride?.firstName ?? faker.name.firstName(),
